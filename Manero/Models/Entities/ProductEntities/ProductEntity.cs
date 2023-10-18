@@ -13,4 +13,7 @@ public class ProductEntity
 
     // ICollections go under here
 
+    public ICollection<ProductColorEntity> Colors { get; set; } = new HashSet<ProductColorEntity>();
+    public ICollection<ProductSizeEntity> Sizes { get; set; } = new HashSet<ProductSizeEntity>();
+    public ICollection<ProductReviewsEntity> Reviews { get; set; } = new HashSet<ProductReviewsEntity>();
 }
