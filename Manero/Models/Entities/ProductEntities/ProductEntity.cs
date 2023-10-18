@@ -13,9 +13,9 @@ public class ProductEntity
 
     // ICollections go under here
 
-    public ICollection<ProductColorEntity> Colors { get; set; } = new HashSet<ProductColorEntity>();
-    public ICollection<ProductSizeEntity> Sizes { get; set; } = new HashSet<ProductSizeEntity>();
-    public ICollection<ProductReviewsEntity> Reviews { get; set; } = new HashSet<ProductReviewsEntity>();
+    public ICollection<ProductColorEntity> ProductColors { get; set; } = new HashSet<ProductColorEntity>();
+    public ICollection<ProductSizeEntity> ProductSizes { get; set; } = new HashSet<ProductSizeEntity>();
+    public ICollection<ProductReviewEntity> ProductReviews { get; set; } = new HashSet<ProductReviewEntity>();
     public ICollection<ProductCategoryEntity> ProductCategories { get; set; } = new HashSet<ProductCategoryEntity>();
     public ICollection<ProductTagEntity> ProductTags { get; set; } = new HashSet<ProductTagEntity>();
     public ICollection<ProductImageEntity> ProductImages { get; set; } = new HashSet<ProductImageEntity>();

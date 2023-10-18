@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Manero.Models.Entities.ProductEntities
-{
-    public class SizeEntity
-    {
-        [Key]
-        public int Id { get; set; }
-        public string Size { get; set; } = null!;
+namespace Manero.Models.Entities.ProductEntities;
 
-        public ICollection<ProductSizeEntity> Sizes { get; set; } = new HashSet<ProductSizeEntity>();
-    }
+public class SizeEntity
+{
+    [Key]
+    public int Id { get; set; }
+    public string Size { get; set; } = null!;
+
+    public ICollection<ProductSizeEntity> SizeProducts { get; set; } = new HashSet<ProductSizeEntity>();
 }

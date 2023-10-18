@@ -25,6 +25,8 @@
     <Folder Include="wwwroot\assets\" />
     <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\core\" />
+    <Folder Include="wwwroot\scss\core\" />
+    <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\sections\" />
   </ItemGroup>
 
