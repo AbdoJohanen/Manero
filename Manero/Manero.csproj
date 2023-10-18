@@ -18,7 +18,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
-    <Folder Include="Models\Entities\ProductEntities\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\" />
     <Folder Include="wwwroot\css\" />
