@@ -12,5 +12,7 @@ public class ProductEntity
     public decimal? ProductDiscount { get; set; }
 
     // ICollections go under here
-
+    public ICollection<ProductCategoryEntity> ProductCategories { get; set; } = new HashSet<ProductCategoryEntity>();
+    public ICollection<ProductTagEntity> ProductTags { get; set; } = new HashSet<ProductTagEntity>();
+    public ICollection<ProductImageEntity> ProductImages { get; set; } = new HashSet<ProductImageEntity>();
 }
