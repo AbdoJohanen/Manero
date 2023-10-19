@@ -23,7 +23,18 @@ public class DataContext : DbContext
     public DbSet<ProductColorEntity> ProductColors { get; set; }
     public DbSet<SizeEntity> Sizes { get; set; }
     public DbSet<ProductSizeEntity> ProductSizes { get; set; }
-    public DbSet<ProductImageEntity> ProductImages { get; set; }
-    public DbSet<ProductReviewEntity> ProductReviews { get; set; }
+    public DbSet<ImageEntity> Images { get; set; }
+    public DbSet<ReviewEntity> Reviews { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<TagEntity>().HasData(
+            new TagEntity { Id = 1, Tag = "Featured Products"},
+            new TagEntity { Id = 2, Tag = "Best Sellers" },
+            new TagEntity { Id = 3, Tag = "Sale" },
+            new TagEntity { Id = 4, Tag = "New" }
+        );
+    }
 }
