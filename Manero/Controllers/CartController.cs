@@ -2,11 +2,11 @@
 
 namespace Manero.Controllers
 {
-    public class ShopController : Controller
+    public class CartController : Controller
     {
         public IActionResult Index()
         {
-            ViewBag.ActivePage = "Shop";
+            ViewBag.ActivePage = "Cart";
             return View();
         }
     }
