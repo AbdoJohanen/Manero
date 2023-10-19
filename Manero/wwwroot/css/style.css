@@ -1,5 +1,6 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap");
 html, body {
   font-size: 1rem;
   font-family: "Mulish", sans-serif;
@@ -48,4 +49,49 @@ html h2, body h2 {
   background-color: #111111;
   color: white;
   border: 1px solid black;
+}
+
+.home .container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*        width: 375px;
+          height: auto;
+          min-height: 812px;*/
+  padding: 45px 20px 35px 20px;
+}
+
+.navbar-section {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  border-top: 1px solid #DBE3F5;
+  position: absolute;
+  bottom: 0;
+  padding: 10px 20px 0 20px;
+  margin-bottom: 35px;
+  width: 100%;
+}
+.navbar-section .pages {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.navbar-section .pages .page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #626262;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+}
+.navbar-section .pages .page i {
+  font-size: 24px;
+}
+.navbar-section .pages .active {
+  background-color: #DBE3F5;
+  color: #111111;
 }
