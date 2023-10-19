@@ -1,4 +1,4 @@
-﻿@import '../core/_variables.scss';
+﻿@import '../core/_variables';
 
 .home {
 
@@ -18,7 +18,7 @@
     display: flex;
     justify-content: center;
     height: 50px;
-    border-top: 1px solid #DBE3F5;
+    border-top: 1px solid $color-main-blue;
     position: absolute;
     bottom: 0;
     padding: 10px 20px 0 20px;
@@ -34,8 +34,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 50%;
-            color: #626262;
+            border-radius: $border-radius-rounded;
+            color: $color-main-grey;
             text-decoration: none;
             width: 40px;
             height: 40px;
@@ -46,8 +46,8 @@
         }
 
         & .active {
-            background-color: #DBE3F5;
-            color: #111111;
+            background-color: $color-main-blue;
+            color: $color-main-black;
         }
     }
 }
