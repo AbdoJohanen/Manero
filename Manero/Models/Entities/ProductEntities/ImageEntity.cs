@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Manero.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Manero.Models.Entities.ProductEntities;
@@ -12,4 +13,13 @@ public class ImageEntity
     [ForeignKey(nameof(ArticleNumber))]
     public string ArticleNumber { get; set; } = null!;
     public ProductEntity Product { get; set; } = null!;
+
+    public static implicit operator ImageModel(ImageEntity entity)
+    {
+        return new ImageEntity
+        {
+            Id = entity.Id,
+            ImageUrl = entity.ImageUrl
+        };
+    }
 }
