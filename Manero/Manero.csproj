@@ -15,19 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\Partials\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />
-    <Folder Include="wwwroot\assets\" />
     <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\core\" />
     <Folder Include="wwwroot\scss\core\" />
     <Folder Include="wwwroot\scss\components\" />
-    <Folder Include="wwwroot\scss\sections\" />
   </ItemGroup>
 
   <ItemGroup>
