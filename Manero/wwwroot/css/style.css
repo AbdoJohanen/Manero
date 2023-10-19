@@ -95,3 +95,19 @@ html h2, body h2 {
   background-color: #DBE3F5;
   color: #111111;
 }
+
+.showcase-section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: #DBE3F5;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+.showcase-section .container .showcase-content {
+  width: 50%;
+}
+.showcase-section .container .showcase-content h2 {
+  color: white;
+  font-size: 22px;
+}
