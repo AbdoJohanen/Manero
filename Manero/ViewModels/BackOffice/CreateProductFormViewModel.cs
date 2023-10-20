@@ -5,6 +5,10 @@ namespace Manero.ViewModels.BackOffice;
 
 public class CreateProductFormViewModel
 {
+    [Required(ErrorMessage = "Please enter a product article number")]
+    [Display(Name = "Article number *")]
+    public string ArticleNumber { get; set; } = null!;
+
     [Required(ErrorMessage = "Please enter a product name")]
     [Display(Name = "Product name *")]
     public string ProductName { get; set; } = null!;
@@ -19,23 +23,26 @@ public class CreateProductFormViewModel
     [Display(Name = "Discount Price *")]
     public decimal? ProductDiscount { get; set; }
 
-    [Required(ErrorMessage = "Please Choose atleast one category")]
-    [Display(Name = "Categories (Choose one or more) *")]
-    public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+    public List<int> SelectedTags { get; set; } = new List<int>();
+
+    //[Required(ErrorMessage = "Please Choose atleast one category")]
+    //[Display(Name = "Categories (Choose one or more) *")]
+    //public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
 
     [Required(ErrorMessage = "Please Choose atleast one tag")]
     [Display(Name = "Tags (Choose one or more) *")]
     public List<TagModel> Tags { get; set; } = new List<TagModel>();
 
-    [Required(ErrorMessage = "Please choose atleast one image")]
-    [Display(Name = "Upload Images (Optional)")]
-    [DataType(DataType.Upload)]
-    public List<IFormFile> Images { get; set; } = null!;
+    //[Required(ErrorMessage = "Please choose atleast one image")]
+    //[Display(Name = "Upload Images (Optional)")]
+    //[DataType(DataType.Upload)]
+    //public List<IFormFile> Images { get; set; } = null!;
 
     public static implicit operator ProductModel(CreateProductFormViewModel viewModel)
     {
         return new ProductModel
         {
+            ArticleNumber = viewModel.ArticleNumber,
             ProductName = viewModel.ProductName,
             ProductDescription = viewModel.ProductDescription!,
             ProductPrice = viewModel.ProductPrice,

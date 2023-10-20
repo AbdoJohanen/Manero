@@ -17,9 +17,22 @@ public class ProductService
     public async Task<ProductModel> CreateProductAsync(ProductModel model)
     {
         if (model != null)
-            return await _productRepository.AddAsync(model);
+            return await _productRepository.AddAsync(new ProductModel
+            {
+                ArticleNumber = model.ArticleNumber,
+                ProductName = model.ProductName,
+                ProductDescription = model.ProductDescription,
+                ProductPrice = model.ProductPrice,
+                ProductDiscount = model.ProductDiscount
+            });
 
         return null!;
+    }
+
+    public async Task<ProductModel> GetProductAsync(ProductModel product)
+    {
+        var _product = await _productRepository.GetAsync(x => x.ArticleNumber == product.ArticleNumber);
+        return _product!;
     }
 
 

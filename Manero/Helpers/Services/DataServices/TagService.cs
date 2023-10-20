@@ -26,4 +26,22 @@ public class TagService
 
         return null!;
     }
+
+    public async Task<IEnumerable<TagModel>> GetTagsAsync(List<int> tagsId)
+    {
+        if (tagsId != null)
+        {
+            var tags = new List<TagModel>();
+            foreach (var id in tagsId)
+            {
+                var items = await _tagRepository.GetAllAsync(x => x.Id == id);
+                foreach (var tag in items)
+                    tags.Add(tag);
+            }
+
+            return tags;
+        }
+
+        return null!;
+    }
 }

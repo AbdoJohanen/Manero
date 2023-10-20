@@ -8,11 +8,13 @@ public class BackOfficeController : Controller
 {
     private readonly ProductService _productService;
     private readonly TagService _tagService;
+    private readonly ProductTagService _productTagService;
 
-    public BackOfficeController(ProductService productService, TagService tagService)
+    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService)
     {
         _productService = productService;
         _tagService = tagService;
+        _productTagService = productTagService;
     }
 
     [HttpGet]
@@ -26,32 +28,16 @@ public class BackOfficeController : Controller
     {
         if (ModelState.IsValid)
         {
-            await _productService.CreateProductAsync(viewModel);
+            var selectedTags = viewModel.SelectedTags;
+
+            var tags = await _tagService.GetTagsAsync(selectedTags);
+            var product = await _productService.CreateProductAsync(viewModel);
+
+            await _productTagService.AssociateTagsWithProductAsync(tags, product);
             return RedirectToAction("Index");
         }
 
-        ModelState.AddModelError("Model", "Something went wrong! Could not register user");
+        ModelState.AddModelError("Model", "Something went wrong! Could not create a product");
         return View(viewModel);
     }
 }
-
-
-
-
-/*
-[HttpPost]
-public async Task<IActionResult> CreateProduct(CreateProductViewModel viewModel)
-{
-    if (ModelState.IsValid)
-    {
-        var result = await productService.SaveProductAsync(viewModel);
-        if (result)
-            return RedirectToAction("ManageProducts");
-
-        ModelState.AddModelError("Model", "Something went wrong! Could not create the product");
-        return View(viewModel);
-    }
-
-    return View(viewModel);
-}
-*/
