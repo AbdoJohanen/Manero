@@ -12,11 +12,12 @@ public class TagService
         _tagRepository = tagRepository;
     }
 
-    public async Task<IEnumerable<TagModel>> GetAllTagsAsync(List<TagModel> tags)
+    public async Task<IEnumerable<TagModel>> GetAllTagsAsync()
     {
         var items = await _tagRepository.GetAllAsync();
         if (items != null)
         {
+            var tags = new List<TagModel>();
             foreach (var item in items)
                 tags.Add(item);
 

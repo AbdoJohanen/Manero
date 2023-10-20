@@ -18,11 +18,10 @@ public class BackOfficeController : Controller
 
     public async Task<IActionResult> Index(CreateProductFormViewModel viewModel) 
     {
-        var tags = await _tagService.GetAllTagsAsync(viewModel.Tags);
+        var tags = await _tagService.GetAllTagsAsync();
         foreach (var tag in tags)
             viewModel.Tags.Add(tag);
 
-
-        return View();
+        return View(viewModel);
     }
 }
