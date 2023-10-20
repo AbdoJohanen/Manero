@@ -107,6 +107,9 @@
 
 .big-card-disscount {
 
+    .price {
+        text-decoration: line-through;
+    }
     .price-detail {
         .price-disscount {
             font-size: 14px;
