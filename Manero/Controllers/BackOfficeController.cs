@@ -15,12 +15,43 @@ public class BackOfficeController : Controller
         _tagService = tagService;
     }
 
-    public async Task<IActionResult> Index(CreateProductFormViewModel viewModel) 
+    [HttpGet]
+    public async Task<IActionResult> Index() 
     {
-        var tags = await _tagService.GetAllTagsAsync();
-        foreach (var tag in tags)
-            viewModel.Tags.Add(tag);
+        return View();
+    }
 
+    [HttpPost]
+    public async Task<IActionResult> Index(CreateProductFormViewModel viewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            await _productService.CreateProductAsync(viewModel);
+            return RedirectToAction("Index");
+        }
+
+        ModelState.AddModelError("Model", "Something went wrong! Could not register user");
         return View(viewModel);
     }
 }
+
+
+
+
+/*
+[HttpPost]
+public async Task<IActionResult> CreateProduct(CreateProductViewModel viewModel)
+{
+    if (ModelState.IsValid)
+    {
+        var result = await productService.SaveProductAsync(viewModel);
+        if (result)
+            return RedirectToAction("ManageProducts");
+
+        ModelState.AddModelError("Model", "Something went wrong! Could not create the product");
+        return View(viewModel);
+    }
+
+    return View(viewModel);
+}
+*/
