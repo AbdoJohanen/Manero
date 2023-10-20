@@ -12,6 +12,8 @@
 <body>
 
     @RenderBody()
+
+    <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
  
     @await RenderSectionAsync("Scripts", required: false)
 
