@@ -1,0 +1,45 @@
+// Makes the scroll bar snap to category elements
+.snaps-inline {
+    scroll-snap-type: inline mandatory;
+    scroll-padding-inline: 3.5%;
+
+    > * {
+        scroll-snap-align: start;
+    }
+}
+
+.category-scroller {
+    padding-left: 20px;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 3.5%;
+
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+
+    /* Hide the scrollbar by making it transparent */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-element {
+        display: grid;
+        justify-items: center;
+        justify-content: center;
+
+        .image-container {
+            height: 70px;
+            width: 70px;
+            background-color: $color-main-blue;
+            border-radius: $border-radius-rounded;
+
+            > img {
+
+            }
+        }
+
+        .category-name {
+            // margin: 0;
+        }
+    }
+}
