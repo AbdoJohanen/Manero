@@ -363,4 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # AppSettings 
-AppSettings.json
+appsettings.json
+/Manero/appsettings.json
