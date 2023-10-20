@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Manero.Models.Entities.ProductEntities;
 
 [PrimaryKey(nameof(Id))]
-public class ProductReviewEntity
+public class ReviewEntity
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public int Rating { get; set; }
