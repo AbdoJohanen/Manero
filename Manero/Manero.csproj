@@ -7,7 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Entities\ProductEntities\ProductImageEntity.cs" />
+    <Compile Remove="Models\Entities\ProductEntities\ProductReviewEntity.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Helpers\Repositories\NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,8 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
+
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
+
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\Components\" />
     <Folder Include="wwwroot\css\" />
