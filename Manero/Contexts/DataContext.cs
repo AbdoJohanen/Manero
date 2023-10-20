@@ -30,11 +30,11 @@ public class DataContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<TagEntity>().HasData(
-            new TagEntity { Id = 1, Tag = "Featured Products"},
-            new TagEntity { Id = 2, Tag = "Best Sellers" },
-            new TagEntity { Id = 3, Tag = "Sale" },
-            new TagEntity { Id = 4, Tag = "New" }
-        );
+        //modelBuilder.Entity<TagEntity>().HasData(
+        //    new TagEntity { Id = 1, Tag = "Featured Products"},
+        //    new TagEntity { Id = 2, Tag = "Best Sellers" },
+        //    new TagEntity { Id = 3, Tag = "Sale" },
+        //    new TagEntity { Id = 4, Tag = "New" }
+        //);
     }
 }

@@ -3,13 +3,7 @@
 
 <div class="container d-flex justify-content-center flex-column mt-5 w-75">
     <h2>Create Product</h2>
-    <div>
-        @foreach (var tag in Model.Tags)
-        {
-            <p>@tag.Tag</p>            
-        }
-    </div>
-@*     <form asp-action="Create" asp-controller="Product" method="post" enctype="multipart/form-data" ">
+    <form asp-action="Create" asp-controller="Product" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group">
@@ -37,35 +31,16 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Product.Size">Sizes</label>
-            <select asp-for="Product.Size" asp-items="ViewBag.Sizes" class="form-control">
-                <option value="">Select Size</option>
-            </select>
-            <span asp-validation-for="Product.Size" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Product.Tag">Tags</label>
-            <input type="checkbox" asp-for="Product.Tag" asp-items="ViewBag.Tags" class="form-control">
-                <option value="">Select Tag</option>
-            </input>
-            <span asp-validation-for="Product.Tag" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Product.Category">Categories</label>
-            <input type="checkbox" asp-for="Product.Category" asp-items="ViewBag.Categories" class="form-control">
-                <option value="">Select Category</option>
-            </input>
-            <span asp-validation-for="Product.Category" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="ProductViewModel.ProductImageFile"></label>
-            <input asp-for="ProductViewModel.ProductImageFile" type="file" class="form-control" />
-            <span asp-validation-for="ProductViewModel.ProductImageFile" class="text-danger"></span>
+            @foreach (var tag in Model.Tags)
+            {
+                <div class="form-group d-flex">
+                    <input class="form-check-input" type="checkbox" />
+                    <label class="¨form-check-label">@tag.Tag</label>
+                </div>
+            }
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
-    </form> *@
+    </form>
+
 </div>

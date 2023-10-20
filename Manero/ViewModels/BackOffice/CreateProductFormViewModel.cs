@@ -21,11 +21,11 @@ public class CreateProductFormViewModel
 
     [Required(ErrorMessage = "Please Choose atleast one category")]
     [Display(Name = "Categories (Choose one or more) *")]
-    public List<CategoryModel> Categories { get; set; } = null!;
+    public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
 
     [Required(ErrorMessage = "Please Choose atleast one tag")]
-    [Display(Name = "TAgs (Choose one or more) *")]
-    public List<TagModel> Tags { get; set; } = null!;
+    [Display(Name = "Tags (Choose one or more) *")]
+    public List<TagModel> Tags { get; set; } = new List<TagModel>();
 
     [Required(ErrorMessage = "Please choose atleast one image")]
     [Display(Name = "Upload Images (Optional)")]
