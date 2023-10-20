@@ -1,12 +1,16 @@
 .showcase-section {
+    padding-left: 20px;
+    padding-right: 20px;
     
     .container {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
         background-color: $color-main-blue;
-        padding-top: 28px;
-        padding-bottom: 28px;
+        padding-top: 33px;
+        padding-bottom: 33px;
+        background-size: cover;
+        background-position: center;
 
         .showcase-content {
             width: 50%;
