@@ -15,8 +15,6 @@ namespace Manero.Models.DTO
             return new ProductTagEntity
             {
                 ArticleNumber = model.ArticleNumber,
-                Product = model.Product,
-                Tag = model.Tag,
                 TagId = model.TagId
             };
         }
