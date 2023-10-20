@@ -7,8 +7,37 @@ namespace Manero.Helpers.Services.DataServices;
 
 public class ProductService
 {
+    private readonly ProductRepository _productRepository;
+
+    public ProductService(ProductRepository productRepository)
+    {
+        _productRepository = productRepository;
+    }
+
+    public async Task<ProductModel> CreateProductAsync(ProductModel model)
+    {
+        if (model != null)
+            return await _productRepository.AddAsync(model);
+
+        return null!;
+    }
 
 
+
+
+    // Calculate product discount price
+    /*
+    private decimal? CalcProductPrice(ProductModel model)
+    {
+        if (model != null && model.ProductDiscount != null)
+        {
+            var discountPrice = model.ProductPrice * (model.ProductDiscount / 100);
+            return discountPrice;
+        }
+        
+        return model!.ProductPrice;
+    }
+    */
 }
 
 

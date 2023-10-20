@@ -13,7 +13,7 @@ namespace Manero.Models.DTO
             {
                 Id = model.Id,
                 Tag = model.Tag
-            }
+            };
         }
     }
 }

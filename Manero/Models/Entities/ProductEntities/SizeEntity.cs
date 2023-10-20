@@ -11,7 +11,7 @@ public class SizeEntity
 
     public ICollection<ProductSizeEntity> SizeProducts { get; set; } = new HashSet<ProductSizeEntity>();
 
-    public static implicit operator SizeModel(SizeModel entity)
+    public static implicit operator SizeModel(SizeEntity entity)
     {
         return new SizeModel
         {
