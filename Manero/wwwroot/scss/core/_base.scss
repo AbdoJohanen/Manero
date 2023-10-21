@@ -30,7 +30,12 @@ html, body {
     }
 }
 
-.home {
+.home,
+.search,
+.cart,
+.wish,
+.login,
+.account {
 
     & .container {
         position: relative;
