@@ -54,8 +54,21 @@ html h2, body h2 {
   width: 95%;
   display: flex;
 }
+.product-card-small a {
+  text-decoration: none;
+}
 .product-card-small .product-card-small-left {
   margin-right: 15px;
+}
+.product-card-small .product-card-small-left .sale-banner {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 700;
+  background-color: #00824B;
+  color: white;
+  margin: 0;
+  padding: 2px 5px;
+  top: 0;
 }
 .product-card-small .product-card-small-left .product-image {
   width: 100px;
@@ -66,6 +79,7 @@ html h2, body h2 {
   width: 100%;
 }
 .product-card-small .product-card-small-right .product-details {
+  margin-top: 5px;
   display: flex;
   flex-direction: column;
 }
@@ -74,12 +88,37 @@ html h2, body h2 {
   justify-content: space-between;
 }
 .product-card-small .product-card-small-right .product-details .upper-details .product-title {
+  color: #626262;
   font-size: 14px;
   font-weight: 400;
   margin-bottom: 16px;
 }
-.product-card-small .product-card-small-right .product-details .upper-details i {
+.product-card-small .product-card-small-right .product-details .upper-details .like-button {
+  background-color: transparent;
+  border: none;
+  position: relative;
+}
+.product-card-small .product-card-small-right .product-details .upper-details .like-button i {
   font-size: 18px;
+}
+.product-card-small .product-card-small-right .product-details .upper-details .like-button .light-heart {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.product-card-small .product-card-small-right .product-details .upper-details .like-button .solid-heart {
+  position: absolute;
+  top: 0;
+  right: 10000%;
+  color: #F4303C;
+}
+.product-card-small .product-card-small-right .product-details .upper-details .like-button:hover .light-heart {
+  right: 10000%;
+  top: 0;
+}
+.product-card-small .product-card-small-right .product-details .upper-details .like-button:hover .solid-heart {
+  right: 0;
+  top: 0;
 }
 .product-card-small .product-card-small-right .product-details .lower-details {
   display: flex;
