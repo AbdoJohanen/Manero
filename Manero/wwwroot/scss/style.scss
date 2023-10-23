@@ -1,4 +1,6 @@
-﻿// Core
+﻿@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap');
+
+// Core
 @import "./core/variables";
 @import "./core/base";
 
@@ -9,3 +11,4 @@
 
 // Sections
 @import "./sections/navbar";
+@import "./sections/topmenu";
