@@ -1,0 +1,11 @@
+@import "../core/_variables.scss";
+
+.filters-sorting {
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+
+    .filters {}
+
+    .sorting {}
+}

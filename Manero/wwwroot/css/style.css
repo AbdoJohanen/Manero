@@ -300,3 +300,8 @@ html h6, body h6 {
     max-width: 80%;
   }
 }
+.filters-sorting {
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+}
