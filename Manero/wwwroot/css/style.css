@@ -304,4 +304,12 @@ html h6, body h6 {
   padding: 0 15px;
   display: flex;
   justify-content: space-between;
+  font-weight: 400;
+  font-size: 14px;
+}
+.filters-sorting .filters,
+.filters-sorting .sorting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

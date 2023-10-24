@@ -4,8 +4,15 @@
     padding: 0 15px;
     display: flex;
     justify-content: space-between;
+    font-weight: $font-weight-regular;
+    font-size: 14px;
 
-    .filters {}
+    .filters,
+    .sorting {
+        display: flex;
+        align-items: center;
+        gap: 10px;
 
-    .sorting {}
+    }
+
 }
