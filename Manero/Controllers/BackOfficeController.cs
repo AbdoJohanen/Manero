@@ -18,13 +18,23 @@ public class BackOfficeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index() 
+    public async Task<IActionResult> Index()
     {
         return View();
     }
 
+    [HttpGet]
+    public async Task<IActionResult> CreateProduct()
+    {
+        var viewModel = new CreateProductFormViewModel();
+        foreach (var tag in await _tagService.GetAllTagsAsync())
+            viewModel.Tags.Add(tag);
+
+        return View(viewModel);
+    }
+
     [HttpPost]
-    public async Task<IActionResult> Index(CreateProductFormViewModel viewModel)
+    public async Task<IActionResult> CreateProduct(CreateProductFormViewModel viewModel)
     {
         if (ModelState.IsValid)
         {

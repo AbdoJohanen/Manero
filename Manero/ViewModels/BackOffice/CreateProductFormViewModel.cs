@@ -24,14 +24,11 @@ public class CreateProductFormViewModel
     public decimal? ProductDiscount { get; set; }
 
     public List<int> SelectedTags { get; set; } = new List<int>();
+    public List<TagModel> Tags { get; set; } = new List<TagModel>();
 
     //[Required(ErrorMessage = "Please Choose atleast one category")]
     //[Display(Name = "Categories (Choose one or more) *")]
     //public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
-
-    [Required(ErrorMessage = "Please Choose atleast one tag")]
-    [Display(Name = "Tags (Choose one or more) *")]
-    public List<TagModel> Tags { get; set; } = new List<TagModel>();
 
     //[Required(ErrorMessage = "Please choose atleast one image")]
     //[Display(Name = "Upload Images (Optional)")]
