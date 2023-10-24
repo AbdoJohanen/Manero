@@ -17,8 +17,6 @@ public class ProductTagEntity
         return new ProductTagModel
         {
             ArticleNumber = entity.ArticleNumber,
-            Product = entity.Product,
-            Tag = entity.Tag,
             TagId = entity.TagId
         };
     }

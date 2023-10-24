@@ -16,6 +16,7 @@ public class ProductTagService
         _tagService = tagService;
     }
 
+    // Takes a list of int (selected tags) and a ProductModel, than sends a new ProductTag to the repository
     public async Task AssociateTagsWithProductAsync(IEnumerable<TagModel> selectedTags, ProductModel product)
     {
         if (selectedTags.Any() && product != null)
@@ -32,5 +33,15 @@ public class ProductTagService
                 });
             }
         }
+    }
+
+    // Gets a list of ProductTagModel from repository
+    public async Task<IEnumerable<ProductTagModel>> GetProductWithTagsAsync()
+    {
+        var productTags = new List<ProductTagModel>();
+        foreach (var item in await _productTagRepository.GetAllAsync())
+            productTags.Add(item);
+
+        return productTags;
     }
 }
