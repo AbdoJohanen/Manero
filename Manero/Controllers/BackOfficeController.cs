@@ -18,9 +18,23 @@ public class BackOfficeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(BackOfficeViewModel viewModel)
     {
-        return View();
+        var productTags = await _productTagService.GetProductWithTagsAsync();
+        var products = await _productService.GetAllProductsAsync();
+
+        foreach (var product in products)
+        {
+            foreach (var item in productTags)
+            {
+                if (item.ArticleNumber == product.ArticleNumber)
+                    product.Tags.Add(await _tagService.GetTagAsync(item.TagId));
+            }
+
+            viewModel.Products.Add(product);
+        }
+
+        return View(viewModel);
     }
 
     [HttpGet]

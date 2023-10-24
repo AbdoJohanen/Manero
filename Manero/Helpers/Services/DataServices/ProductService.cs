@@ -35,6 +35,21 @@ public class ProductService
         return _product!;
     }
 
+    public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
+    {
+        var items = await _productRepository.GetAllAsync();
+        if (items != null)
+        {
+            var products = new List<ProductModel>();
+            foreach (var item in items)
+                products.Add(item);
+
+            return products;
+        }
+
+        return null!;
+    }
+
 
 
 

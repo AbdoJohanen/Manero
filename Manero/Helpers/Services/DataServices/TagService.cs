@@ -27,6 +27,14 @@ public class TagService
         return null!;
     }
 
+    public async Task<TagModel> GetTagAsync(int tagId)
+    {
+        if (tagId != 0)
+            return await _tagRepository.GetAsync(x => x.Id == tagId);
+
+        return null!;
+    }
+
     public async Task<IEnumerable<TagModel>> GetTagsAsync(List<int> tagsId)
     {
         if (tagsId != null)

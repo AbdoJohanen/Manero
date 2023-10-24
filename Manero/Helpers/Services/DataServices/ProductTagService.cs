@@ -33,4 +33,13 @@ public class ProductTagService
             }
         }
     }
+
+    public async Task<IEnumerable<ProductTagModel>> GetProductWithTagsAsync()
+    {
+        var productTags = new List<ProductTagModel>();
+        foreach (var item in await _productTagRepository.GetAllAsync())
+            productTags.Add(item);
+
+        return productTags;
+    }
 }

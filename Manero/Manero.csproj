@@ -28,8 +28,6 @@
 
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
-
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\Components\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />
