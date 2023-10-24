@@ -36,5 +36,14 @@ public class DataContext : DbContext
             new TagEntity { Id = 3, Tag = "Sale" },
             new TagEntity { Id = 4, Tag = "New" }
         );
+
+        modelBuilder.Entity<CategoryEntity>().HasData(
+            new CategoryEntity { Id = 1, Category = "Dresses"},
+            new CategoryEntity { Id = 2, Category = "Pants" },
+            new CategoryEntity { Id = 3, Category = "Accessories" },
+            new CategoryEntity { Id = 4, Category = "Shoes" },
+            new CategoryEntity { Id = 5, Category = "T-shirts" }
+
+            );
     }
 }

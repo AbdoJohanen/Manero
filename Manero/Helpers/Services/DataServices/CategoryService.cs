@@ -1,4 +1,5 @@
 ﻿using Manero.Helpers.Repositories.DataRepositories;
+using Manero.Models.DTO;
 
 namespace Manero.Helpers.Services.DataServices;
 
@@ -12,5 +13,37 @@ public class CategoryService
         _categoryRepository = categoryRepository;
     }
 
+    public async Task<IEnumerable<CategoryModel>> GetAllCategoriesAsync()
+    {
+        var items = await _categoryRepository.GetAllAsync();
+        if(items != null)
+        {
+            var categories = new List<CategoryModel>();
+            foreach (var item in items)
+                categories.Add(item);
+
+            return categories;
+        }
+        return null!;
+    }
+
+
+    public async Task<IEnumerable<CategoryModel>> GetCategoriesAsync(List<int> categoriesId)
+    {
+        if (categoriesId != null)
+        {
+            var categories = new List<CategoryModel>();
+            foreach (var id in categoriesId)
+            {
+                var items = await _categoryRepository.GetAllAsync(x => x.Id == id);
+                foreach (var category in items)
+                    categories.Add(category);
+            }
+
+            return categories;
+        }
+
+        return null!;
+    }
 
 }
