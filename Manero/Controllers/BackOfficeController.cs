@@ -9,12 +9,14 @@ public class BackOfficeController : Controller
     private readonly ProductService _productService;
     private readonly TagService _tagService;
     private readonly ProductTagService _productTagService;
+    private readonly ImageService _imageService;
 
-    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService)
+    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, ImageService imageService)
     {
         _productService = productService;
         _tagService = tagService;
         _productTagService = productTagService;
+        _imageService = imageService;
     }
 
     [HttpGet]
@@ -44,6 +46,16 @@ public class BackOfficeController : Controller
             var product = await _productService.CreateProductAsync(viewModel);
 
             await _productTagService.AssociateTagsWithProductAsync(tags, product);
+
+            if (viewModel.Images != null)
+            {
+                foreach (var image in viewModel.Images)
+                {
+                    await _imageService.SaveProductImageAsync(product, image);
+
+                }
+            }
+
             return RedirectToAction("Index");
         }
 

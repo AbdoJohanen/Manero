@@ -30,10 +30,10 @@ public class CreateProductFormViewModel
     //[Display(Name = "Categories (Choose one or more) *")]
     //public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
 
-    //[Required(ErrorMessage = "Please choose atleast one image")]
-    //[Display(Name = "Upload Images (Optional)")]
-    //[DataType(DataType.Upload)]
-    //public List<IFormFile> Images { get; set; } = null!;
+    [Required(ErrorMessage = "Please choose atleast one image")]
+    [Display(Name = "Upload Images (Optional)")]
+    [DataType(DataType.Upload)]
+    public List<IFormFile> Images { get; set; } = null!;
 
     public static implicit operator ProductModel(CreateProductFormViewModel viewModel)
     {
@@ -51,6 +51,7 @@ public class CreateProductFormViewModel
 
 
 /*
+ * Old Reference
 public class CreateProductViewModel
 {
 

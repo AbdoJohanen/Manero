@@ -41,6 +41,12 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="Images"></label>
+            <input asp-for="Images" class="form-control" />
+            <span asp-validation-for="Images" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
             @foreach (var tag in Model.Tags)
             {
                 <div class="form-group d-flex">
