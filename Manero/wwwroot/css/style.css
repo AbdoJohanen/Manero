@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap");
 html, body {
   font-size: 1rem;
   font-family: "Mulish", sans-serif;
@@ -236,6 +236,17 @@ html h6, body h6 {
   top: 5px;
   color: #111111;
   font-weight: 700;
+}
+.top-menu-section .back-btn {
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  color: black;
+}
+.top-menu-section .shop-page-title {
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
 }
 .top-menu-section a {
   text-decoration: none;

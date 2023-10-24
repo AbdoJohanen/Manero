@@ -1,5 +1,20 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    //Titeln ska ändras till vald kategori
+    ViewData["Title"] = "Shop";
 }
+
+<header class="home">
+    <div class="container">
+        <section class="top-menu-section">
+            <a href="/home" class="burger back-btn">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+
+            <!--Denna H1 ska kunna ändras dynamiskt utefter tag eller kategori-->
+            <h1 class="shop-page-title">Best Sellers</h1>
+            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+        </section>
+
+
+    </div>
+</header>
