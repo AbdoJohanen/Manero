@@ -7,8 +7,162 @@ namespace Manero.Helpers.Services.DataServices;
 
 public class ProductService
 {
+    private readonly CategoryService _categoryService;
+    private readonly ProductRepository _productRepo;
+    private readonly ProductCategoryRepository _productCategoryRepo;
+    private readonly ImageService _imageService;
+    private readonly CategoryRepository _categoryRepository;
+
+    public ProductService(CategoryService categoryService, ProductRepository productRepo, ProductCategoryRepository productCategoryRepo, ImageService imageService, CategoryRepository categoryRepository)
+    {
+        _categoryService = categoryService;
+        _productRepo = productRepo;
+        _productCategoryRepo = productCategoryRepo;
+        _imageService = imageService;
+        _categoryRepository = categoryRepository;
+    }
+
+    public async Task<IEnumerable<(ProductEntity Product, List<ImageEntity> Images)>> GetAllAsync()
+    {
+        var productsWithImages = new List<(ProductEntity, List<ImageEntity>)>();
+
+        var items = await _productRepo.GetAllAsync();
+        var productCategories = await _productCategoryRepo.GetAllAsync();
+        var categories = await _categoryRepository.GetAllAsync();
+        var productImages = await _imageService.GetAllAsync();
+
+        foreach (var item in items)
+        {
+            var productEntity = item;
+            var productCategoryList = new List<CategoryEntity>();
+            var productImageList = new List<ImageEntity>();
+
+            // Find categories and images associated with the product
+            foreach (var productCategory in productCategories.Where(pc => pc.ArticleNumber == item.ArticleNumber))
+            {
+                var category = categories.FirstOrDefault(c => c.Id == productCategory.CategoryId);
+                if (category != null)
+                {
+                    productCategoryList.Add(new CategoryEntity
+                    {
+                        Id = category.Id,
+                        Category = category.Category
+                    });
+                }
+            }
+
+            foreach (var productImage in productImages.Where(pi => pi.ArticleNumber == item.ArticleNumber))
+            {
+                productImageList.Add(new ImageEntity
+                {
+                    Id = productImage.Id,
+                    ImageUrl = productImage.ImageUrl
+                });
+            }
+
+            productsWithImages.Add((productEntity, productImageList));
+        }
+
+        return productsWithImages;
+    }
+
+    //public async Task<IEnumerable<ProductEntity>> GetAllAsync()
+    //{
+    //    var products = new List<ProductEntity>();
+    //    var productCategoriesDict = new Dictionary<int, List<CategoryEntity>>();
+    //    var productImagesDict = new Dictionary<int, List<ImageEntity>>();
+
+    //    var items = await _productRepo.GetAllAsync();
+    //    var productCategories = await _productCategoryRepo.GetAllAsync();
+    //    var categories = await _categoryRepository.GetAllAsync();
+    //    var productImages = await _imageService.GetAllAsync();
+
+    //    foreach (var item in items)
+    //    {
+    //        var productEntity = item;
+    //        var productCategoryList = new List<CategoryEntity>();
+    //        var productImageList = new List<ImageEntity>();
+
+    //        // Find categories and images associated with the product
+    //        foreach (var productCategory in productCategories.Where(pc => pc.ArticleNumber == item.ArticleNumber))
+    //        {
+    //            var category = categories.FirstOrDefault(c => c.Id == productCategory.CategoryId);
+    //            if (category != null)
+    //            {
+    //                productCategoryList.Add(new CategoryEntity
+    //                {
+    //                    Id = category.Id,
+    //                    Category = category.Category
+    //                });
+    //            }
+    //        }
+
+    //        foreach (var productImage in productImages.Where(pi => pi.Id == item.ArticleNumber))
+    //        {
+    //            productImageList.Add(new ImageEntity
+    //            {
+    //                Id = productImage.Id,
+    //                ImageUrl = productImage.ImageUrl
+    //            });
+    //        }
+
+    //        // Add the product and its associated categories and images
+    //        products.Add(productEntity);
+    //        productCategoriesDict[productEntity.ArticleNumber] = productCategoryList;
+    //        productImagesDict[productEntity.ArticleNumber] = productImageList;
+    //    }
+
+    //    // Now you have a dictionary of product IDs to their associated categories and images
+    //    // You can access them as needed for each product.
+
+    //    return products;
+    //}
 
 
+    //public async Task<IEnumerable<ProductEntity>> GetAllAsync()
+    //{
+    //    var products = new List<ProductEntity>();
+    //    var categoriesEntities = new List<CategoryEntity>();
+    //    var images = new List<ImageEntity>();
+
+    //    var items = await _productRepo.GetAllAsync();
+    //    var productCategories = await _productCategoryRepo.GetAllAsync();
+    //    var categories = await _categoryRepository.GetAllAsync();
+    //    var productImages = await _imageService.GetAllAsync();
+
+
+    //    foreach (var item in items)
+    //    {
+    //        ProductEntity productEntity = item;
+    //        foreach (var _item in productCategories)
+    //        {
+    //            foreach (var category in categories)
+    //            {
+    //                var categoryEntity = new CategoryEntity
+    //                {
+    //                    Category = category.Category,
+    //                    Id = category.Id,
+    //                };
+    //                categoriesEntities.Add(categoryEntity);
+    //            }
+    //        }
+    //        products.Add(productEntity);
+
+    //        foreach(var image in productImages)
+    //        {
+    //            var imageEntity = new ImageEntity
+    //            {
+    //                Id = image.Id,
+    //                ImageUrl = image.ImageUrl
+    //            };
+    //            images.Add(imageEntity);
+    //        }
+
+    //    }
+
+
+    //    return products;
+    //}
 }
 
 

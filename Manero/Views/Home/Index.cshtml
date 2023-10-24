@@ -1,6 +1,10 @@
+@using Manero.Helpers.Services
+@using Manero.Helpers.Services.DataServices;
+@inject ProductService productService;
 
 ﻿@{
     ViewData["Title"] = "Home";
+    var products = await productService.GetAllAsync();
 }
 
 <!-- Home -->
@@ -8,6 +12,10 @@
     <div class="container">
 
         <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+        @foreach(var product in products)
+        {
+           <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" model="@Model.ProductModel"/>
+        }
     </div>
 </header> 
 

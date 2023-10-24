@@ -36,5 +36,9 @@ public class DataContext : DbContext
             new TagEntity { Id = 3, Tag = "Sale" },
             new TagEntity { Id = 4, Tag = "New" }
         );
+
+        //modelBuilder.Entity<ProductEntity>().HasData(
+        //    new ProductEntity { ArticleNumber = "1", ProductName = "name", ProductPrice = 15,}
+        //    );
     }
 }
