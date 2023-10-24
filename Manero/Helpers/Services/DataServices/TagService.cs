@@ -12,6 +12,7 @@ public class TagService
         _tagRepository = tagRepository;
     }
 
+    // Gets all tags as TagModel from repository
     public async Task<IEnumerable<TagModel>> GetAllTagsAsync()
     {
         var items = await _tagRepository.GetAllAsync();
@@ -27,6 +28,7 @@ public class TagService
         return null!;
     }
 
+    // Gets specific TagModel from repository
     public async Task<TagModel> GetTagAsync(int tagId)
     {
         if (tagId != 0)
@@ -35,6 +37,7 @@ public class TagService
         return null!;
     }
 
+    // Gets a list of TagModel with a expression (List<int> tagsId) that comes from view
     public async Task<IEnumerable<TagModel>> GetTagsAsync(List<int> tagsId)
     {
         if (tagsId != null)

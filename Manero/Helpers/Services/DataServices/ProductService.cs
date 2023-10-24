@@ -2,6 +2,7 @@
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Manero.Helpers.Services.DataServices;
 
@@ -14,27 +15,26 @@ public class ProductService
         _productRepository = productRepository;
     }
 
+
+    // Sends ProductModel from view to repository
     public async Task<ProductModel> CreateProductAsync(ProductModel model)
     {
         if (model != null)
-            return await _productRepository.AddAsync(new ProductModel
-            {
-                ArticleNumber = model.ArticleNumber,
-                ProductName = model.ProductName,
-                ProductDescription = model.ProductDescription,
-                ProductPrice = model.ProductPrice,
-                ProductDiscount = model.ProductDiscount
-            });
+            return await _productRepository.AddAsync(model);
 
         return null!;
     }
 
+
+    // Finds specific ProductModel with expression from repository
     public async Task<ProductModel> GetProductAsync(ProductModel product)
     {
         var _product = await _productRepository.GetAsync(x => x.ArticleNumber == product.ArticleNumber);
         return _product!;
     }
 
+
+    // Gets a list of ProductModel from repository
     public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
     {
         var items = await _productRepository.GetAllAsync();
@@ -51,6 +51,17 @@ public class ProductService
     }
 
 
+    // Takes article number from view and finds then sends to delete() to repository
+    public async Task<bool> DeleteProductAsync(string articleNumber)
+    {
+        if (!articleNumber.IsNullOrEmpty())
+        {
+            var product = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
+            return await _productRepository.DeleteAsync(product);
+        }
+            
+        return false;
+    }
 
 
     // Calculate product discount price
