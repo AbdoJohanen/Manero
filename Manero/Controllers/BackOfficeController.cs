@@ -1,4 +1,5 @@
 ﻿using Manero.Helpers.Services.DataServices;
+using Manero.Models.DTO;
 using Manero.ViewModels.BackOffice;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,6 +59,9 @@ public class BackOfficeController : Controller
                 if (category.ArticleNumber == product.ArticleNumber)
                     product.Categories.Add(await _categoryService.GetCategoryAsync(category.CategoryId));
             }
+
+            product.Images = new List<ImageModel>();
+            product.Images.Add(await _imageService.GetMainImageAsync(product.ArticleNumber));
 
             // Adds ProductModel to list of ProductModel in View Model
             viewModel.Products.Add(product);

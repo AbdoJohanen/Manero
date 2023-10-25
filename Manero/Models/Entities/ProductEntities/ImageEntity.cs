@@ -21,7 +21,8 @@ public class ImageEntity
         return new ImageModel
         {
             Id = entity.Id,
-            ImageUrl = entity.ImageUrl
+            ImageUrl = entity.ImageUrl,
+            IsMainImage = entity.IsMainImage
         };
     }
 }

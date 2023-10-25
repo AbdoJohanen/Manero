@@ -14,7 +14,8 @@ namespace Manero.Models.DTO
             return new ImageEntity
             {
                 Id = model.Id,
-                ImageUrl = model.ImageUrl
+                ImageUrl = model.ImageUrl,
+                IsMainImage = model.IsMainImage
             };
         }
     }

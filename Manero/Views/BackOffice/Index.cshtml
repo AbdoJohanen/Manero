@@ -22,15 +22,9 @@
                 {
                     <div class="col-md-3 mb-4">
                         <div class="card col p-0" style="width: 18rem;">
-                            @if (product.Images != null) 
+                            @foreach (var image in product.Images)
                             {
-                                <img src="..." class="card-img-top d-block" style="width: 100%; height: 200px;" alt="...">
-                            }
-                            else 
-                            {
-                                <div class="bg-info d-flex justify-content-center align-items-center" style="width: 100%; height: 200px;">
-                                    Image Placeholder
-                                </div>
+                                <img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" style="width: 100%; height: 200px;" alt="image">
                             }
                             <div class="card-body">
                                 <h5 class="card-title">@product.ProductName</h5>
