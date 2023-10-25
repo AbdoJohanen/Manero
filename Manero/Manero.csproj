@@ -25,6 +25,8 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
 
+    <Folder Include="Helpers\Repositories\" />
+    <Folder Include="Helpers\Services\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\Components\" />
     <Folder Include="wwwroot\assets\images\products\" />

@@ -17,25 +17,25 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="ProductName">Product Name:</label>
+            <label asp-for="ProductName"></label>
             <input asp-for="ProductName" class="form-control" />
             <span asp-validation-for="ProductName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="ProductDescription">Description</label>
+            <label asp-for="ProductDescription"></label>
             <textarea asp-for="ProductDescription" class="form-control"></textarea>
             <span asp-validation-for="ProductDescription" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="ProductPrice">Price</label>
+            <label asp-for="ProductPrice"></label>
             <input asp-for="ProductPrice" class="form-control" />
             <span asp-validation-for="ProductPrice" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="ProductDiscount">Discount</label>
+            <label asp-for="ProductDiscount"></label>
             <input asp-for="ProductDiscount" class="form-control" />
             <span asp-validation-for="ProductDiscount" class="text-danger"></span>
         </div>
@@ -48,16 +48,31 @@
 
         <div class="image-preview-container"></div>
 
-
-        <div class="form-group">
+        <div class="form-group mb-2">
+            <h2>Select tags</h2>
             @foreach (var tag in Model.Tags)
             {
-                <div class="form-group d-flex gap-2 m-2">
+                <div class="form-group d-flex">
                     <input name="SelectedTags" value="@tag.Id" class="form-check-input" type="checkbox" />
                     <label class="¨form-check-label">@tag.Tag</label>
                 </div>
             }
         </div>
+
+         <div class="form-group mb-2">
+             <h2>
+
+            <label asp-for="Categories"></label>
+             </h2>
+            @foreach (var category in Model.Categories)
+            {
+                <div class="form-group d-flex">
+                    <input name="SelectedCategories" value="@category.Id" class="form-check-input" type="checkbox" />
+                    <label class="¨form-check-label">@category.Category</label>
+                </div>
+            }
+            <span asp-validation-for="SelectedCategories" class="text-danger"></span>
+        </div> 
 
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
