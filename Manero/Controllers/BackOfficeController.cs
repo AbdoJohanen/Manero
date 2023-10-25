@@ -13,15 +13,14 @@ public class BackOfficeController : Controller
     private readonly CategoryService _categoryService;
     private readonly ProductCategoryService _productCategoryService;
 
-    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService)
-    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, ImageService imageService)
+    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService, ImageService imageService)
     {
         _productService = productService;
         _tagService = tagService;
         _productTagService = productTagService;
-        _imageService = imageService;
         _categoryService = categoryService;
         _productCategoryService = productCategoryService;
+        _imageService = imageService;
     }
 
     [HttpGet]
