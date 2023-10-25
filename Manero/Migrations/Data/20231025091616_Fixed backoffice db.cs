@@ -238,6 +238,19 @@ namespace Manero.Migrations.Data
                     { 4, "New" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Sizes",
+                columns: new[] { "Id", "Size" },
+                values: new object[,]
+                {
+                    { 1, "XS" },
+                    { 2, "S" },
+                    { 3, "M" },
+                    { 4, "L" },
+                    { 5, "XL" },
+                    { 6, "XXL" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Images_ProductArticleNumber",
                 table: "Images",
