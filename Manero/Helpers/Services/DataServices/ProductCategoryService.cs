@@ -13,8 +13,6 @@ public class ProductCategoryService
     }
     public async Task AssociateCategoriesWithProductAsync(IEnumerable<CategoryModel> selectedCategories, ProductModel product)
     {
-
-
         if (selectedCategories.Any() && product != null)
         {
             var articleNumber = product.ArticleNumber;
@@ -22,15 +20,23 @@ public class ProductCategoryService
             {
                 await _productCategoryRepository.AddAsync(new ProductCategoryModel
                 {
-                 ArticleNumber = articleNumber,
-                 Category = category,
-                 Product = product,
-                 CategoryId = category.Id
-
+                    ArticleNumber = articleNumber,
+                    Category = category,
+                    Product = product,
+                    CategoryId = category.Id
                 });
             }
         }
+    }
 
+    // Gets a list of ProductCategoryModel from repository
+    public async Task<IEnumerable<ProductCategoryModel>> GetProductWithCategoriesAsync()
+    {
+        var productCategories = new List<ProductCategoryModel>();
+        foreach (var item in await _productCategoryRepository.GetAllAsync())
+            productCategories.Add(item);
+
+        return productCategories;
     }
 }
 

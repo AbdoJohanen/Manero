@@ -2,10 +2,12 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Manero.Migrations.Data
 {
     /// <inheritdoc />
-    public partial class Createdproductdatabase : Migration
+    public partial class Fixedbackofficedb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -78,6 +80,26 @@ namespace Manero.Migrations.Data
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductArticleNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsMainImage = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Products_ProductArticleNumber",
+                        column: x => x.ProductArticleNumber,
+                        principalTable: "Products",
+                        principalColumn: "ArticleNumber",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductCategories",
                 columns: table => new
                 {
@@ -126,44 +148,23 @@ namespace Manero.Migrations.Data
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductImages",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ArticleNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductArticleNumber = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductImages_Products_ProductArticleNumber",
-                        column: x => x.ProductArticleNumber,
-                        principalTable: "Products",
-                        principalColumn: "ArticleNumber",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductReviews",
+                name: "Reviews",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     Review = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArticleNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductArticleNumber = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ProductArticleNumber = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductReviews", x => x.Id);
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductReviews_Products_ProductArticleNumber",
+                        name: "FK_Reviews_Products_ProductArticleNumber",
                         column: x => x.ProductArticleNumber,
                         principalTable: "Products",
-                        principalColumn: "ArticleNumber",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ArticleNumber");
                 });
 
             migrationBuilder.CreateTable(
@@ -214,6 +215,34 @@ namespace Manero.Migrations.Data
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Category" },
+                values: new object[,]
+                {
+                    { 1, "Dresses" },
+                    { 2, "Pants" },
+                    { 3, "Accessories" },
+                    { 4, "Shoes" },
+                    { 5, "T-shirts" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "Id", "Tag" },
+                values: new object[,]
+                {
+                    { 1, "Featured Products" },
+                    { 2, "Best Sellers" },
+                    { 3, "Sale" },
+                    { 4, "New" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_ProductArticleNumber",
+                table: "Images",
+                column: "ProductArticleNumber");
+
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_CategoryId",
                 table: "ProductCategories",
@@ -225,16 +254,6 @@ namespace Manero.Migrations.Data
                 column: "ArticleNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductImages_ProductArticleNumber",
-                table: "ProductImages",
-                column: "ProductArticleNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductReviews_ProductArticleNumber",
-                table: "ProductReviews",
-                column: "ProductArticleNumber");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductSizes_ArticleNumber",
                 table: "ProductSizes",
                 column: "ArticleNumber");
@@ -243,11 +262,19 @@ namespace Manero.Migrations.Data
                 name: "IX_ProductTags_TagId",
                 table: "ProductTags",
                 column: "TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_ProductArticleNumber",
+                table: "Reviews",
+                column: "ProductArticleNumber");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Images");
+
             migrationBuilder.DropTable(
                 name: "ProductCategories");
 
@@ -255,16 +282,13 @@ namespace Manero.Migrations.Data
                 name: "ProductColors");
 
             migrationBuilder.DropTable(
-                name: "ProductImages");
-
-            migrationBuilder.DropTable(
-                name: "ProductReviews");
-
-            migrationBuilder.DropTable(
                 name: "ProductSizes");
 
             migrationBuilder.DropTable(
                 name: "ProductTags");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -276,10 +300,10 @@ namespace Manero.Migrations.Data
                 name: "Sizes");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Products");
         }
     }
 }

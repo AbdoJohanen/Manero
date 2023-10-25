@@ -9,18 +9,20 @@ public class BackOfficeController : Controller
     private readonly ProductService _productService;
     private readonly TagService _tagService;
     private readonly ProductTagService _productTagService;
+    private readonly ImageService _imageService;
     private readonly CategoryService _categoryService;
     private readonly ProductCategoryService _productCategoryService;
     private readonly SizeService _sizeService;
     private readonly ProductSizeService _productSizeService;
 
-    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService, SizeService sizeService, ProductSizeService productSizeService)
+    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService, SizeService sizeService, ProductSizeService productSizeService, ImageService imageService)
     {
         _productService = productService;
         _tagService = tagService;
         _productTagService = productTagService;
         _categoryService = categoryService;
         _productCategoryService = productCategoryService;
+        _imageService = imageService;
         _sizeService = sizeService;
         _productSizeService = productSizeService;
     }
@@ -31,6 +33,8 @@ public class BackOfficeController : Controller
         // Gets list of ProductTagModel
         var productTags = await _productTagService.GetProductWithTagsAsync();
 
+        var categoryTags = await _productCategoryService.GetProductWithCategoriesAsync();
+
         // Gets all products
         var products = await _productService.GetAllProductsAsync();
 
@@ -38,12 +42,21 @@ public class BackOfficeController : Controller
         foreach (var product in products)
         {
             // Loops thru all productTags
-            foreach (var item in productTags)
+            foreach (var tag in productTags)
             {
                 // If a product tag article number is the same as one of the products article number
                 // Then find and add that TagModel to the list of TagModel in ProductModel
-                if (item.ArticleNumber == product.ArticleNumber)
-                    product.Tags.Add(await _tagService.GetTagAsync(item.TagId));
+                if (tag.ArticleNumber == product.ArticleNumber)
+                    product.Tags.Add(await _tagService.GetTagAsync(tag.TagId));
+            }
+
+            // Loops thru all categoryTags
+            foreach (var category in categoryTags)
+            {
+                // If a product category articlenumber is the same as on of the products article number
+                // Then find and add that CategoryModel to the list of CategoryModel in ProductModel
+                if (category.ArticleNumber == product.ArticleNumber)
+                    product.Categories.Add(await _categoryService.GetCategoryAsync(category.CategoryId));
             }
 
             // Adds ProductModel to list of ProductModel in View Model
@@ -56,21 +69,17 @@ public class BackOfficeController : Controller
     [HttpGet]
     public async Task<IActionResult> CreateProduct()
     {
-
         var viewModel = new CreateProductFormViewModel();
 
         // Gets all tags and adds them to the ViewModel list of TagModel
-
         foreach (var tag in await _tagService.GetAllTagsAsync())
-        {
+        { 
             viewModel.Tags.Add(tag);
         }
 
         // Gets all categories and adds them to the ViewModel list of CategoryModel
         foreach (var category in await _categoryService.GetAllCategoriesAsync())
-        {
             viewModel.Categories.Add(category);
-        }
 
         // Gets all sizes and adds them to the ViewModel list of SizeModel
         foreach (var size in await _sizeService.GetAllSizesAsync())
@@ -117,10 +126,33 @@ public class BackOfficeController : Controller
 
             // Associates tags with the product that was created
             await _productTagService.AssociateTagsWithProductAsync(tags, product);
+
+            if (viewModel.Images != null)
+            {
+                var isMainImage = false;
+                foreach (var image in viewModel.Images)
+                {
+                    if (viewModel.MainImageFileName == image.FileName)
+                    {
+                        isMainImage = true;
+                    }
+                    await _imageService.SaveProductImageAsync(product, image, isMainImage);
+                    isMainImage = false;
+                }
+            }
+
             await _productCategoryService.AssociateCategoriesWithProductAsync(categories, product);
             await _productSizeService.AssociateSizesWithProductAsync(sizes, product);
             return RedirectToAction("Index");
         }
+
+        // If ModelState is invalid load all tags again
+        foreach (var tag in await _tagService.GetAllTagsAsync())
+            viewModel.Tags.Add(tag);
+
+        // If ModelState is invalid load all tags again
+        foreach (var category in await _categoryService.GetAllCategoriesAsync())
+            viewModel.Categories.Add(category);
 
         // Shows error if ModelState is not valid
         ModelState.AddModelError("Model", "Something went wrong! Could not create a product");

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Manero - Backoffice";
 }
 
-<header class="mb-5">
+<header class="mb-5 p-3">
     <div class="container d-flex justify-content-between">
         <a asp-action="Index" asp-controller="Home">Back to Home</a>
         <h4>Manero - Backoffice</h4>
@@ -55,7 +55,10 @@
                                             Categories
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><p class="dropdown-item">Category</p></li>
+                                            @foreach (var category in product.Categories)
+                                            {
+                                                <li><p class="dropdown-item">@category.Category</p></li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>

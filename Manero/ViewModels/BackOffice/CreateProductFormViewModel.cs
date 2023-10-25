@@ -23,18 +23,22 @@ public class CreateProductFormViewModel
     [Display(Name = "Discount Price *")]
     public decimal? ProductDiscount { get; set; }
 
+    [Required(ErrorMessage = "Please Choose atleast one tag")]
+    [Display(Name = "Tags (Choose one or more) *")]
     public List<int> SelectedTags { get; set; } = new List<int>();
     public List<TagModel> Tags { get; set; } = new List<TagModel>();
 
     [Required(ErrorMessage = "Please Choose atleast one category")]
     [Display(Name = "Categories (Choose one or more) *")]
-    public List<int> SelectedCategories { get; set; } = null!;
+    public List<int> SelectedCategories { get; set; } = new List<int>();
     public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
 
-    //[Required(ErrorMessage = "Please choose atleast one image")]
-    //[Display(Name = "Upload Images (Optional)")]
-    //[DataType(DataType.Upload)]
-    //public List<IFormFile> Images { get; set; } = null!;
+    [Required(ErrorMessage = "Please choose atleast one image")]
+    [Display(Name = "Upload Images (Optional)")]
+    [DataType(DataType.Upload)]
+    public List<IFormFile> Images { get; set; } = null!;
+
+    public string MainImageFileName { get; set; } = null!;
 
     [Required(ErrorMessage = "Please Choose atleast one size")]
     [Display(Name = "Sizes (Choose one or more) *")]
@@ -57,6 +61,7 @@ public class CreateProductFormViewModel
 
 
 /*
+ * Old Reference
 public class CreateProductViewModel
 {
 

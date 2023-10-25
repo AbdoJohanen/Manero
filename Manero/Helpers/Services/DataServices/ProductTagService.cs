@@ -6,14 +6,10 @@ namespace Manero.Helpers.Services.DataServices;
 public class ProductTagService
 {
     private readonly ProductTagRepository _productTagRepository;
-    private readonly ProductService _productService;
-    private readonly TagService _tagService;
 
-    public ProductTagService(ProductTagRepository productTagRepository, ProductService productService, TagService tagService)
+    public ProductTagService(ProductTagRepository productTagRepository)
     {
         _productTagRepository = productTagRepository;
-        _productService = productService;
-        _tagService = tagService;
     }
 
     // Takes a list of int (selected tags) and a ProductModel, than sends a new ProductTag to the repository

@@ -27,6 +27,14 @@ public class CategoryService
         return null!;
     }
 
+    // Gets specific category based on Category Id
+    public async Task<CategoryModel> GetCategoryAsync(int categoryId)
+    {
+        if (categoryId != 0)
+            return await _categoryRepository.GetAsync(x => x.Id == categoryId);
+
+        return null!;
+    }
 
     public async Task<IEnumerable<CategoryModel>> GetCategoriesAsync(List<int> categoriesId)
     {
