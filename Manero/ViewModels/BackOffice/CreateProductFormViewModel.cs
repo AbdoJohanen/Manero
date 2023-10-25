@@ -17,6 +17,7 @@ public class CreateProductFormViewModel
     public string? ProductDescription { get; set; }
 
     [Required(ErrorMessage = "Please enter a price")]
+    [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
     [Display(Name = "Price *")]
     public decimal ProductPrice { get; set; }
 
@@ -25,12 +26,12 @@ public class CreateProductFormViewModel
 
     [Required(ErrorMessage = "Please Choose atleast one tag")]
     [Display(Name = "Tags (Choose one or more) *")]
-    public List<int> SelectedTags { get; set; } = new List<int>();
+    public List<int> SelectedTags { get; set; } = null!;
     public List<TagModel> Tags { get; set; } = new List<TagModel>();
 
     [Required(ErrorMessage = "Please Choose atleast one category")]
     [Display(Name = "Categories (Choose one or more) *")]
-    public List<int> SelectedCategories { get; set; } = new List<int>();
+    public List<int> SelectedCategories { get; set; } = null!;
     public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
 
     [Required(ErrorMessage = "Please choose atleast one image")]

@@ -13,6 +13,7 @@ namespace Manero.Models.DTO
 
         public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         public List<TagModel> Tags { get; set; } = new List<TagModel>();
+        public List<SizeModel> Sizes { get; set; } = new List<SizeModel>();
         public List<ImageModel> Images { get; set; } = null!;
 
         public static implicit operator ProductEntity(ProductModel model)
