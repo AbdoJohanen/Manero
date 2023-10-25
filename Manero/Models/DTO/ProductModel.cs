@@ -11,7 +11,7 @@ namespace Manero.Models.DTO
         public decimal? DiscountPrice { get; set; }
         public decimal? ProductDiscount { get; set; }
 
-        public List<CategoryModel> Categories { get; set; } = null!;
+        public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         public List<TagModel> Tags { get; set; } = new List<TagModel>();
         public List<ImageModel> Images { get; set; } = null!;
 
