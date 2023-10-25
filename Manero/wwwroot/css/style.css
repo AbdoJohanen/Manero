@@ -28,6 +28,8 @@ html h6, body h6 {
 .search .container,
 .cart .container,
 .wish .container,
+.tag .container,
+.category .container,
 .login .container,
 .account .container {
   position: relative;
