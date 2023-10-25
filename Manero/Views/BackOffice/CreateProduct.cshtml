@@ -40,6 +40,14 @@
             <span asp-validation-for="ProductDiscount" class="text-danger"></span>
         </div>
 
+        <div class="form-group">
+            <label asp-for="Images"></label>
+            <input multiple type="file" asp-for="Images" class="form-control" />
+            <span asp-validation-for="Images" class="text-danger"></span>
+        </div>
+
+        <div class="image-preview-container"></div>
+
         <div class="form-group mb-2">
             <h2>Select tags</h2>
             @foreach (var tag in Model.Tags)

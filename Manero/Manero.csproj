@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Entities\ProductEntities\ProductImageEntity.cs" />
     <Compile Remove="Models\Entities\ProductEntities\ProductReviewEntity.cs" />
   </ItemGroup>
 
@@ -28,9 +27,10 @@
 
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\Components\" />
+    <Folder Include="wwwroot\assets\images\products\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\core\" />
     <Folder Include="wwwroot\scss\core\" />

@@ -4,6 +4,7 @@ using Manero.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Manero.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231025081706_AddBoolToImageTable")]
+    partial class AddBoolToImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,33 +40,6 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Dresses"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Category = "Pants"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Category = "Accessories"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Category = "Shoes"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Category = "T-shirts"
-                        });
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ColorEntity", b =>

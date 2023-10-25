@@ -9,16 +9,18 @@ public class BackOfficeController : Controller
     private readonly ProductService _productService;
     private readonly TagService _tagService;
     private readonly ProductTagService _productTagService;
+    private readonly ImageService _imageService;
     private readonly CategoryService _categoryService;
     private readonly ProductCategoryService _productCategoryService;
 
-    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService)
+    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService, ImageService imageService)
     {
         _productService = productService;
         _tagService = tagService;
         _productTagService = productTagService;
         _categoryService = categoryService;
         _productCategoryService = productCategoryService;
+        _imageService = imageService;
     }
 
     [HttpGet]
@@ -92,6 +94,21 @@ public class BackOfficeController : Controller
 
             // Associates tags with the product that was created
             await _productTagService.AssociateTagsWithProductAsync(tags, product);
+
+            if (viewModel.Images != null)
+            {
+                var isMainImage = false;
+                foreach (var image in viewModel.Images)
+                {
+                    if (viewModel.MainImageFileName == image.FileName)
+                    {
+                        isMainImage = true;
+                    }
+                    await _imageService.SaveProductImageAsync(product, image, isMainImage);
+                    isMainImage = false;
+                }
+            }
+
             await _productCategoryService.AssociateCategoriesWithProductAsync(categories, product);
 
             return RedirectToAction("Index");
