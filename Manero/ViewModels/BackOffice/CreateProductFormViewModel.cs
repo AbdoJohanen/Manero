@@ -36,6 +36,11 @@ public class CreateProductFormViewModel
     //[DataType(DataType.Upload)]
     //public List<IFormFile> Images { get; set; } = null!;
 
+    [Required(ErrorMessage = "Please Choose atleast one size")]
+    [Display(Name = "Sizes (Choose one or more) *")]
+    public List<int> SelectedSizes { get; set; } = null!;
+    public List<SizeModel> Sizes { get; set; } = new List<SizeModel>();
+
     public static implicit operator ProductModel(CreateProductFormViewModel viewModel)
     {
         return new ProductModel

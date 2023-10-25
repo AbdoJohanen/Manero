@@ -11,14 +11,18 @@ public class BackOfficeController : Controller
     private readonly ProductTagService _productTagService;
     private readonly CategoryService _categoryService;
     private readonly ProductCategoryService _productCategoryService;
+    private readonly SizeService _sizeService;
+    private readonly ProductSizeService _productSizeService;
 
-    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService)
+    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService, SizeService sizeService, ProductSizeService productSizeService)
     {
         _productService = productService;
         _tagService = tagService;
         _productTagService = productTagService;
         _categoryService = categoryService;
         _productCategoryService = productCategoryService;
+        _sizeService = sizeService;
+        _productSizeService = productSizeService;
     }
 
     [HttpGet]
@@ -62,10 +66,16 @@ public class BackOfficeController : Controller
             viewModel.Tags.Add(tag);
         }
 
-
+        // Gets all categories and adds them to the ViewModel list of CategoryModel
         foreach (var category in await _categoryService.GetAllCategoriesAsync())
         {
             viewModel.Categories.Add(category);
+        }
+
+        // Gets all sizes and adds them to the ViewModel list of SizeModel
+        foreach (var size in await _sizeService.GetAllSizesAsync())
+        {
+            viewModel.Sizes.Add(size);
         }
 
         return View(viewModel);
@@ -86,22 +96,29 @@ public class BackOfficeController : Controller
             viewModel.Categories.Add(category);
         }
 
+        foreach (var size in await _sizeService.GetAllSizesAsync())
+        {
+            viewModel.Sizes.Add(size);
+        }
+
 
         if (ModelState.IsValid)
         {
             // Sets the selected tags to list of tags id
             var selectedTags = viewModel.SelectedTags;
             var selectedCategories = viewModel.SelectedCategories;
+            var selectedSizes = viewModel.SelectedSizes;
 
             // Gets the tags from database using the list selected tags
             var tags = await _tagService.GetTagsAsync(selectedTags);
             var categories = await _categoryService.GetCategoriesAsync(selectedCategories);
+            var sizes = await _sizeService.GetSizesAsync(selectedSizes);
             var product = await _productService.CreateProductAsync(viewModel);
 
             // Associates tags with the product that was created
             await _productTagService.AssociateTagsWithProductAsync(tags, product);
             await _productCategoryService.AssociateCategoriesWithProductAsync(categories, product);
-
+            await _productSizeService.AssociateSizesWithProductAsync(sizes, product);
             return RedirectToAction("Index");
         }
 

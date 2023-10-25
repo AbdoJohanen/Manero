@@ -45,5 +45,13 @@ public class DataContext : DbContext
             new CategoryEntity { Id = 5, Category = "T-shirts" }
 
             );
+        modelBuilder.Entity<SizeEntity>().HasData(
+            new SizeEntity { Id = 1, Size = "XS"},
+            new SizeEntity { Id = 2, Size = "S"},
+            new SizeEntity { Id = 3, Size = "M"},
+            new SizeEntity { Id = 4, Size = "L"},
+            new SizeEntity { Id = 5, Size = "XL"},
+            new SizeEntity { Id = 6, Size = "XXL"}
+            );
     }
 }
