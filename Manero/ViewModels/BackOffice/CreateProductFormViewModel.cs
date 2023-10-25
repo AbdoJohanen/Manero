@@ -27,12 +27,12 @@ public class CreateProductFormViewModel
     [Required(ErrorMessage = "Please Choose atleast one tag")]
     [Display(Name = "Tags (Choose one or more) *")]
     public List<int> SelectedTags { get; set; } = null!;
-    public List<TagModel> Tags { get; set; } = new List<TagModel>();
+    public IEnumerable<TagModel> Tags { get; set; } = new HashSet<TagModel>();
 
     [Required(ErrorMessage = "Please Choose atleast one category")]
     [Display(Name = "Categories (Choose one or more) *")]
     public List<int> SelectedCategories { get; set; } = null!;
-    public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+    public IEnumerable<CategoryModel> Categories { get; set; } = new HashSet<CategoryModel>();
 
     [Required(ErrorMessage = "Please choose atleast one image")]
     [Display(Name = "Upload Images (Optional)")]
@@ -44,7 +44,12 @@ public class CreateProductFormViewModel
     [Required(ErrorMessage = "Please Choose atleast one size")]
     [Display(Name = "Sizes (Choose one or more) *")]
     public List<int> SelectedSizes { get; set; } = null!;
-    public List<SizeModel> Sizes { get; set; } = new List<SizeModel>();
+    public IEnumerable<SizeModel> Sizes { get; set; } = new HashSet<SizeModel>();
+
+    [Required(ErrorMessage = "Please Choose atleast one color")]
+    [Display(Name = "Color (Choose one or more) *")]
+    public List<int> SelectedColors { get; set; } = null!;
+    public IEnumerable<ColorModel> Colors { get; set; } = new HashSet<ColorModel>();
 
     public static implicit operator ProductModel(CreateProductFormViewModel viewModel)
     {

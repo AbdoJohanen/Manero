@@ -64,8 +64,7 @@
 
          <div class="form-group mb-2">
              <h2>
-
-            <label asp-for="Categories"></label>
+                <label asp-for="Categories"></label>
              </h2>
             @foreach (var category in Model.Categories)
             {
@@ -79,7 +78,6 @@
 
         <div class="form-group mb-2">
             <h2>
-
                 <label asp-for="Sizes"></label>
             </h2>
             @foreach (var size in Model.Sizes)
@@ -90,6 +88,20 @@
                 </div>
             }
             <span asp-validation-for="SelectedSizes" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-2">
+            <h2>
+                <label asp-for="Colors"></label>
+            </h2>
+            @foreach (var color in Model.Colors)
+            {
+                <div class="form-group d-flex">
+                    <input name="SelectedColors" value="@color.Id" class="form-check-input" type="checkbox" />
+                    <label class="¨form-check-label">@color.Color</label>
+                </div>
+            }
+            <span asp-validation-for="SelectedColors" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>

@@ -15,8 +15,10 @@ public class BackOfficeController : Controller
     private readonly ProductCategoryService _productCategoryService;
     private readonly SizeService _sizeService;
     private readonly ProductSizeService _productSizeService;
+    private readonly ColorService _colorService;
+    private readonly ProductColorService _productColorService;
 
-    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService, SizeService sizeService, ProductSizeService productSizeService, ImageService imageService)
+    public BackOfficeController(ProductService productService, TagService tagService, ProductTagService productTagService, CategoryService categoryService, ProductCategoryService productCategoryService, SizeService sizeService, ProductSizeService productSizeService, ImageService imageService, ColorService colorService, ProductColorService productColorService)
     {
         _productService = productService;
         _tagService = tagService;
@@ -26,6 +28,8 @@ public class BackOfficeController : Controller
         _imageService = imageService;
         _sizeService = sizeService;
         _productSizeService = productSizeService;
+        _colorService = colorService;
+        _productColorService = productColorService;
     }
 
     [HttpGet]
@@ -61,6 +65,15 @@ public class BackOfficeController : Controller
                     product.Sizes.Add(await _sizeService.GetSizeAsync(size.SizeId));
             }
 
+            // Loops thru all productColors
+            foreach (var color in await _productColorService.GetProductWithColorsAsync())
+            {
+                // If a product color articlenumber is the same as one of the products article number
+                // Then find and add that ColorModel to the list of ColorModel in ProductModel
+                if (color.ArticleNumber == product.ArticleNumber)
+                    product.Colors.Add(await _colorService.GetColorAsync(color.ColorId));
+            }
+
             // Gets Main Image and adds the image to the ProductModel
             product.Images = new List<ImageModel>();
             product.Images.Add(await _imageService.GetMainImageAsync(product.ArticleNumber));
@@ -90,33 +103,39 @@ public class BackOfficeController : Controller
             var selectedTags = viewModel.SelectedTags;
             var selectedCategories = viewModel.SelectedCategories;
             var selectedSizes = viewModel.SelectedSizes;
+            var selectedColors = viewModel.SelectedColors;
 
             // Gets the tags, categories, sizes from services
             var tags = await _tagService.GetTagsAsync(selectedTags);
             var categories = await _categoryService.GetCategoriesAsync(selectedCategories);
             var sizes = await _sizeService.GetSizesAsync(selectedSizes);
+            var colors = await _colorService.GetColorsAsync(selectedColors);
             
             var product = await _productService.CreateProductAsync(viewModel);
 
-            // Checks if Images is not null
-            if (viewModel.Images != null)
+            if (product != null)
             {
-                var isMainImage = false;
-                foreach (var image in viewModel.Images)
+                // Checks if Images is not null
+                if (viewModel.Images != null)
                 {
-                    if (viewModel.MainImageFileName == image.FileName)
+                    var isMainImage = false;
+                    foreach (var image in viewModel.Images)
                     {
-                        isMainImage = true;
+                        if (viewModel.MainImageFileName == image.FileName)
+                        {
+                            isMainImage = true;
+                        }
+                        await _imageService.SaveProductImageAsync(product, image, isMainImage);
+                        isMainImage = false;
                     }
-                    await _imageService.SaveProductImageAsync(product, image, isMainImage);
-                    isMainImage = false;
                 }
-            }
 
-            // Associates tags, sizes and categories with the product
-            await _productTagService.AssociateTagsWithProductAsync(tags, product);
-            await _productCategoryService.AssociateCategoriesWithProductAsync(categories, product);
-            await _productSizeService.AssociateSizesWithProductAsync(sizes, product);
+                // Associates tags, sizes and categories with the product
+                await _productTagService.AssociateTagsWithProductAsync(tags, product);
+                await _productCategoryService.AssociateCategoriesWithProductAsync(categories, product);
+                await _productSizeService.AssociateSizesWithProductAsync(sizes, product);
+                await _productColorService.AssociateColorsWithProductAsync(colors, product);
+            }
             return RedirectToAction("Index");
         }
         
@@ -140,16 +159,16 @@ public class BackOfficeController : Controller
 
     private async Task PopulateViewModelAsync(CreateProductFormViewModel viewModel)
     {
-        // Gets all tags and adds them to the ViewModel list of TagModel
-        foreach (var tag in await _tagService.GetAllTagsAsync())
-            viewModel.Tags.Add(tag);
+        // Gets all tags
+        viewModel.Tags = await _tagService.GetAllTagsAsync();
 
-        // Gets all categories and adds them to the ViewModel list of CategoryModel
-        foreach (var category in await _categoryService.GetAllCategoriesAsync())
-            viewModel.Categories.Add(category);
+        // Gets all categories
+        viewModel.Categories = await _categoryService.GetAllCategoriesAsync();
 
-        // Gets all sizes and adds them to the ViewModel list of SizeModel
-        foreach (var size in await _sizeService.GetAllSizesAsync())
-            viewModel.Sizes.Add(size);
+        // Gets all sizes
+        viewModel.Sizes = await _sizeService.GetAllSizesAsync();
+
+        // Gets all sizes
+        viewModel.Colors = await _colorService.GetAllColorsAsync();
     }
 }

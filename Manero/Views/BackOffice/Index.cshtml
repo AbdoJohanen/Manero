@@ -64,6 +64,14 @@
                                         }
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <div class="d-flex">
+                                        @foreach (var color in product.Colors)
+                                        {
+                                            <p class="card-text me-3">@color.Color</p>
+                                        }
+                                    </div>
+                                </div>
                                 <div class="d-flex">
                                     <form class="col me-2" asp-action="DeleteProduct" asp-controller="Backoffice" method="post">
                                         <input type="hidden" name="articleNumber" value="@product.ArticleNumber" />
