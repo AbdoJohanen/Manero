@@ -49,10 +49,15 @@ public class BackOfficeController : Controller
 
             if (viewModel.Images != null)
             {
+                var isMainImage = false;
                 foreach (var image in viewModel.Images)
                 {
-                    await _imageService.SaveProductImageAsync(product, image);
-
+                    if (viewModel.MainImageFileName == image.FileName)
+                    {
+                        isMainImage = true;
+                    }
+                    await _imageService.SaveProductImageAsync(product, image, isMainImage);
+                    isMainImage = false;
                 }
             }
 

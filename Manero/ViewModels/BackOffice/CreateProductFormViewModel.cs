@@ -35,6 +35,8 @@ public class CreateProductFormViewModel
     [DataType(DataType.Upload)]
     public List<IFormFile> Images { get; set; } = null!;
 
+    public string MainImageFileName { get; set; } = null!;
+
     public static implicit operator ProductModel(CreateProductFormViewModel viewModel)
     {
         return new ProductModel

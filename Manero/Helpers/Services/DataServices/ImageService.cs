@@ -16,15 +16,18 @@ public class ImageService
     }
 
 
-
-    public async Task<ImageModel> SaveProductImageAsync(ProductModel product, IFormFile file)
+    // Saves the Image To Disk, And Creates A DataBase Record.
+    public async Task<ImageModel> SaveProductImageAsync(ProductModel product, IFormFile file, bool isMainImage)
     {
         try
         {
             ImageEntity imageEntity = new ImageEntity();
             string filePath = $"{_webHostEnvironment.WebRootPath}/assets/images/products/{product.ArticleNumber + '_' + imageEntity.Id + '_' + file.FileName}";
             await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
-
+            if (isMainImage)
+            {
+                imageEntity.IsMainImage = true;
+            }
             imageEntity.ProductArticleNumber = product.ArticleNumber;
             imageEntity.ImageUrl = filePath;
 

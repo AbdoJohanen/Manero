@@ -14,6 +14,8 @@ public class ImageEntity
     public string ProductArticleNumber { get; set; } = null!;
     public ProductEntity Product { get; set; } = null!;
 
+    public bool IsMainImage { get; set; } = false;
+
     public static implicit operator ImageModel(ImageEntity entity)
     {
         return new ImageModel
