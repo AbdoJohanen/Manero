@@ -27,8 +27,10 @@
 
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
+    <Folder Include="Migrations\Data\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\Components\" />
+    <Folder Include="wwwroot\assets\images\products\" />
     <Folder Include="wwwroot\assets\images\products\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\scss\components\" />
