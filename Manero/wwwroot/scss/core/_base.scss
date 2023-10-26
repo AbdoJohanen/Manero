@@ -5,16 +5,48 @@ html, body {
     font-weight: $font-weight-regular;
     color: $color-main-grey;
 
-    h1, h2, h3, h4 {
-        color: $color-main-black;
-        font-weight: $font-weight-bold;
-    }
-
     h1 {
         font-size: 32px;
     }
 
     h2 {
+        font-size: 22px;
+    }
+
+    h3 {
         font-size: 20px;
+    }
+
+    h4 {
+        font-size: 18px;
+    }
+
+    h5 {
+        font-size: 16px;
+    }
+
+    h6 {
+        font-size: 14px;
+    }
+}
+
+.home,
+.search,
+.cart,
+.wish,
+.tag,
+.category,
+.login,
+.account {
+
+    & .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /*        width: 375px;
+        height: auto;
+        min-height: 812px;*/
+        padding: 45px 20px 35px 20px;
     }
 }
