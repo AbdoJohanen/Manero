@@ -437,6 +437,17 @@ html h6, body h6 {
   color: #111111;
   font-weight: 700;
 }
+.top-menu-section .back-btn {
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  color: black;
+}
+.top-menu-section .shop-page-title {
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
+}
 .top-menu-section a {
   text-decoration: none;
 }
@@ -488,6 +499,20 @@ html h6, body h6 {
   #shoppingCartRight {
     max-width: 80%;
   }
+}
+.filters-sorting {
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 14px;
+}
+.filters-sorting .filters,
+.filters-sorting .sorting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 }
 
 .product-card-small {

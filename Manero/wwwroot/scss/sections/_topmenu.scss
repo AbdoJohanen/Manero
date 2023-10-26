@@ -150,6 +150,19 @@
         }
     }
 
+    .back-btn {
+        border: none;
+        background-color: transparent;
+        text-decoration: none;
+        color: black;
+    }
+
+    .shop-page-title {
+        color: black;
+        font-size: 18px;
+        font-weight: $font-weight-semibold;
+    }
+
     & a {
         text-decoration: none;
     }
@@ -206,6 +219,7 @@
 }
 
 @media screen and (max-width: 800px) {
+
     #contactDetails,
     #shoppingCartRight {
         max-width: 80%;
