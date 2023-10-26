@@ -1,6 +1,4 @@
-﻿@model BackOfficeViewModel
-
-@{
+﻿@{
     ViewData["Title"] = "Home";
 }
 
@@ -17,55 +15,6 @@
     </div>
 </header> 
 
-
-    @if(Model.Products.Any()){
-        @foreach(var product in Model.Products)
-        {
-            <div class="product-card-small">
-
-                <div class="product-card-small-left">
-                    <a href="#">
-                        @foreach(var image in product.Images)
-                        {
-                            <img class="product-image" src="./assets/images/products/@image.ImageUrl" />
-                        }
-                    </a>
-                </div>
-
-                <div class="product-card-small-right">
-                    <div class="product-details">
-                        <div class="upper-details">
-
-                            <a href="#">
-                                <h3 href="#" class="product-title">@product.ProductName</h3>
-                            </a>
-
-                            <button class="like-button">
-                                <i class="fa-light fa-heart light-heart"></i>
-                                <i class="fa-solid fa-heart solid-heart"></i>
-                            </button>
-
-                        </div>
-
-                        <div class="lower-details">
-
-                            <h4 class="product-price">@product.ProductPrice$</h4>
-
-                            <ul>
-                                <li><i class="fa-solid fa-star"></i></li>
-                                <li><i class="fa-solid fa-star"></i></li>
-                                <li><i class="fa-solid fa-star"></i></li>
-                                <li><i class="fa-light fa-star"></i></li>
-                                <li><i class="fa-light fa-star"></i></li>
-                                <li class="review-amount">(3)</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        }
-    }
 
 
 <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
