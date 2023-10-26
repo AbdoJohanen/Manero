@@ -12,7 +12,7 @@ public class CategoryEntity
 
     public static implicit operator CategoryModel(CategoryEntity entity)
     {
-        return new CategoryEntity
+        return new CategoryModel
         {
             Id = entity.Id,
             Category = entity.Category,

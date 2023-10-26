@@ -12,7 +12,7 @@ public class TagEntity
 
     public static implicit operator TagModel(TagEntity entity)
     {
-        return new TagEntity
+        return new TagModel
         {
             Id = entity.Id,
             Tag = entity.Tag
