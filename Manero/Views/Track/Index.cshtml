@@ -2,8 +2,72 @@
     ViewData["Title"] = "Track order";
 }
 
-<div class="container">
-    <h2>Tracking Order</h2>
+<!-- Track Order -->
+<section class="track-order-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a href="/"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Track your order</h4>
+        </section>
 
-    <p>Order Number: @ViewBag.OrderNumber</p>
-</div>
+        <div class="heading">
+            <div>
+                <img src="~/assets/images/track.svg">
+            </div>
+            <div class="line"></div>
+            <h3>Your order:</h3>
+            <p>#@ViewBag.OrderNumber</p>
+        </div>
+        <div class="tracking">
+            <div class="order-status">
+                <div class="order-status-icon">
+                    <div class="dot active"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="order-status-text">
+                    <h5>Order created</h5>
+                    <p>We have received your order</p>
+                </div>
+            </div>
+            <div class="order-status">
+                <div class="order-status-icon">
+                    <div class="dot active"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="order-status-text">
+                    <h5>Order confirmed</h5>
+                    <p>Your order has been confirmed</p>
+                </div>
+            </div>
+            <div class="order-status">
+                <div class="order-status-icon">
+                    <div class="dot"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="order-status-text">
+                    <h5>Order shipping</h5>
+                    <p>Estimated for Feb 02, 2022</p>
+                </div>
+            </div>
+            <div class="order-status">
+                <div class="order-status-icon">
+                    <div class="dot"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="order-status-text">
+                    <h5>Courier delivering</h5>
+                    <p>Estimated for Feb 05, 2022</p>
+                </div>
+            </div>
+            <div class="order-status">
+                <div class="order-status-icon">
+                    <div class="dot"></div>
+                </div>
+                <div class="order-status-text">
+                    <h5>Receiving</h5>
+                    <p>Estimated for Feb 05, 2022</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
