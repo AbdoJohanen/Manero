@@ -55,6 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     } else {
         console.error('Input element not found. Check if the selector is correct.');
+    }
+});
+
+
+
 
 window.addEventListener('load', function () {
     const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
