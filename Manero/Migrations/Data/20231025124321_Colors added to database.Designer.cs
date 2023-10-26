@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Manero.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231019122847_PopulateTagTable")]
-    partial class PopulateTagTable
+    [Migration("20231025124321_Colors added to database")]
+    partial class Colorsaddedtodatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,33 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Dresses"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "Pants"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "Accessories"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = "Shoes"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Category = "T-shirts"
+                        });
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ColorEntity", b =>
@@ -57,6 +84,33 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "Red"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "Blue"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Color = "Yellow"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Color = "Green"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Color = "Black"
+                        });
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ImageEntity", b =>
@@ -64,13 +118,12 @@ namespace Manero.Migrations.Data
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ArticleNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMainImage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ProductArticleNumber")
                         .IsRequired()
@@ -206,6 +259,38 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Size = "XS"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Size = "S"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Size = "M"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Size = "L"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Size = "XL"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Size = "XXL"
+                        });
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.TagEntity", b =>
