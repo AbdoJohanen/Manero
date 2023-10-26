@@ -489,3 +489,86 @@ html h6, body h6 {
     max-width: 80%;
   }
 }
+.track-order-section .container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 45px 20px 35px 20px;
+}
+.track-order-section .container .heading {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.track-order-section .container .heading img {
+  margin-bottom: 15px;
+}
+.track-order-section .container .heading .line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  border-left: 2px solid black;
+  margin: auto;
+  margin-bottom: 10px;
+}
+.track-order-section .container .heading h3 {
+  display: flex;
+  justify-content: center;
+  color: #111111;
+  font-weight: 700;
+}
+.track-order-section .container .heading p {
+  color: #626262;
+}
+.track-order-section .container .tracking {
+  display: grid;
+  justify-content: center;
+  width: 80%;
+  gap: 15px;
+}
+.track-order-section .container .tracking .order-status {
+  display: flex;
+  gap: 25px;
+}
+.track-order-section .container .tracking .order-status .order-status-icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #111111;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.track-order-section .container .tracking .order-status .order-status-icon .dot {
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+}
+.track-order-section .container .tracking .order-status .order-status-icon .active {
+  background-color: #111111;
+}
+.track-order-section .container .tracking .order-status .order-status-icon .line {
+  position: absolute;
+  left: 14px;
+  top: 35px;
+  border: 1px solid black;
+  height: 35px;
+}
+.track-order-section .container .tracking .order-status .order-status-text {
+  display: grid;
+}
+.track-order-section .container .tracking .order-status .order-status-text h5 {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+}
+.track-order-section .container .tracking .order-status .order-status-text p {
+  font-size: 13px;
+}
