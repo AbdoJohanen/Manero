@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Manero.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 
 namespace Manero.Models.Entities.ProductEntities;
@@ -12,5 +13,13 @@ public class ProductSizeEntity
     public int SizeId { get; set; }
     public SizeEntity Size { get; set; } = null!;
 
+    public static implicit operator ProductSizeModel(ProductSizeEntity entity)
+    {
+        return new ProductSizeModel
+        {
+            ArticleNumber = entity.ArticleNumber,
+            SizeId = entity.SizeId
+        };
+    }
 
 }

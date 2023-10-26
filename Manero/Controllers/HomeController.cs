@@ -1,24 +1,19 @@
 ﻿using Manero.Helpers.Services.DataServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Manero.Controllers
+namespace Manero.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    public IActionResult Index()
     {
-        //private readonly ProductService _productService;
+        ViewBag.ActivePage = "Home";
+        return View();
+    }
 
-        //public HomeController(ProductService productService)
-        //{
-        //    _productService = productService;
-        //}
-
-        public async Task<IActionResult> Index()
-        {
-            ViewBag.ActivePage = "Home";
-
-            //var GridItems = (await _productService.GetAllAsync()).Take(4);
-            return View();
-        }
-
+    [HttpPost]
+    public ActionResult Index(string orderNumber)
+    {
+        return RedirectToAction("index", "track", new { order = orderNumber });
     }
 }

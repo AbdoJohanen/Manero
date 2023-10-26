@@ -3,9 +3,15 @@
 }
 
 <!-- Home -->
-<header class="home">
+<header class="cart">
     <div class="container">
+        <section class="top-menu-section">
+            <partial name="/Views/Partials/Components/_Burger.cshtml" />
+            <h4>Cart</h4>
+            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+        </section>
 
-        <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
 </header> 
+
+<partial name="/Views/Partials/Sections/_Navbar.cshtml" />
