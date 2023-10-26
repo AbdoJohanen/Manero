@@ -23,6 +23,7 @@ builder.Services.AddScoped<TagService>();
 builder.Services.AddScoped<ProductColorService>();
 builder.Services.AddScoped<ImageService>();
 builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<CategoryService>();
 
 
 // Repositories
@@ -37,6 +38,7 @@ builder.Services.AddScoped<TagRepository>();
 builder.Services.AddScoped<ProductColorRepository>();
 builder.Services.AddScoped<ImageRepository>();
 builder.Services.AddScoped<ReviewRepository>();
+builder.Services.AddScoped<CategoryRepository>();
 
 
 // Authentication
