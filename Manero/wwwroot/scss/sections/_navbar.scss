@@ -1,28 +1,14 @@
 ﻿@import '../core/_variables';
 
-.home {
-
-    & .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-/*        width: 375px;
-        height: auto;
-        min-height: 812px;*/
-        padding: 45px 20px 35px 20px;
-    }
-}
-
 .navbar-section {
     display: flex;
     justify-content: center;
-    height: 50px;
+    height: 87px;
+    background-color: white;
     border-top: 1px solid $color-main-blue;
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    padding: 10px 20px 0 20px;
-    margin-bottom: 35px;
+    padding: 10px 20px 35px 20px;
     width: 100%;
 
     & .pages {

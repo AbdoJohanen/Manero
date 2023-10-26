@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,10 +21,10 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\style.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
 
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
@@ -31,16 +32,14 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\Components\" />
     <Folder Include="wwwroot\assets\images\products\" />
-    <Folder Include="wwwroot\assets\images\products\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\core\" />
-    <Folder Include="wwwroot\scss\core\" />
-    <Folder Include="wwwroot\scss\components\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>
