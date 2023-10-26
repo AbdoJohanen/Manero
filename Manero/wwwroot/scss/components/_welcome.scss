@@ -1,0 +1,131 @@
+﻿@import "../core/_variables.scss";
+
+.welcome {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-main-blue;
+    opacity: 1;
+
+    & .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        overflow: hidden;
+
+        .circle {
+            position: absolute;
+            bottom: -6%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid white;
+            width: 475px;
+            height: 475px;
+            border-radius: $border-radius-rounded;
+
+            .circle-full {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+                width: 415px;
+                height: 415px;
+                border-radius: 50%;
+
+                & .carousel-inner {
+
+                    & .carousel-item {
+                        position: relative;
+                        text-align: center;
+                        width: 375px;
+                        height: 375px;
+                        padding: 35px 40px 0 40px;
+
+                        & .carousel-content {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            justify-items: baseline;
+
+                            & .carouselheading {
+                                display: grid;
+                                justify-content: center;
+                                align-items: center;
+
+
+                                & .line {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    height: 30px;
+                                    border-left: 2px solid black;
+                                    margin: auto;
+                                    margin-bottom: 15px;
+                                }
+
+                                & h3 {
+                                    display: flex;
+                                    font-size: 32px;
+                                    font-weight: 700;
+                                    justify-content: center;
+                                    align-items: center;
+                                    margin-bottom: 20px;
+                                    padding: 0 20px;
+                                }
+
+                                & p {
+                                    color: $color-main-grey;
+                                }
+                            }
+
+                            & .carouselbutton {
+                                position: absolute;
+                                left: 60px;
+                                bottom: 60px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                text-decoration: none;
+                                background-color: $color-main-soft-black;
+                                border-radius: 30px;
+                                color: white;
+                                width: 255px;
+                                height: 50px;
+                                margin: auto;
+                            }
+                        }
+                    }
+                }
+
+                & .carousel-indicators {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+
+                    & button {
+                        background-color: $color-main-soft-black;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        opacity: 100%;
+                    }
+
+                    & .active {
+                        width: 22px;
+                        background-color: white;
+                        border: 2px solid $color-main-soft-black;
+                        border-radius: 40px;
+                    }
+                }
+            }
+        }
+    }
+}
