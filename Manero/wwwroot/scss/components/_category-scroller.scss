@@ -1,4 +1,4 @@
-// Makes the scroll bar snap to start of category elements
+// Makes the scroll bar snap to category elements
 .snaps-inline {
     scroll-snap-type: inline mandatory;
     scroll-padding-inline: 3.5%;
@@ -26,32 +26,52 @@
         display: grid;
         justify-items: center;
         justify-content: center;
-        text-decoration: none;
 
-        .image-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 70px;
-            width: 70px;
-            // background-color: $color-main-blue;
-            border-radius: $border-radius-rounded;
+        .content-container {
+            font-size: 14px;
+            text-decoration: none;
+
+            .active {
+                background-color: $color-main-blue;
+            }
+
+            .pill-shape {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: $border-radius-medium;
+                height: 30px;
+
+                .category-name {
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    margin: 0;
+                    color: $color-main-black;
+                    font-weight: $font-weight-semibold;
+                }
+            }  
+        }
+
+        .category-container {
+            display: grid;
+            justify-items: center;
+            text-decoration: none;
 
             > img {
                 box-shadow: 0 0 4px 1px rgba(17, 17, 17, 0.2);
                 background-color: white;
                 object-fit: cover;
                 height: 70px;
-                width: auto;
+                width: 70px;
                 border-radius: $border-radius-rounded;
             }
-        }
-
-        .category-name {
-            margin: 0;
-            color: $color-main-black;
-            font-weight: $font-weight-semibold;
-            
+    
+            .category-name {
+                margin: 0;
+                color: $color-main-black;
+                font-weight: $font-weight-semibold;
+                
+            }
         }
     }
 }
