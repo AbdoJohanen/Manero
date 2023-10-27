@@ -492,6 +492,7 @@ html h6, body h6 {
 .big-card, .big-card-discount {
   position: relative;
   width: 160px;
+  margin-top: 50px;
 }
 .big-card .product-card-big, .big-card-discount .product-card-big {
   width: 160px;
@@ -574,6 +575,9 @@ html h6, body h6 {
 .big-card-discount .price {
   text-decoration: line-through;
 }
+.big-card-discount .price-no-discount {
+  text-decoration: none;
+}
 .big-card-discount .price-detail .price-discount {
   font-size: 14px;
   font-weight: normal;
@@ -581,6 +585,9 @@ html h6, body h6 {
   font-style: normal;
   text-align: left;
   color: #f4303c;
+}
+.big-card-discount .no-sale {
+  display: none;
 }
 .big-card-discount .sale-banner {
   background-color: #69864D;

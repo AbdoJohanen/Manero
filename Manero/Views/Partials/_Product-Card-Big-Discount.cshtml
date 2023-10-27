@@ -11,8 +11,6 @@
 @foreach (var product in Model.GridItems)
 {
 
-    if(product.CalculatedPrice < 1)
-    {
         <div class="big-card-discount">
             <a asp-route-id="@product.ArticleNumber" class="product-card-big">
                 <div class="image-card">
@@ -44,59 +42,30 @@
                         <span class="star-total">(3)</span>
                     </div>
                     <h3>@product.ProductName</h3>
+                @if(product.CalculatedPrice == product.ProductPrice)
+                {
+                    <span class="price-no-discount">$@product.ProductPrice</span>
+                }else
+                {
                     <div class="price-detail">
                         <span class="price">$@product.ProductPrice</span>
                         <span class="price-discount">$@product.CalculatedPrice</span>
                     </div>
+                }
                 </div>
             </a>
+        @if (product.CalculatedPrice == product.ProductPrice)
+        {
+            <div class="no-sale">sale</div>
+        }else
+        {
             <div class="sale-banner">sale</div>
+        }
             <div class="card-menu">
                 <a class="wish-list" href="#"><i class="fa-thin fa-heart"></i></a>
                 <a class="shopping-cart" href="#"><i class="fa-thin fa-bag-shopping"></i></a>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="big-card">
-            <a class="product-card-big" asp-route-id="@product.ArticleNumber" >
-                <div class="image-card">
-                    @if (product.Images != null)
-                    {
-                        @foreach (var image in product.Images)
-                        {
-                            if (image.IsMainImage == true)
-                            {
-                                <img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" style="width: 100%; height: 200px;" alt="image">
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        <div class="image-placeholder"></div>
-                    }
-                </div>
-                <div class="card-information">
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <span class="star-total">(3)</span>
-                    </div>
-                    <h3>@product.ProductName</h3>
-                    <span class="price">$@product.ProductPrice</span>
-                </div>
-            </a>
-            <div class="card-menu">
-                <a class="wish-list" href="#"><i class="fa-thin fa-heart"></i></a>
-                <a class="shopping-cart" href="#"><i class="fa-thin fa-bag-shopping"></i></a>
-            </div>
-        </div>
-    }
 
 }
 

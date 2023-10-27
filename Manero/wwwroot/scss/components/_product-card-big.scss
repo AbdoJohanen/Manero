@@ -1,6 +1,7 @@
 .big-card, .big-card-discount {
     position: relative;
     width: 160px;
+    margin-top:50px;
 
     .product-card-big {
         width: 160px;
@@ -110,6 +111,9 @@
     .price {
         text-decoration: line-through;
     }
+    .price-no-discount{
+        text-decoration:none;
+    }
     .price-detail {
         .price-discount {
             font-size: 14px;
@@ -121,7 +125,9 @@
         }
     }
 
-
+    .no-sale{
+        display:none;
+    }
     .sale-banner {
         background-color: $color-tag-green;
         color: white;
