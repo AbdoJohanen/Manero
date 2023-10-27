@@ -47,4 +47,43 @@ public class ImageService
 
         return null!;
     }
+    public async Task<IEnumerable< ImageModel>> GetAllAsync()
+    {
+        var items = await _imageRepository.GetAllAsync();  
+        if(items != null)
+        {
+            var images = new List<ImageModel>();
+            foreach(var image in items) 
+            {
+                images.Add(image); 
+            }
+            return images;
+        }
+
+        return null!;
+    }
+    public async Task<IEnumerable<ImageModel>> GetAllImagesAsync()
+    {
+        var imageEntities = await _imageRepository.GetAllAsync();
+
+        var imageModels = imageEntities.Select(imageEntity => new ImageModel
+        {
+            Id = imageEntity.Id,
+            ImageUrl = imageEntity.ImageUrl,
+            IsMainImage = imageEntity.IsMainImage,
+        }).ToList();
+
+        return imageModels;
+    }
 }
+//var items = await _colorRepository.GetAllAsync();
+//        if (items != null)
+//        {
+//            var colors = new List<ColorModel>();
+//            foreach (var item in items)
+//                colors.Add(item);
+
+//            return colors;
+//        }
+
+//        return null!;

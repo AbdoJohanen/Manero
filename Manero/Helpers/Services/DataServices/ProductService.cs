@@ -15,160 +15,15 @@ public class ProductService
     private readonly ImageService _imageService;
     private readonly CategoryRepository _categoryRepository;
 
-    public ProductService(CategoryService categoryService, ProductRepository productRepo, ProductCategoryRepository productCategoryRepo, ImageService imageService, CategoryRepository categoryRepository)
+
+    public ProductService(ProductRepository productRepository, CategoryService categoryService, ProductRepository productRepo, ProductCategoryRepository productCategoryRepo, ImageService imageService, CategoryRepository categoryRepository)
     {
+        _productRepository = productRepository;
         _categoryService = categoryService;
         _productRepo = productRepo;
         _productCategoryRepo = productCategoryRepo;
         _imageService = imageService;
         _categoryRepository = categoryRepository;
-    }
-
-    public async Task<IEnumerable<(ProductEntity Product, List<ImageEntity> Images)>> GetAllAsync()
-    {
-        var productsWithImages = new List<(ProductEntity, List<ImageEntity>)>();
-
-        var items = await _productRepo.GetAllAsync();
-        var productCategories = await _productCategoryRepo.GetAllAsync();
-        var categories = await _categoryRepository.GetAllAsync();
-        var productImages = await _imageService.GetAllAsync();
-
-        foreach (var item in items)
-        {
-            var productEntity = item;
-            var productCategoryList = new List<CategoryEntity>();
-            var productImageList = new List<ImageEntity>();
-
-            // Find categories and images associated with the product
-            foreach (var productCategory in productCategories.Where(pc => pc.ArticleNumber == item.ArticleNumber))
-            {
-                var category = categories.FirstOrDefault(c => c.Id == productCategory.CategoryId);
-                if (category != null)
-                {
-                    productCategoryList.Add(new CategoryEntity
-                    {
-                        Id = category.Id,
-                        Category = category.Category
-                    });
-                }
-            }
-
-            foreach (var productImage in productImages.Where(pi => pi.ArticleNumber == item.ArticleNumber))
-            {
-                productImageList.Add(new ImageEntity
-                {
-                    Id = productImage.Id,
-                    ImageUrl = productImage.ImageUrl
-                });
-            }
-
-            productsWithImages.Add((productEntity, productImageList));
-        }
-
-        return productsWithImages;
-    }
-
-    //public async Task<IEnumerable<ProductEntity>> GetAllAsync()
-    //{
-    //    var products = new List<ProductEntity>();
-    //    var productCategoriesDict = new Dictionary<int, List<CategoryEntity>>();
-    //    var productImagesDict = new Dictionary<int, List<ImageEntity>>();
-
-    //    var items = await _productRepo.GetAllAsync();
-    //    var productCategories = await _productCategoryRepo.GetAllAsync();
-    //    var categories = await _categoryRepository.GetAllAsync();
-    //    var productImages = await _imageService.GetAllAsync();
-
-    //    foreach (var item in items)
-    //    {
-    //        var productEntity = item;
-    //        var productCategoryList = new List<CategoryEntity>();
-    //        var productImageList = new List<ImageEntity>();
-
-    //        // Find categories and images associated with the product
-    //        foreach (var productCategory in productCategories.Where(pc => pc.ArticleNumber == item.ArticleNumber))
-    //        {
-    //            var category = categories.FirstOrDefault(c => c.Id == productCategory.CategoryId);
-    //            if (category != null)
-    //            {
-    //                productCategoryList.Add(new CategoryEntity
-    //                {
-    //                    Id = category.Id,
-    //                    Category = category.Category
-    //                });
-    //            }
-    //        }
-
-    //        foreach (var productImage in productImages.Where(pi => pi.Id == item.ArticleNumber))
-    //        {
-    //            productImageList.Add(new ImageEntity
-    //            {
-    //                Id = productImage.Id,
-    //                ImageUrl = productImage.ImageUrl
-    //            });
-    //        }
-
-    //        // Add the product and its associated categories and images
-    //        products.Add(productEntity);
-    //        productCategoriesDict[productEntity.ArticleNumber] = productCategoryList;
-    //        productImagesDict[productEntity.ArticleNumber] = productImageList;
-    //    }
-
-    //    // Now you have a dictionary of product IDs to their associated categories and images
-    //    // You can access them as needed for each product.
-
-    //    return products;
-    //}
-
-
-    //public async Task<IEnumerable<ProductEntity>> GetAllAsync()
-    //{
-    //    var products = new List<ProductEntity>();
-    //    var categoriesEntities = new List<CategoryEntity>();
-    //    var images = new List<ImageEntity>();
-
-    //    var items = await _productRepo.GetAllAsync();
-    //    var productCategories = await _productCategoryRepo.GetAllAsync();
-    //    var categories = await _categoryRepository.GetAllAsync();
-    //    var productImages = await _imageService.GetAllAsync();
-
-
-    //    foreach (var item in items)
-    //    {
-    //        ProductEntity productEntity = item;
-    //        foreach (var _item in productCategories)
-    //        {
-    //            foreach (var category in categories)
-    //            {
-    //                var categoryEntity = new CategoryEntity
-    //                {
-    //                    Category = category.Category,
-    //                    Id = category.Id,
-    //                };
-    //                categoriesEntities.Add(categoryEntity);
-    //            }
-    //        }
-    //        products.Add(productEntity);
-
-    //        foreach(var image in productImages)
-    //        {
-    //            var imageEntity = new ImageEntity
-    //            {
-    //                Id = image.Id,
-    //                ImageUrl = image.ImageUrl
-    //            };
-    //            images.Add(imageEntity);
-    //        }
-
-    //    }
-
-
-    //    return products;
-    //}
-}
-    public ProductService(ProductRepository productRepository)
-    {
-        _productRepository = productRepository;
     }
 
 
@@ -190,7 +45,7 @@ public class ProductService
     }
 
 
-    // Gets a list of ProductModel from repository
+    //Gets a list of ProductModel from repository
     public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
     {
         var items = await _productRepository.GetAllAsync();
@@ -203,9 +58,50 @@ public class ProductService
             return products;
         }
 
+
         return null!;
     }
 
+    public async Task<IEnumerable<ProductModel>> GetAllAsync()
+    {
+        var products = new List<ProductModel>();
+
+        var items = await _productRepo.GetAllAsync();
+        var productCategories = await _productCategoryRepo.GetAllAsync();
+        var productImages = await _imageService.GetAllAsync();
+
+        // Hämta kategorier med den nya metoden
+        var categories = await _categoryService.GetAllCategoriesAsync2();
+        var images = await _imageService.GetAllImagesAsync();
+
+        foreach (var item in items)
+        {
+            // Skapa en produktmodell baserad på produktinformationen
+            ProductModel productModel = item;
+
+            // Hitta produktkategorierna som matchar den aktuella produkten
+            var matchingCategories = productCategories
+                .Where(pc => pc.ArticleNumber.ToString() == item.ArticleNumber)
+                .Select(pc => categories.FirstOrDefault(c => c.Id == pc.CategoryId));
+
+            // Lägg till kategorierna i produktmodellen
+            productModel.Categories = matchingCategories.ToList();
+
+            // Hitta bilderna som matchar den aktuella produkten
+
+            var matchingImages = productImages
+               .Where(pc => pc.ProductArticleNumber.ToString() == item.ArticleNumber)
+               .Select(pc => images.FirstOrDefault(c => c.Id == pc.Id));
+
+            // Lägg till bilderna i produktmodellen
+            productModel.Images = matchingImages.ToList();
+
+            // Lägg till produkten i listan av produkter
+            products.Add(productModel);
+        }
+
+        return products;
+    }
 
     // Takes article number from view and finds then sends to delete() to repository
     public async Task<bool> DeleteProductAsync(string articleNumber)
@@ -215,7 +111,7 @@ public class ProductService
             var product = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
             return await _productRepository.DeleteAsync(product);
         }
-            
+
         return false;
     }
 
@@ -232,3 +128,7 @@ public class ProductService
         return model!.ProductPrice;
     }
 }
+
+//var matchingImages = productImages.Where(image => image.Id == item.ArticleNumber);
+//var matchingImages = productImages.Where(image => image.Id.ToString() == item.ArticleNumber);
+//var matchingImages = images.Where(image => image.Id.ToString() == item.ArticleNumber);

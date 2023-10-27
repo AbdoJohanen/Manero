@@ -1,8 +1,10 @@
 ﻿@using Manero.Helpers.Services
 @using Manero.Helpers.Services.DataServices;
+@using Manero.Models.DTO;
+@using Manero.ViewModels;
 @inject ProductService productService;
+@model GridCollectionViewModel
 
-﻿@{
 @{
     ViewData["Title"] = "Home";
     var products = await productService.GetAllAsync();
@@ -15,15 +17,26 @@
             <partial name="/Views/Partials/Components/_Burger.cshtml" />
             <a href="/"><img src="~/assets/images/logo.svg"></a>
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
-        </section>    
-        
+        </section>
 
+
+            <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" />
+           
+          
         <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
-        @foreach(var product in products)
-        {
-           <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" model="@Model.ProductModel"/>
-        }
     </div>
 </header> 
 
-<partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+
+
+@*@foreach (var product in Model.GridItems)
+{
+    @if (product.CalculatedPrice != null)
+    {
+        <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" />
+    }
+    else
+    {
+        <Partial name="/Views/Partials/_Product-card-Big.cshtml" />
+    }
+}*@

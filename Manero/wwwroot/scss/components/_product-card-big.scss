@@ -1,4 +1,4 @@
-.big-card, .big-card-disscount {
+.big-card, .big-card-discount {
     position: relative;
     width: 160px;
 
@@ -105,13 +105,13 @@
     }
 }
 
-.big-card-disscount {
+.big-card-discount {
 
     .price {
         text-decoration: line-through;
     }
     .price-detail {
-        .price-disscount {
+        .price-discount {
             font-size: 14px;
             font-weight: normal;
             line-height: 21px;

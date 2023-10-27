@@ -26,6 +26,20 @@ public class CategoryService
         }
         return null!;
     }
+    public async Task<IEnumerable<CategoryModel>> GetAllCategoriesAsync2()
+    {
+        var categoriesEntities = await _categoryRepository.GetAllAsync();
+
+        var categoriesModels = categoriesEntities.Select(categoryEntity => new CategoryModel
+        {
+            Id = categoryEntity.Id,
+            Category = categoryEntity.Category,
+            // Kopiera andra egenskaper om det behövs
+        }).ToList();
+
+        return categoriesModels;
+    }
+
 
     // Gets specific category based on Category Id
     public async Task<CategoryModel> GetCategoryAsync(int categoryId)
