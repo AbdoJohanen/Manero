@@ -58,7 +58,28 @@ const categoryGridModule = (function() {
                     }
                 }
             }
-        } else { // For screens larger than md breakpoint
+        } else if (window.matchMedia("(min-width: 768px) and (max-width: 991px)").matches) { // For md to lg breakpoint
+
+            // Checks if the category-container has the .container or ._container class and adjust accordingly
+            if (categoryContainer.classList.contains("container")) {
+                categoryContainer.classList.remove("container");
+            }
+            if (!categoryContainer.classList.contains("_container")){
+                categoryContainer.classList.add("_container")
+            }
+
+            // Checks if the category-item has the correct layout of small and large boxes and adjusts accordingly
+            if (!categoryItems[4].classList.contains("large")) {
+                for (let i = 0; i < categoryItems.length; i++) {
+                    categoryItems[i].classList.remove("small", "large");
+                    if (i % 6 === 4 || i % 6 === 5) {
+                        categoryItems[i].classList.add("large");
+                    } else {
+                        categoryItems[i].classList.add("small");
+                    }
+                }
+            }
+        } else { // For screens larger than lg breakpoint
 
             // Checks if the category-container has the .container or ._container class and adjust accordingly
             if (categoryContainer.classList.contains("_container")) {
