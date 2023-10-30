@@ -1,6 +1,6 @@
 import categoryGridModule from './_categorygrid.js';
 
-categoryGridModule.setupResizeListener();
+categoryGridModule.updateCategoryGridClasses();
 
 
 //Image Upload Selection of Main Image

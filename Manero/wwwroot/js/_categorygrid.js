@@ -3,11 +3,11 @@
 // On screens that are from sm to md we get "small small small large"
 // On screens bigger than md we get "small small small small large large"
 // This is to make the category-grid layout work dynamically and adapt
-// It also hands out the correct .container or ._container class to .category-container element depending on if the screen is sm or lower or not
+// It also hands out the correct .container or ._container class to .category-container element depending on if the screen is md or lower or not
 
 const categoryGridModule = (function() {
     function updateCategoryGridClasses() {
-        // Check if the categoryGrid element exists
+        // Check if the categoryGrid element exists to only run the script when the partial is visible
         const categoryGrid = document.querySelector(".category-grid");
         if (!categoryGrid) {
             return;
@@ -21,6 +21,7 @@ const categoryGridModule = (function() {
             // Checks if the category-container has the .container or ._container class and adjust accordingly
             if (categoryContainer.classList.contains("container")) {
                 categoryContainer.classList.remove("container");
+                categoryContainer.classList.add("_container")
             } else if (!categoryContainer.classList.contains("_container")){
                 categoryContainer.classList.add("_container")
             }
@@ -36,13 +37,14 @@ const categoryGridModule = (function() {
                     }
                 }
             }
-        } else if (window.matchMedia("(min-width: 576px) and (max-width: 768px)").matches) { // For sm to md breakpoint
+        } else if (window.matchMedia("(min-width: 576px) and (max-width: 767px)").matches) { // For sm to md breakpoint
 
             // Checks if the category-container has the .container or ._container class and adjust accordingly
-            if (categoryContainer.classList.contains("_container")) {
-                categoryContainer.classList.remove("_container");
-            } else if (!categoryContainer.classList.contains("container")){
-                categoryContainer.classList.add("container")
+            if (categoryContainer.classList.contains("container")) {
+                categoryContainer.classList.remove("container");
+                categoryContainer.classList.add("_container")
+            } else if (!categoryContainer.classList.contains("_container")){
+                categoryContainer.classList.add("_container")
             }
 
             // Checks if the category-item has the correct layout of small and large boxes and adjusts accordingly
@@ -61,6 +63,7 @@ const categoryGridModule = (function() {
             // Checks if the category-container has the .container or ._container class and adjust accordingly
             if (categoryContainer.classList.contains("_container")) {
                 categoryContainer.classList.remove("_container");
+                categoryContainer.classList.add("container")
             } else if (!categoryContainer.classList.contains("container")){
                 categoryContainer.classList.add("container")
             }
@@ -84,7 +87,7 @@ const categoryGridModule = (function() {
 })();
 
 function categoryGridResizeListener() {
-    // Check if the categoryGrid element exists
+    // Check if the categoryGrid element exists to only run the script when the partial is visible
     const categoryGrid = document.querySelector(".category-grid");
     if (categoryGrid) {
         categoryGridModule.updateCategoryGridClasses();
@@ -96,6 +99,6 @@ function categoryGridResizeListener() {
 
 
 // Call the categoryGridResizeListener function when the page loads
-window.addEventListener("load", categoryGridResizeListener);
+window.addEventListener("DOMContentLoaded", categoryGridResizeListener);
 
 export default categoryGridModule;

@@ -45,7 +45,6 @@
       overflow: hidden;
 
       > img {
-        aspect-ratio: inherit;
         object-fit: cover;
         height: 100%;
         width: 100%;
@@ -58,6 +57,7 @@
         font-weight: $font-weight-bold;
         color: white;
         margin-left: 20px;
+        
         @include md {
           font-size: 26px;
         }
