@@ -1,4 +1,6 @@
-﻿namespace Manero.ViewModels
+﻿using Manero.Models.Entities.ProductEntities;
+
+namespace Manero.ViewModels
 {
     public class ProductDetailsViewModel
     {
@@ -7,5 +9,7 @@
         public string? ProductDescription { get; set; }
         public decimal ProductPrice { get; set; }
         public decimal? ProductDiscount { get; set; }
-    }
+
+
+	}
 }
