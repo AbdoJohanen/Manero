@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,38 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Entities\ProductEntities\ProductReviewEntity.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="compilerconfig.json" />
-    <Content Remove="wwwroot\js\script.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Helpers\Repositories\NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\style.css" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>
-
+    <Folder Include="Controllers\" />
     <Folder Include="Helpers\Repositories\" />
     <Folder Include="Helpers\Services\" />
-    <Folder Include="Migrations\Data\" />
-    <Folder Include="Views\Partials\Components\" />
-    <Folder Include="wwwroot\assets\images\products\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\Partials\" />
     <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\assets\" />
     <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\core\" />
+    <Folder Include="wwwroot\scss\core\" />
+    <Folder Include="wwwroot\scss\components\" />
+    <Folder Include="wwwroot\scss\sections\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
-    <None Include="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>
