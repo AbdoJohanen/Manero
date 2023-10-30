@@ -10,16 +10,21 @@ public class ImageEntity
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string ImageUrl { get; set; } = null!;
 
-    [ForeignKey(nameof(ArticleNumber))]
-    public string ArticleNumber { get; set; } = null!;
+    [ForeignKey("Product")]
+    public string ProductArticleNumber { get; set; } = null!;
     public ProductEntity Product { get; set; } = null!;
+
+    public bool IsMainImage { get; set; } = false;
 
     public static implicit operator ImageModel(ImageEntity entity)
     {
-        return new ImageEntity
+        return new ImageModel
         {
             Id = entity.Id,
-            ImageUrl = entity.ImageUrl
+            ImageUrl = entity.ImageUrl,
+            IsMainImage = entity.IsMainImage,
+            ProductArticleNumber = entity.ProductArticleNumber,
+            Product = entity.Product,
         };
     }
 }

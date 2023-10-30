@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using Manero.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manero.Models.Entities.ProductEntities;
 
@@ -11,4 +11,13 @@ public class ProductCategoryEntity
 
     public int CategoryId { get; set; }
     public CategoryEntity Category { get; set; } = null!;
+
+    public static implicit operator ProductCategoryModel(ProductCategoryEntity entity)
+    {
+        return new ProductCategoryModel
+        {
+            ArticleNumber = entity.ArticleNumber,
+            CategoryId = entity.CategoryId,
+        };
+    }
 }

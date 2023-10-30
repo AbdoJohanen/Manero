@@ -1,0 +1,25 @@
+@import "../core/_variables.scss";
+
+.filters-sorting {
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: $font-weight-regular;
+    font-size: 14px;
+
+    .filters,
+    .sorting {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+.product-grid {
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
