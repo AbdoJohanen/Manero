@@ -1,21 +1,19 @@
 using Manero.Contexts;
-using Manero.Controllers;
 using Manero.Helpers.Repositories.DataRepositories;
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
+
 
 namespace Manero.Tests
 {
-    public class ProductServiceIntegrationTests
+    public class CategoryServiceIntegrationTests
     {
         private readonly CategoryService _service;
         private readonly CategoryRepository _repository;
         private readonly DataContext _context;
 
-        public ProductServiceIntegrationTests()
+        public CategoryServiceIntegrationTests()
         {
             var options = new DbContextOptionsBuilder<DataContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -45,8 +43,6 @@ namespace Manero.Tests
 
             // Kontrollera att antalet kategorimodeller matchar antalet kategorier i databasen
             Assert.Equal(2, result.Count());
-
-            // Lägg till fler specifika assertions här baserat på dina förväntningar
 
             // Rensa InMemory-databasen efter testet om det behövs
         }

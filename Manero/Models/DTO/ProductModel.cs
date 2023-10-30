@@ -21,7 +21,7 @@ namespace Manero.Models.DTO
                     return ProductPrice - (ProductPrice * (ProductDiscount.Value / 100));
                 }
 
-                return ProductPrice;
+                return null;
             }
         }
 
