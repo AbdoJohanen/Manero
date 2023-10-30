@@ -6,81 +6,15 @@
     <title>@ViewData["Title"] - Manero</title>
     <script defer src="https://kit.fontawesome.com/41c8b474e2.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script defer src="~/js/script.js"></script>
     <link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true" />
 </head>
 <body>
 
-    <div class="content" hidden>
-        @RenderBody()
-    </div>
+    @RenderBody()
 
-    <!-- Loader -->
-    <div class="loading-screen">
-        <div class="container">
-            <div class="loader"></div>
-            <div class="circle">
-                <div class="circle-full">
-                    <span class="dot"></span>
-                    <h3>MANERO</h3>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Welcome -->
-    <section class="welcome">
-        <div class="container">
-            <div class="circle">
-                <div class="circle-full">
-                    <div id="carouselWelcome" class="carousel slide">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="carousel-content d-block w-100">
-                                    <div class="carouselheading">
-                                        <div class="line"></div>
-                                        <h3>Welcome to Manero!</h3>
-                                        <p>Labore sunt culpa excepteur culpa ipsum. Labore occaecat ex nisi mollit.</p>
-                                    </div>
-                                    <button type="button" class="carouselbutton" data-bs-target="#carouselWelcome" data-bs-slide="next">Next</button>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-content d-block w-100">
-                                    <div class="carouselheading">
-                                        <div class="line"></div>
-                                        <h3>Easy Track Order!</h3>
-                                        <p>Labore sunt culpa excepteur culpa ipsum. Labore occaecat ex nisi mollit.</p>
-                                    </div>
-                                    <button type="button" class="carouselbutton" data-bs-target="#carouselWelcome" data-bs-slide="next">Next</button>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-content d-block w-100">
-                                    <div class="carouselheading">
-                                        <div class="line"></div>
-                                        <h3>Door to Door Delivery!</h3>
-                                        <p>Labore sunt culpa excepteur culpa ipsum. Labore occaecat ex nisi mollit.</p>
-                                    </div>
-                                    <a asp-action="index" asp-controller="login" type="button" class="carouselbutton">Get Started</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselWelcome" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselWelcome" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselWelcome" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>    
- 
     @await RenderSectionAsync("Scripts", required: false)
-
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script defer src="~/js/script.js"></script>
 </body>
 </html>

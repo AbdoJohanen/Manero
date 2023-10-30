@@ -1,28 +1,11 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap');
-
-// Core
+﻿// Core
 @import "./core/variables";
 @import "./core/base";
 
 
 // Components
 @import "./components/buttons";
-@import "./components/welcome";
-@import "./components/loader";
-@import "./components/product-card-small";
-@import "./components/product-card-big";
 
 
 // Sections
-@import "./sections/navbar";
-@import "./sections/showcase";
-@import "./sections/topmenu";
-@import "./sections/_featured.scss";
-@import "./sections/_banner.scss";
-@import "./components/_product-card-big.scss";
-@import "./sections/shop-view";
-@import "./sections/trackorder";
-@import "./sections/productdetails.scss";
-@import "./sections/productreviews.scss";
-
 
