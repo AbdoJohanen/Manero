@@ -522,7 +522,14 @@ html h6, body h6 {
   color: #111111;
 }
 
-.showcase-section .showcase-container {
+@media (min-width: 576px) {
+  .container {
+    max-width: none;
+    --bs-gutter-x: 0;
+  }
+}
+
+.showcase .showcase-container {
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -530,19 +537,19 @@ html h6, body h6 {
   background-color: #DBE3F5;
   aspect-ratio: 67/30;
 }
-.showcase-section .showcase-container > img {
+.showcase .showcase-container > img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
-.showcase-section .showcase-container .showcase-content {
+.showcase .showcase-container .showcase-content {
   position: absolute;
   width: calc(50% - 20px);
   margin-right: 20px;
   margin-bottom: 30px;
   max-width: 400px;
 }
-.showcase-section .showcase-container .showcase-content h2 {
+.showcase .showcase-container .showcase-content h2 {
   color: white;
   font-size: 22px;
 }
