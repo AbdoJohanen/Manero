@@ -76,14 +76,3 @@ public class ImageService
         return imageModels;
     }
 }
-//var items = await _colorRepository.GetAllAsync();
-//        if (items != null)
-//        {
-//            var colors = new List<ColorModel>();
-//            foreach (var item in items)
-//                colors.Add(item);
-
-//            return colors;
-//        }
-
-//        return null!;

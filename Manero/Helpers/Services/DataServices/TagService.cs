@@ -27,6 +27,18 @@ public class TagService
 
         return null!;
     }
+    public async Task<IEnumerable<TagModel>> GetAllTagsToModelAsync()
+    {
+        var tagEntities = await _tagRepository.GetAllAsync();
+
+        var tagModels = tagEntities.Select(tagEntity => new TagModel
+        {
+            Id = tagEntity.Id,
+            Tag = tagEntity.Tag,
+        }).ToList();
+
+        return tagModels;
+    }
 
     // Gets specific TagModel from repository
     public async Task<TagModel> GetTagAsync(int tagId)

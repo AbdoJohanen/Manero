@@ -1,73 +1,75 @@
 ﻿@using Manero.Models.DTO
 @using Manero.ViewModels;
-@*@model ProductModel*@
-@model GridCollectionViewModel
+@model ProductModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-
+    string productName = Model.ProductName;
+    if (!string.IsNullOrEmpty(productName))
+    {
+        // Konverterar första bokstaven till stor bokstav
+        productName = char.ToUpper(productName[0]) + productName.Substring(1);
+    }
 }
-@foreach (var product in Model.GridItems)
-{
+<div class="big-card-discount">
+    <a asp-route-id="@Model.ArticleNumber" class="product-card-big">
+        <div class="image-card">
 
-        <div class="big-card-discount">
-            <a asp-route-id="@product.ArticleNumber" class="product-card-big">
-                <div class="image-card">
-
-                    @if (product.Images != null)
+            @if (Model.Images != null)
+            {
+                @foreach (var image in Model.Images)
+                {
+                    if (image.IsMainImage == true)
                     {
-                        @foreach (var image in product.Images)
-                        {
-                            if (image.IsMainImage == true)
-                            {
-                                <img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" style="width: 100%; height: 200px;" alt="image">
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        <div class="image-placeholder"></div>
+                        <img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" style="width: 100%; height: 200px;" alt="image">
                     }
 
-                </div>
-                <div class="card-information">
-                    <div class="stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <span class="star-total">(3)</span>
-                    </div>
-                    <h3>@product.ProductName</h3>
-                @if(product.CalculatedPrice == product.ProductPrice)
-                {
-                    <span class="price-no-discount">$@product.ProductPrice</span>
-                }else
-                {
-                    <div class="price-detail">
-                        <span class="price">$@product.ProductPrice</span>
-                        <span class="price-discount">$@product.CalculatedPrice</span>
-                    </div>
                 }
-                </div>
-            </a>
-        @if (product.CalculatedPrice == product.ProductPrice)
-        {
-            <div class="no-sale">sale</div>
-        }else
-        {
-            <div class="sale-banner">sale</div>
-        }
-            <div class="card-menu">
-                <a class="wish-list" href="#"><i class="fa-thin fa-heart"></i></a>
-                <a class="shopping-cart" href="#"><i class="fa-thin fa-bag-shopping"></i></a>
-            </div>
-        </div>
+            }
+            else
+            {
+                <div class="image-placeholder"></div>
+            }
 
-}
+        </div>
+        <div class="card-information">
+            <div class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <span class="star-total">(3)</span>
+            </div>
+            <h3>@productName</h3>
+            @if (Model.CalculatedPrice == null)
+            {
+                <span class="price-no-discount">$@Model.ProductPrice</span>
+            }
+            else
+            {
+                <div class="price-detail">
+                    <span class="price">$@Model.ProductPrice</span>
+                    <span class="price-discount">$@Model.CalculatedPrice?.ToString("0.00")</span>
+                </div>
+            }
+        </div>
+    </a>
+    @if (Model.CalculatedPrice == null)
+    {
+        <div class="no-sale">sale</div>
+    }
+    else
+    {
+        <div class="sale-banner">sale</div>
+    }
+    <div class="card-menu">
+        <a class="wish-list" href="#"><i class="fa-thin fa-heart"></i></a>
+        <a class="shopping-cart" href="#"><i class="fa-thin fa-bag-shopping"></i></a>
+    </div>
+</div>
+
 
 
 @*<div  class="big-card-discount">
@@ -78,7 +80,7 @@
             {
                 <img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" style="width: 100%; height: 200px;" alt="image">
             }
-            
+
             @if (Model.Images != null)
             {
                 @foreach (var image in Model.Images)
@@ -93,7 +95,7 @@
             {
                 <div>@category.Category</div>
             }
-          
+
         </div>
         <div class="card-information">
             <div class="stars">

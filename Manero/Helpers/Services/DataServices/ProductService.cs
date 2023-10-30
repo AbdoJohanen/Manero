@@ -14,9 +14,13 @@ public class ProductService
     private readonly ProductCategoryRepository _productCategoryRepo;
     private readonly ImageService _imageService;
     private readonly CategoryRepository _categoryRepository;
+    private readonly TagService _tagService;
+    private readonly TagRepository _tagRepo;
+    private readonly ProductTagRepository _productTagRepo;
 
 
-    public ProductService(ProductRepository productRepository, CategoryService categoryService, ProductRepository productRepo, ProductCategoryRepository productCategoryRepo, ImageService imageService, CategoryRepository categoryRepository)
+
+    public ProductService(ProductRepository productRepository, CategoryService categoryService, ProductRepository productRepo, ProductCategoryRepository productCategoryRepo, ImageService imageService, CategoryRepository categoryRepository, TagService tagService, TagRepository tagRepo, ProductTagRepository productTagRepo)
     {
         _productRepository = productRepository;
         _categoryService = categoryService;
@@ -24,6 +28,9 @@ public class ProductService
         _productCategoryRepo = productCategoryRepo;
         _imageService = imageService;
         _categoryRepository = categoryRepository;
+        _tagService = tagService;
+        _tagRepo = tagRepo;
+        _productTagRepo = productTagRepo;
     }
 
 
@@ -69,10 +76,12 @@ public class ProductService
         var items = await _productRepo.GetAllAsync();
         var productCategories = await _productCategoryRepo.GetAllAsync();
         var productImages = await _imageService.GetAllAsync();
+        var productTags = await _productTagRepo.GetAllAsync();
 
         // Hämta kategorier med den nya metoden
-        var categories = await _categoryService.GetAllCategoriesAsync2();
+        var categories = await _categoryService.GetAllCategoriesToModelAsync();
         var images = await _imageService.GetAllImagesAsync();
+        var tags = await _tagService.GetAllTagsToModelAsync();
 
         foreach (var item in items)
         {
@@ -86,6 +95,13 @@ public class ProductService
 
             // Lägg till kategorierna i produktmodellen
             productModel.Categories = matchingCategories.ToList();
+
+            var matchingTags = productTags
+                .Where(pc => pc.ArticleNumber.ToString() == item.ArticleNumber)
+                .Select(pc => tags.FirstOrDefault(c => c.Id == pc.TagId));
+
+            // Lägg till kategorierna i produktmodellen
+            productModel.Tags = matchingTags.ToList();
 
             // Hitta bilderna som matchar den aktuella produkten
 

@@ -26,7 +26,7 @@ public class CategoryService
         }
         return null!;
     }
-    public async Task<IEnumerable<CategoryModel>> GetAllCategoriesAsync2()
+    public async Task<IEnumerable<CategoryModel>> GetAllCategoriesToModelAsync()
     {
         var categoriesEntities = await _categoryRepository.GetAllAsync();
 
@@ -34,7 +34,6 @@ public class CategoryService
         {
             Id = categoryEntity.Id,
             Category = categoryEntity.Category,
-            // Kopiera andra egenskaper om det behövs
         }).ToList();
 
         return categoriesModels;

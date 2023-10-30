@@ -1,9 +1,5 @@
-﻿@using Manero.Helpers.Services
-@using Manero.Helpers.Services.DataServices;
-@using Manero.Models.DTO;
-@using Manero.ViewModels;
-@inject ProductService productService;
-@model GridCollectionViewModel
+﻿@inject ProductService productService;
+@model HomeIndexViewModel
 
 @{
     ViewData["Title"] = "Home";
@@ -19,13 +15,112 @@
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
         </section>
 
-
-            <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" />
-           
-          
         <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
-</header> 
+</header>
+<section class="container">
+@*    <section class="big-screen-navbar">
+        <h1>Manero</h1>
+        <div class="nav-links">
+            <a href="">Home</a>
+            <a href="">Categories</a>
+            <a href="">Login</a>
+        </div>
+        <div class="icons">
+            <a href="#" class="icon"><i class="fa-regular fa-magnifying-glass"></i></a>
+            <a href="#" class="icon"><i class="fa-regular fa-bag-shopping"></i></a>
+            <a href="#" class="icon"><i class="fa-regular fa-heart"></i></a>
+        </div>
+    </section>*@
+@*    <section class="top-menu container">
+        <button class="no-style" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="offcanvas offcanvas-start text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="staticBackdropLabel">Offcanvas</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    I will not close if you click outside of me.
+                </div>
+            </div>
+        </div>
+
+        <h1>Manero</h1>
+
+        <a class="shopping-cart" href="#">
+            <div class="badge"> 5 </div>
+            <i class="fa-thin fa-bag-shopping"></i>
+        </a>
+    </section>*@
+
+
+
+    <section class="category-scroller snaps-inline">
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/314103923604_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Men</p>
+        </a>
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/315551174402_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Women</p>
+        </a>
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/315348557802_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Kids</p>
+        </a>
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/315551972102_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Sport</p>
+        </a>
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/314103923604_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Men</p>
+        </a>
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/315551174402_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Women</p>
+        </a>
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/315348557802_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Kids</p>
+        </a>
+        <a href="#" class="category-element">
+            <div class="image-container">
+                <img src="https://images.footlocker.com/is/image/FLEU/315551972102_01?wid=520&hei=520&fmt=png-alpha" alt="">
+            </div>
+            <p class="category-name">Sport</p>
+        </a>
+    </section>
+    <section class="showcase-section">
+        <div class="container" style="background-image: url('')">
+            <div class="showcase-content">
+                <h2>Take 50% off!</h2>
+                <a href="#" class="btn btn-white">SHOP NOW</a>
+            </div>
+        </div>
+    </section>
+
+    <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
+
+</section>
 
 
 

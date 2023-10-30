@@ -17,12 +17,24 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         ViewBag.ActivePage = "Home";
-        var products = new GridCollectionViewModel
+        var viewModel = new HomeIndexViewModel
         {
-            Title = "Home",
-            GridItems = (await _productService.GetAllAsync()).Take(4),
+            Featured = new GridCollectionViewModel
+            {
+                Title = "Home",
+                GridItems = (await _productService.GetAllAsync()).Take(4),
+            },
+            BestSelling = new BestSellingViewModel
+            {
+                GridItems = (await _productService.GetAllAsync()).Take(3),
+            }
         };
-        return View(products);
+        //var products = new GridCollectionViewModel
+        //{
+        //    Title = "Home",
+        //    GridItems = (await _productService.GetAllAsync()).Take(4),
+        //};
+        return View(viewModel);
     }
 
     [HttpPost]
