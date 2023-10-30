@@ -1,0 +1,24 @@
+.featured {
+    margin-bottom: 20px;
+
+    .featured-products {
+        width: 335px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+
+        @media (min-width: 768px) {
+            width: 100%;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        @media (min-width: 1050px) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    padding-bottom: 140px;
+    border-bottom: 1px solid #dbe3f5;
+}

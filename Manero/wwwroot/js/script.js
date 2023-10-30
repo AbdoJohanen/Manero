@@ -56,40 +56,43 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.error('Input element not found. Check if the selector is correct.');
     }
+
 });
 
-window.addEventListener('load', function () {
-    const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
 
-    if (!hasVisitedBefore) {
-        setTimeout(function () {
-            const loadingScreen = document.querySelector('.loading-screen');
-            loadingScreen.style.opacity = 0;
+        window.addEventListener('load', function () {
+            const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
 
-            const welcome = document.querySelector('.welcome');
-            welcome.style.opacity = 1;
+            if (!hasVisitedBefore) {
+                setTimeout(function () {
+                    const loadingScreen = document.querySelector('.loading-screen');
+                    loadingScreen.style.opacity = 0;
 
-            const content = document.querySelector('.content');
-            content.setAttribute('hidden', "");
+                    const welcome = document.querySelector('.welcome');
+                    welcome.style.opacity = 1;
+
+                    const content = document.querySelector('.content');
+                    content.setAttribute('hidden', "");
 
 
-            // Hide the loading screen after the transition
-            setTimeout(function () {
-                loadingScreen.style.display = 'none';
-                welcome.style.display = 'block';
-            }, 1000); // 1000 milliseconds (1 second)
-        }, 3000); // Delay the transition for a smoother effect
+                    // Hide the loading screen after the transition
+                    setTimeout(function () {
+                        loadingScreen.style.display = 'none';
+                        welcome.style.display = 'block';
+                    }, 1000); // 1000 milliseconds (1 second)
+                }, 3000); // Delay the transition for a smoother effect
 
-        localStorage.setItem('hasVisitedBefore', true);
+                localStorage.setItem('hasVisitedBefore', true);
 
-    } else {
-        const loadingScreen = document.querySelector('.loading-screen');
-        loadingScreen.setAttribute('hidden', "");
+            } else {
+                const loadingScreen = document.querySelector('.loading-screen');
+                loadingScreen.setAttribute('hidden', "");
 
-        const welcome = document.querySelector('.welcome');
-        welcome.setAttribute('hidden', "");
+                const welcome = document.querySelector('.welcome');
+                welcome.setAttribute('hidden', "");
 
-        const content = document.querySelector('.content');
-        content.removeAttribute('hidden', "");
-    }
-});
+                const content = document.querySelector('.content');
+                content.removeAttribute('hidden', "");
+            }
+        });
+    

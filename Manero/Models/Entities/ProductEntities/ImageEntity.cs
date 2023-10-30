@@ -22,7 +22,9 @@ public class ImageEntity
         {
             Id = entity.Id,
             ImageUrl = entity.ImageUrl,
-            IsMainImage = entity.IsMainImage
+            IsMainImage = entity.IsMainImage,
+            ProductArticleNumber = entity.ProductArticleNumber,
+            Product = entity.Product,
         };
     }
 }
