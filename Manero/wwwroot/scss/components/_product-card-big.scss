@@ -1,7 +1,9 @@
+
 .big-card,
 .big-card-disscount {
     position: relative;
     width: 160px;
+
 
     .product-card-big {
         width: 160px;
@@ -106,14 +108,18 @@
     }
 }
 
+
 .big-card-disscount {
+
 
     .price {
         text-decoration: line-through;
     }
 
+
     .price-detail {
         .price-disscount {
+
             font-size: 14px;
             font-weight: normal;
             line-height: 21px;
@@ -121,6 +127,11 @@
             text-align: left;
             color: #f4303c;
         }
+    }
+
+
+    .no-sale{
+        display:none;
     }
 
 
@@ -138,4 +149,6 @@
         top: 0;
         left: 0;
     }
+
 }
+

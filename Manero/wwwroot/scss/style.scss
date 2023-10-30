@@ -16,7 +16,11 @@
 // Sections
 @import "./sections/navbar";
 @import "./sections/topmenu";
+@import "./sections/_featured.scss";
+@import "./sections/_banner.scss";
+@import "./sections/_category-scroll.scss";
+@import "./sections/_showcase-section.scss";
+@import "./components/_product-card-big.scss";
 @import "./sections/shop-view";
-
-// Sections
 @import "./sections/trackorder";
+
