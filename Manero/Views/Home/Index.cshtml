@@ -1,0 +1,23 @@
+﻿@inject ProductService productService;
+@model HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Home";
+    var products = await productService.GetAllAsync();
+}
+
+<!-- Home -->
+<div class="home">
+    <div class="container">
+        <section class="top-menu-section">
+            <partial name="/Views/Partials/Components/_Burger.cshtml" />
+            <a href="/"><img src="~/assets/images/logo.svg"></a>
+            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+        </section>
+        <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
+        <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+    </div>
+</div>
+
+
+
