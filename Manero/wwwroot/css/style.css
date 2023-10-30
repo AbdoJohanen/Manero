@@ -526,12 +526,11 @@ html h6, body h6 {
 }
 
 @media (min-width: 576px) {
-  .container {
+  .showcase {
     max-width: none;
     --bs-gutter-x: 0;
   }
 }
-
 .showcase .showcase-container {
   position: relative;
   display: flex;
