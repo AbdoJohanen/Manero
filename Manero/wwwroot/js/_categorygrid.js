@@ -21,8 +21,8 @@ const categoryGridModule = (function() {
             // Checks if the category-container has the .container or ._container class and adjust accordingly
             if (categoryContainer.classList.contains("container")) {
                 categoryContainer.classList.remove("container");
-                categoryContainer.classList.add("_container")
-            } else if (!categoryContainer.classList.contains("_container")){
+            }
+            if (!categoryContainer.classList.contains("_container")){
                 categoryContainer.classList.add("_container")
             }
 
@@ -42,8 +42,8 @@ const categoryGridModule = (function() {
             // Checks if the category-container has the .container or ._container class and adjust accordingly
             if (categoryContainer.classList.contains("container")) {
                 categoryContainer.classList.remove("container");
-                categoryContainer.classList.add("_container")
-            } else if (!categoryContainer.classList.contains("_container")){
+            }
+            if (!categoryContainer.classList.contains("_container")){
                 categoryContainer.classList.add("_container")
             }
 
@@ -63,8 +63,8 @@ const categoryGridModule = (function() {
             // Checks if the category-container has the .container or ._container class and adjust accordingly
             if (categoryContainer.classList.contains("_container")) {
                 categoryContainer.classList.remove("_container");
-                categoryContainer.classList.add("container")
-            } else if (!categoryContainer.classList.contains("container")){
+            }
+            if (!categoryContainer.classList.contains("container")){
                 categoryContainer.classList.add("container")
             }
 
