@@ -40,4 +40,30 @@ public class ProductTagService
 
         return productTags;
     }
+
+
+    // First gets list of ProductTagModel by articleNumber
+    // Then removing the existing TagIds 
+    // Then creates new ProductTagModel by looping thru tags
+    public async Task<IEnumerable<ProductTagModel>> UpdateProductTagsAsync(string articleNumber, List<int> tags)
+    {
+        var productTags = new List<ProductTagModel>();
+        var existingTags = await _productTagRepository.GetAllAsync(x => x.ArticleNumber == articleNumber);
+
+        if (existingTags != null)
+        {
+            foreach (var tag in existingTags)
+                await _productTagRepository.DeleteAsync(tag);
+
+            foreach (var tagId in tags)
+            {
+                var updatedProductTag = await _productTagRepository.AddAsync(new ProductTagModel { ArticleNumber = articleNumber, TagId = tagId });
+                productTags.Add(updatedProductTag);
+            }
+                
+            return productTags;
+        }
+
+        return null!;
+    }
 }

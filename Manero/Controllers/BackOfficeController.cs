@@ -152,7 +152,10 @@ public class BackOfficeController : Controller
         if (!string.IsNullOrEmpty(articleNumber))
         {
             viewModel.Product = await _productService.GetProductAsync(articleNumber);
-            
+
+            var productTags = await _productTagService.GetProductWithTagsAsync();
+            viewModel.CurrentTags = productTags.Select(tag => tag.TagId).ToList();
+
             foreach (var tag in await _tagService.GetAllTagsAsync())
                 viewModel.Tags.Add(tag);
         }
@@ -165,7 +168,11 @@ public class BackOfficeController : Controller
     {
         // If UpdateProductAsync is not null then redirect to Backoffice Index
         if (await _productService.UpdateProductAsync(viewModel, articleNumber) != null)
-            return RedirectToAction("Index");
+        {
+            // Updates the ProductTag table with new information of tags but the same articleNumber
+            if (await _productTagService.UpdateProductTagsAsync(articleNumber, viewModel.SelectedTags!) != null)
+                return RedirectToAction("Index");
+        }
 
         // If something failed with update return View with error message
         ModelState.AddModelError("Model", "Something went wrong! Could not update the product");

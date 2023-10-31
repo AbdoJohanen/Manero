@@ -39,7 +39,7 @@
             @foreach (var tag in Model.Tags)
             {
                 <div class="form-group d-flex mb-2">
-                    <input name="SelectedTags" value="@tag.Id" class="form-check-input" type="checkbox" checked="@Model.Product.Tags" />
+                    <input name="SelectedTags" value="@tag.Id" class="form-check-input" type="checkbox" checked="@(Model.CurrentTags.Contains(tag.Id))" />
                     <label class="form-check-label">@tag.Tag</label>
                 </div>
             }

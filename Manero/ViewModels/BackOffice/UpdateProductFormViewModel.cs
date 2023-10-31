@@ -21,6 +21,8 @@ public class UpdateProductFormViewModel
 
     [DisplayName("Tags")]
     public List<TagModel> Tags { get; set; } = new List<TagModel>();
+    public List<int> CurrentTags { get; set; } = new List<int>();
+    public List<int>? SelectedTags { get; set; } = new List<int>();
 
     public static implicit operator ProductModel(UpdateProductFormViewModel viewModel)
     {
