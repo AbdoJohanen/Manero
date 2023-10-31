@@ -25,11 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Helpers\Repositories\" />
-    <Folder Include="Helpers\Services\" />
     <Folder Include="Migrations\Data\" />
     <Folder Include="Views\Partials\Components\" />
+    <Folder Include="wwwroot\assets\images\products\" />
+    <Folder Include="wwwroot\assets\images\users\" />
     <Folder Include="wwwroot\assets\images\products\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\scss\components\" />
@@ -49,6 +48,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Twilio" Version="6.14.1" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,64 @@
+﻿@model UserLoginViewModel
+@{
+    ViewData["Title"] = "Account";
+}
+
+<!-- Account -->
+<div class="account">
+    <div class="container">
+        <section class="top-menu-section">
+            <partial name="/Views/Partials/Components/_Burger.cshtml" />
+            <h4>My Profile</h4>
+            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+        </section>
+
+        <div class="heading">
+            <div class="line"></div>
+            <div class="updateprofile">
+                <img src="~/assets/images/theme/no-thumb.jpg">
+                <a asp-action="edit" asp-controller="account"><i class="fa-regular fa-pen-line"></i></a>
+            </div>
+            <h3>@User.Identity?.Name</h3>
+            <p>@User.Identity?.Name</p>
+        </div>
+
+        <div class="usersections">
+            <a href="/" class="usersection">
+                <div class="usersectionicon">
+                    <i class="fa-regular fa-rectangle-vertical-history"></i>
+                    <span>Order history</span>
+                </div>
+                <i class="fa-regular fa-angle-right"></i>
+            </a>
+            <a href="/" class="usersection">
+                <div class="usersectionicon">
+                    <i class="fa-regular fa-credit-card"></i>
+                    <span>Payment method</span>
+                </div>
+                <i class="fa-regular fa-angle-right"></i>
+            </a>
+            <a href="/" class="usersection">
+                <div class="usersectionicon">
+                    <i class="fa-regular fa-location-dot"></i>
+                    <span>My address</span>
+                </div>
+                <i class="fa-regular fa-angle-right"></i>
+            </a>
+            <a href="/" class="usersection">
+                <div class="usersectionicon">
+                    <i class="fa-regular fa-gift"></i>
+                    <span>My promocodes</span>
+                </div>
+                <i class="fa-regular fa-angle-right"></i>
+            </a>
+            <a asp-action="logout" asp-controller="account" asp-asp-controller="home" class="usersection">
+                <div class="usersectionicon">
+                    <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                    <span>Sign out</span>
+                </div>
+            </a>
+        </div>        
+    </div>
+</div>
+
+<partial name="/Views/Partials/Sections/_Navbar.cshtml" />

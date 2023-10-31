@@ -1,11 +1,12 @@
 ﻿using Manero.Models.Entities.UserEntities;
-using Microsoft.AspNetCore.Identity;
 
-namespace Manero.Models.Identity;
+namespace Manero.Models.DTO;
 
-public class AppUser : IdentityUser
+public class Profile
 {
+    public Guid Id { get; set; }
     public string Name { get; set; } = null!;
+    public string? PhoneNumber { get; set; }
     public string? ImageUrl { get; set; }
     public ICollection<UserAddressEntity> Addresses { get; set; } = new HashSet<UserAddressEntity>();
 }
