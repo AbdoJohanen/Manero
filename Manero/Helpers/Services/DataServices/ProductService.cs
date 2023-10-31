@@ -33,6 +33,11 @@ public class ProductService
         _productTagRepo = productTagRepo;
     }
 
+    public ProductService() 
+    {
+
+    }
+
 
     // Sends ProductModel from view to repository
     public async Task<ProductModel> CreateProductAsync(ProductModel model)
