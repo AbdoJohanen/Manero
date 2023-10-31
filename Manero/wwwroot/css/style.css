@@ -367,12 +367,12 @@ html h6, body h6 {
 }
 
 .big-card,
-.big-card-disscount {
+.big-card-discount {
   position: relative;
   width: 160px;
 }
 .big-card .product-card-big,
-.big-card-disscount .product-card-big {
+.big-card-discount .product-card-big {
   width: 160px;
   height: 248px;
   display: block;
@@ -380,17 +380,17 @@ html h6, body h6 {
   color: #111111;
 }
 .big-card .product-card-big .image-card .image-placeholder,
-.big-card-disscount .product-card-big .image-card .image-placeholder {
+.big-card-discount .product-card-big .image-card .image-placeholder {
   width: 160px;
   height: 170px;
   background-color: #DBE3F5;
 }
 .big-card .product-card-big .card-information a,
-.big-card-disscount .product-card-big .card-information a {
+.big-card-discount .product-card-big .card-information a {
   text-decoration: none;
 }
 .big-card .product-card-big .card-information .stars i,
-.big-card-disscount .product-card-big .card-information .stars i {
+.big-card-discount .product-card-big .card-information .stars i {
   color: #FFBE00;
   width: 10px;
   height: 9.5px;
@@ -398,7 +398,7 @@ html h6, body h6 {
   margin-top: 13px;
 }
 .big-card .product-card-big .card-information .stars .star-total,
-.big-card-disscount .product-card-big .card-information .stars .star-total {
+.big-card-discount .product-card-big .card-information .stars .star-total {
   margin-left: 8px;
   font-size: 16px;
   font-weight: normal;
@@ -408,7 +408,7 @@ html h6, body h6 {
   color: #626262;
 }
 .big-card .product-card-big .card-information h3,
-.big-card-disscount .product-card-big .card-information h3 {
+.big-card-discount .product-card-big .card-information h3 {
   font-family: "Mulish", sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -420,7 +420,7 @@ html h6, body h6 {
   margin-bottom: 6px;
 }
 .big-card .product-card-big .card-information .price,
-.big-card-disscount .product-card-big .card-information .price {
+.big-card-discount .product-card-big .card-information .price {
   font-size: 14px;
   font-weight: normal;
   line-height: 21px;
@@ -429,7 +429,7 @@ html h6, body h6 {
   color: #111111;
 }
 .big-card .card-menu,
-.big-card-disscount .card-menu {
+.big-card-discount .card-menu {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -439,33 +439,33 @@ html h6, body h6 {
   gap: 18px;
 }
 .big-card .card-menu a,
-.big-card-disscount .card-menu a {
+.big-card-discount .card-menu a {
   color: #111111;
   text-decoration: none;
 }
 .big-card .card-menu .shopping-cart i,
-.big-card-disscount .card-menu .shopping-cart i {
+.big-card-discount .card-menu .shopping-cart i {
   transition: 0.3s ease-in-out;
 }
 .big-card .card-menu .shopping-cart i:hover,
-.big-card-disscount .card-menu .shopping-cart i:hover {
+.big-card-discount .card-menu .shopping-cart i:hover {
   color: #111111;
   font-weight: 700;
 }
 .big-card .card-menu .wish-list i,
-.big-card-disscount .card-menu .wish-list i {
+.big-card-discount .card-menu .wish-list i {
   transition: 0.3s ease-in-out;
 }
 .big-card .card-menu .wish-list i:hover,
-.big-card-disscount .card-menu .wish-list i:hover {
+.big-card-discount .card-menu .wish-list i:hover {
   color: #F4303C;
   font-weight: 700;
 }
 
-.big-card-disscount .price {
+.big-card-discount .price {
   text-decoration: line-through;
 }
-.big-card-disscount .price-detail .price-disscount {
+.big-card-discount .price-detail .price-discount {
   font-size: 14px;
   font-weight: normal;
   line-height: 21px;
@@ -473,10 +473,10 @@ html h6, body h6 {
   text-align: left;
   color: #f4303c;
 }
-.big-card-disscount .no-sale {
+.big-card-discount .no-sale {
   display: none;
 }
-.big-card-disscount .sale-banner {
+.big-card-discount .sale-banner {
   background-color: #69864D;
   color: white;
   width: 33px;
@@ -813,12 +813,12 @@ html h6, body h6 {
 }
 
 .big-card,
-.big-card-disscount {
+.big-card-discount {
   position: relative;
   width: 160px;
 }
 .big-card .product-card-big,
-.big-card-disscount .product-card-big {
+.big-card-discount .product-card-big {
   width: 160px;
   height: 248px;
   display: block;
@@ -826,17 +826,17 @@ html h6, body h6 {
   color: #111111;
 }
 .big-card .product-card-big .image-card .image-placeholder,
-.big-card-disscount .product-card-big .image-card .image-placeholder {
+.big-card-discount .product-card-big .image-card .image-placeholder {
   width: 160px;
   height: 170px;
   background-color: #DBE3F5;
 }
 .big-card .product-card-big .card-information a,
-.big-card-disscount .product-card-big .card-information a {
+.big-card-discount .product-card-big .card-information a {
   text-decoration: none;
 }
 .big-card .product-card-big .card-information .stars i,
-.big-card-disscount .product-card-big .card-information .stars i {
+.big-card-discount .product-card-big .card-information .stars i {
   color: #FFBE00;
   width: 10px;
   height: 9.5px;
@@ -844,7 +844,7 @@ html h6, body h6 {
   margin-top: 13px;
 }
 .big-card .product-card-big .card-information .stars .star-total,
-.big-card-disscount .product-card-big .card-information .stars .star-total {
+.big-card-discount .product-card-big .card-information .stars .star-total {
   margin-left: 8px;
   font-size: 16px;
   font-weight: normal;
@@ -854,7 +854,7 @@ html h6, body h6 {
   color: #626262;
 }
 .big-card .product-card-big .card-information h3,
-.big-card-disscount .product-card-big .card-information h3 {
+.big-card-discount .product-card-big .card-information h3 {
   font-family: "Mulish", sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -866,7 +866,7 @@ html h6, body h6 {
   margin-bottom: 6px;
 }
 .big-card .product-card-big .card-information .price,
-.big-card-disscount .product-card-big .card-information .price {
+.big-card-discount .product-card-big .card-information .price {
   font-size: 14px;
   font-weight: normal;
   line-height: 21px;
@@ -875,7 +875,7 @@ html h6, body h6 {
   color: #111111;
 }
 .big-card .card-menu,
-.big-card-disscount .card-menu {
+.big-card-discount .card-menu {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -885,33 +885,33 @@ html h6, body h6 {
   gap: 18px;
 }
 .big-card .card-menu a,
-.big-card-disscount .card-menu a {
+.big-card-discount .card-menu a {
   color: #111111;
   text-decoration: none;
 }
 .big-card .card-menu .shopping-cart i,
-.big-card-disscount .card-menu .shopping-cart i {
+.big-card-discount .card-menu .shopping-cart i {
   transition: 0.3s ease-in-out;
 }
 .big-card .card-menu .shopping-cart i:hover,
-.big-card-disscount .card-menu .shopping-cart i:hover {
+.big-card-discount .card-menu .shopping-cart i:hover {
   color: #111111;
   font-weight: 700;
 }
 .big-card .card-menu .wish-list i,
-.big-card-disscount .card-menu .wish-list i {
+.big-card-discount .card-menu .wish-list i {
   transition: 0.3s ease-in-out;
 }
 .big-card .card-menu .wish-list i:hover,
-.big-card-disscount .card-menu .wish-list i:hover {
+.big-card-discount .card-menu .wish-list i:hover {
   color: #F4303C;
   font-weight: 700;
 }
 
-.big-card-disscount .price {
+.big-card-discount .price {
   text-decoration: line-through;
 }
-.big-card-disscount .price-detail .price-disscount {
+.big-card-discount .price-detail .price-discount {
   font-size: 14px;
   font-weight: normal;
   line-height: 21px;
@@ -919,10 +919,10 @@ html h6, body h6 {
   text-align: left;
   color: #f4303c;
 }
-.big-card-disscount .no-sale {
+.big-card-discount .no-sale {
   display: none;
 }
-.big-card-disscount .sale-banner {
+.big-card-discount .sale-banner {
   background-color: #69864D;
   color: white;
   width: 33px;
