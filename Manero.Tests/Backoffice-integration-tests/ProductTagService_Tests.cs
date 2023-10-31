@@ -41,4 +41,19 @@ public class ProductTagService_Tests
 
         Assert.Equal(tags.Count(), productTags.Count());
     }
+
+    [Fact]
+    public async Task GetProductWithTagsAsync_Should_ReturnListOfProductTagModel_When_ExecutedCorrectly()
+    {
+        // Arrange
+        var productTag = new ProductTagModel() { ArticleNumber = "Test-1", TagId = 1 };
+        await _repository.AddAsync(productTag);
+
+        // Act
+        var result = await _service.GetProductWithTagsAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<List<ProductTagModel>>(result);
+    }
 }

@@ -145,6 +145,33 @@ public class BackOfficeController : Controller
         return View(viewModel);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> UpdateProduct(string articleNumber)
+    {
+        var viewModel = new UpdateProductFormViewModel();
+        if (!string.IsNullOrEmpty(articleNumber))
+        {
+            viewModel.Product = await _productService.GetProductAsync(articleNumber);
+            
+            foreach (var tag in await _tagService.GetAllTagsAsync())
+                viewModel.Tags.Add(tag);
+        }
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateProduct(UpdateProductFormViewModel viewModel, string articleNumber)
+    {
+        // If UpdateProductAsync is not null then redirect to Backoffice Index
+        if (await _productService.UpdateProductAsync(viewModel, articleNumber) != null)
+            return RedirectToAction("Index");
+
+        // If something failed with update return View with error message
+        ModelState.AddModelError("Model", "Something went wrong! Could not update the product");
+        return View(viewModel);
+    }
+
     [HttpPost]
     public async Task<IActionResult> DeleteProduct(string articleNumber)
     {

@@ -26,10 +26,17 @@ public class ProductService
     }
 
 
-    // Finds specific ProductModel with expression from repository
+    // Finds specific ProductModel using a ProductModel with expression from repository
     public async Task<ProductModel> GetProductAsync(ProductModel product)
     {
         var _product = await _productRepository.GetAsync(x => x.ArticleNumber == product.ArticleNumber);
+        return _product!;
+    }
+
+    // Finds specific ProductModel using a articleNumber with expression from repository
+    public async Task<ProductModel> GetProductAsync(string articleNumber)
+    {
+        var _product = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
         return _product!;
     }
 
@@ -45,6 +52,25 @@ public class ProductService
                 products.Add(item);
 
             return products;
+        }
+
+        return null!;
+    }
+
+    // Finds product (item) using articleNumber, then replaces values of that item with new values from product
+    public async Task<ProductModel> UpdateProductAsync(ProductModel product, string articleNumber)
+    {
+        var item = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
+        if (item != null)
+        {
+            product.ArticleNumber = item.ArticleNumber;
+
+            item.ProductName = product.ProductName ?? item.ProductName;
+            item.ProductDescription = product.ProductDescription ?? item.ProductDescription;
+            item.ProductPrice = (product.ProductPrice != 0) ? product.ProductPrice : item.ProductPrice;
+            item.ProductDiscount = product.ProductDiscount ?? item.ProductDiscount;
+
+            return await _productRepository.UpdateAsync(item);
         }
 
         return null!;

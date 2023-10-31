@@ -36,4 +36,52 @@ public class ProductService_Tests
         Assert.NotNull(result);
         Assert.IsType<ProductModel>(result);
     }
+
+    [Fact]
+    public async Task GetProductAsync_Should_ReturnProductModel_When_ProductExistsInDatabase()
+    {
+        // Arrange
+        var product = new ProductModel() { ArticleNumber = "Test-1", ProductName = "Test" };
+        await _service.CreateProductAsync(product);
+
+        // Act
+        var result = await _service.GetProductAsync(product.ArticleNumber);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<ProductModel>(result);
+        Assert.Equal(product.ArticleNumber, result.ArticleNumber);
+    }
+
+    [Fact]
+    public async Task DeleteProductAsync_Should_ReturnTrue_If_ProductIsDeleted()
+    {
+        // Arrange
+        var product = new ProductModel() { ArticleNumber = "Test-1", ProductName = "Test", ProductPrice = 0 };
+        await _service.CreateProductAsync(product);
+
+        // Act
+        var result = await _service.DeleteProductAsync(product.ArticleNumber);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public async Task UpdateProductAsync_should_ReturnUpdatedProduct_When_UpdatedSuccessfully()
+    {   
+        // Arrange
+        var product = new ProductModel() { ArticleNumber = "Test-1", ProductName = "Test" };
+        var newProduct = new ProductModel() { ProductName = "Test-2" };
+        await _service.CreateProductAsync(product);
+
+        // Act
+        var result = await _service.UpdateProductAsync(newProduct, product.ArticleNumber);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<ProductModel>(result);
+        Assert.NotEqual(product.ProductName, result.ProductName);
+        Assert.Equal(product.ArticleNumber, result.ArticleNumber);
+    }
 }

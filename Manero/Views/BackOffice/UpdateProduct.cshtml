@@ -1,0 +1,53 @@
+﻿@model UpdateProductFormViewModel
+
+@{
+    ViewData["Title"] = "Backoffice - Update Product";
+}
+
+<div class="container d-flex justify-content-center flex-column mt-5 w-75">
+    <h2 class="mb-4">Update Product - @Model.Product.ProductName</h2>
+
+    <form asp-action="UpdateProduct" asp-controller="BackOffice" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ProductName"></label>
+            <input asp-for="ProductName" class="form-control" placeholder="@Model.Product.ProductName" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ProductDescription"></label>
+            @if (Model.Product.ProductDescription != null)
+            {
+                <textarea asp-for="ProductDescription" class="form-control" placeholder="@Model.Product.ProductDescription"></textarea>
+            }
+            <textarea asp-for="ProductDescription" class="form-control" placeholder="No Description found!"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ProductPrice"></label>
+            <input asp-for="ProductPrice" class="form-control" placeholder="@Model.Product.ProductPrice" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ProductDiscount"></label>
+            <input asp-for="ProductDiscount" class="form-control" placeholder="@Model.Product.ProductDiscount" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="mb-3" asp-for="Tags"></label>
+            @foreach (var tag in Model.Tags)
+            {
+                <div class="form-group d-flex mb-2">
+                    <input name="SelectedTags" value="@tag.Id" class="form-check-input" type="checkbox" checked="@Model.Product.Tags" />
+                    <label class="form-check-label">@tag.Tag</label>
+                </div>
+            }
+        </div>
+
+        <div class="d-grid">
+            <input type="hidden" name="articleNumber" value="@Model.Product.ArticleNumber" />
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
