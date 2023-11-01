@@ -1,4 +1,6 @@
-﻿
+﻿@using Manero.Models.DTO
+@using Manero.ViewModels;
+@model ProductModel
 
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-theme="dark">
     <div class="carousel-indicators">
@@ -7,7 +9,25 @@
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item">
+			@if (Model.Images != null)
+			{
+				@foreach (var image in Model.Images)
+				{
+					if (image.IsMainImage == true)
+					{
+						<img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" alt="image">
+					}
+
+				}
+			}
+			else
+			{
+				<div class="image-placeholder"></div>
+			}
+        </div>
+
+@*        <div class="carousel-item active">
             <img src="~/assets/images/products/product-details-img.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
@@ -15,6 +35,6 @@
         </div>
         <div class="carousel-item">
             <img src="~/assets/images/products/productImage3.png" class="d-block w-100" alt="...">
-        </div>
+        </div>*@
     </div>
 </div>

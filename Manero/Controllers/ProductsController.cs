@@ -17,26 +17,12 @@ namespace Manero.Controllers
 			_productService = productService;
 		}
 
-		public async Task<IActionResult> Index (ProductModel product)
+        public async Task<IActionResult> Index(string id)
         {
-	/*		var _product = await _productService.GetProductAsync(product);
 
-			if (_product == null)
-			{
-				
-			}
-
-			var viewModel = new ProductDetailsViewModel
-			{
-*//*				ArticleNumber = product.ArticleNumber,
-				ProductName = product.ProductName,
-				ProductDescription = product.ProductDescription,
-				ProductPrice = product.ProductPrice,
-				ProductDiscount = product.ProductDiscount*//*
-			};
-*/
-			return View(/*viewModel*/);
+            var productModel = await _productService.GetAsync(id);
+            
+            return View(productModel);
         }
-
     }
 }

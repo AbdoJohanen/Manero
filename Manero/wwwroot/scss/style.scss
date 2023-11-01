@@ -16,9 +16,7 @@
 // Sections
 @import "./sections/navbar";
 @import "./sections/topmenu";
-@import "./sections/trackorder";
-@import "./sections/productdetails.scss";
-@import "./sections/productreviews.scss";
+
 @import "./sections/_featured.scss";
 @import "./sections/_banner.scss";
 @import "./sections/_category-scroll.scss";
@@ -26,4 +24,6 @@
 @import "./components/_product-card-big.scss";
 @import "./sections/shop-view";
 @import "./sections/trackorder";
+@import "./sections/productdetails.scss";
+@import "./sections/productreviews.scss";
 
