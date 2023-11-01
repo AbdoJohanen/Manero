@@ -151,13 +151,36 @@ public class BackOfficeController : Controller
         var viewModel = new UpdateProductFormViewModel();
         if (!string.IsNullOrEmpty(articleNumber))
         {
+            // Gets the product the admin selected for updating
             viewModel.Product = await _productService.GetProductAsync(articleNumber);
 
+            // Gets all product tags, catgeories, colors and sizes 
             var productTags = await _productTagService.GetProductWithTagsAsync();
+            var productCategories = await _productCategoryService.GetProductWithCategoriesAsync();
+            var productColors = await _productColorService.GetProductWithColorsAsync();
+            var productSizes = await _productSizeService.GetProductWithSizesAsync();
+            
+            // Uses select to add current tags, categories, colors by selecting with id
             viewModel.CurrentTags = productTags.Select(tag => tag.TagId).ToList();
+            viewModel.CurrentCategories = productCategories.Select(category => category.CategoryId).ToList();
+            viewModel.CurrentColors = productColors.Select(color => color.ColorId).ToList();
+            viewModel.CurrentSizes = productSizes.Select(size => size.SizeId).ToList();
 
+            // Populates the list of Tags in viewModel
             foreach (var tag in await _tagService.GetAllTagsAsync())
                 viewModel.Tags.Add(tag);
+
+            // Populates the list of Categories in viewModel
+            foreach (var category in await _categoryService.GetAllCategoriesAsync())
+                viewModel.Categories.Add(category);
+
+            // Populates the list of Colors in viewModel
+            foreach (var color in await _colorService.GetAllColorsAsync())
+                viewModel.Colors.Add(color);
+
+            // Populates the list of Sizes in viewModel
+            foreach (var size in await _sizeService.GetAllSizesAsync())
+                viewModel.Sizes.Add(size);
         }
 
         return View(viewModel);
@@ -171,7 +194,17 @@ public class BackOfficeController : Controller
         {
             // Updates the ProductTag table with new information of tags but the same articleNumber
             if (await _productTagService.UpdateProductTagsAsync(articleNumber, viewModel.SelectedTags!) != null)
-                return RedirectToAction("Index");
+            
+            // Updates the productCategory table with new information of categories but the same articleNumber
+            if (await _productCategoryService.UpdateProductCategoriesAsync(articleNumber, viewModel.SelectedCategories!) != null)
+
+            // Updates the productColor table with new information of colors but the same articleNumber
+            if (await _productColorService.UpdateProductColorsAsync(articleNumber, viewModel.SelectedColors!) != null)
+
+            // updates the productSize table with new information of sizes but the same articleNumber
+            if (await _productSizeService.UpdateProductSizesAsync(articleNumber, viewModel.SelectedSizes!) != null)
+
+            return RedirectToAction("Index");
         }
 
         // If something failed with update return View with error message

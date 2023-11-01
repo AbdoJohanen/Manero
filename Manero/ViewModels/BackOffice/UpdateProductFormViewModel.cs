@@ -24,6 +24,21 @@ public class UpdateProductFormViewModel
     public List<int> CurrentTags { get; set; } = new List<int>();
     public List<int>? SelectedTags { get; set; } = new List<int>();
 
+    [DisplayName("Categories")]
+    public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+    public List<int> CurrentCategories { get; set; } = new List<int>();
+    public List<int>? SelectedCategories { get; set; } = new List<int>();
+
+    [DisplayName("Colors")]
+    public List<ColorModel> Colors { get; set; } = new List<ColorModel>();
+    public List<int> CurrentColors { get; set; } = new List<int>();
+    public List<int>? SelectedColors { get; set; } = new List<int>();
+
+    [DisplayName("Sizes")]
+    public List<SizeModel> Sizes { get; set; } = new List<SizeModel>();
+    public List<int> CurrentSizes { get; set; } = new List<int>();
+    public List<int>? SelectedSizes { get; set; } = new List<int>();
+
     public static implicit operator ProductModel(UpdateProductFormViewModel viewModel)
     {
         return new ProductModel
