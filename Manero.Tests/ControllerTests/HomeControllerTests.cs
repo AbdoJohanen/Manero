@@ -6,7 +6,6 @@ using Manero.Models.DTO;
 using Manero.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,8 +45,9 @@ namespace Manero.Tests.ControllerTests
                 new TagRepository(context),
                 new ProductTagRepository(context)
             );
+            var categoryService = new CategoryService(new CategoryRepository(context));
 
-            var controller = new HomeController(productService);
+            var controller = new HomeController(productService, categoryService);
 
             // Act
             var result = await controller.Index();
@@ -56,7 +56,7 @@ namespace Manero.Tests.ControllerTests
             Assert.IsType<ViewResult>(result); // Se till att det är en ViewResult
 
             var viewResult = result as ViewResult;
-            var viewModel = viewResult.Model as HomeIndexViewModel;
+            var viewModel = viewResult!.Model as HomeIndexViewModel;
 
 
             Assert.NotNull(viewModel);

@@ -14,7 +14,18 @@
             <a href="/"><img src="~/assets/images/logo.svg"></a>
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
         </section>
-
+        @foreach (var category in Model.Categories!)
+        {
+            if (category != null)
+            {
+                <div>@category.Category</div>
+            }
+            else
+            {
+                <div>category</div>
+            }
+        }
+        <div>hallo</div>
         <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
 </header>

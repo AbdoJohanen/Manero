@@ -123,6 +123,55 @@ public class ProductService
 
         return products;
     }
+    public async Task<IEnumerable<ProductModel>> GetAllAsync(int id)
+    {
+        var products = new List<ProductModel>();
+
+        var items = await _productRepo.GetAllAsync();
+        var productCategories = await _productCategoryRepo.GetAllAsync();
+        var productImages = await _imageService.GetAllAsync();
+        var productTags = await _productTagRepo.GetAllAsync();
+
+        // Hämta kategorier med den nya metoden
+        var categories = await _categoryService.GetAllCategoriesToModelAsync();
+        var images = await _imageService.GetAllImagesAsync();
+        var tags = await _tagService.GetAllTagsToModelAsync();
+
+        foreach (var item in items)
+        {
+            // Skapa en produktmodell baserad på produktinformationen
+            ProductModel productModel = item;
+
+            // Hitta produktkategorierna som matchar den aktuella produkten
+            var matchingCategories = productCategories
+                .Where(pc => pc.ArticleNumber.ToString() == item.ArticleNumber)
+                .Select(pc => categories.FirstOrDefault(c => c.Id == pc.CategoryId));
+
+            // Lägg till kategorierna i produktmodellen
+            productModel.Categories = matchingCategories.ToList();
+
+            var matchingTags = productTags
+                .Where(pc => pc.ArticleNumber.ToString() == item.ArticleNumber)
+                .Select(pc => tags.FirstOrDefault(c => c.Id == pc.TagId));
+
+            // Lägg till kategorierna i produktmodellen
+            productModel.Tags = matchingTags.ToList();
+
+            // Hitta bilderna som matchar den aktuella produkten
+
+            var matchingImages = productImages
+               .Where(pc => pc.ProductArticleNumber.ToString() == item.ArticleNumber)
+               .Select(pc => images.FirstOrDefault(c => c.Id == pc.Id));
+
+            // Lägg till bilderna i produktmodellen
+            productModel.Images = matchingImages.ToList();
+
+            // Lägg till produkten i listan av produkter
+            products.Add(productModel);
+        }
+
+        return products;
+    }
 
     // Takes article number from view and finds then sends to delete() to repository
     public async Task<bool> DeleteProductAsync(string articleNumber)
