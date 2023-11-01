@@ -9,10 +9,12 @@ namespace Manero.Controllers;
 public class HomeController : Controller
 {
     private readonly ProductService _productService;
+    private readonly CategoryService _categoryService;
 
-    public HomeController(ProductService productService)
+    public HomeController(ProductService productService, CategoryService categoryService)
     {
         _productService = productService;
+        _categoryService = categoryService;
     }
 
     public async Task<IActionResult> Index()
@@ -20,6 +22,7 @@ public class HomeController : Controller
         ViewBag.ActivePage = "Home";
         var viewModel = new HomeIndexViewModel
         {
+            Categories = await _categoryService.GetAllCategoriesAsync(),
             Featured = new GridCollectionViewModel
             {
                 Title = "Home",
