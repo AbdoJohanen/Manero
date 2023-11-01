@@ -1,6 +1,6 @@
 ﻿@import "../core/_variables.scss";
 
-.account {
+.account-section {
 
     .container {
         position: relative;
@@ -26,6 +26,16 @@
                 margin-bottom: 15px;
             }
 
+            & h3 {
+                color: $color-main-black;
+                margin: 0 !important;
+            }
+
+            & p {
+                text-transform: lowercase;
+                /*margin-bottom: 70%;*/
+            }
+
             & .editprofilebtn {
                 position: relative;
                 border: 2px solid #DBE3F5;
@@ -41,6 +51,7 @@
                     margin-bottom: 50px;
                     width: 100%;
                     height: 100%;
+                    border-radius: 50%;
                     object-fit: cover;
                 }
 
@@ -139,6 +150,132 @@
                         justify-content: center;
                         border: 1px solid black;
                         border-radius: 50%;
+                    }
+                }
+            }
+        }
+
+        & #editProfileForm {
+            display: grid;
+            width: 100%;
+            gap: 20px;
+            margin-bottom: 30px;
+
+            & .heading {
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+
+                & .line {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 30px;
+                    border-left: 2px solid black;
+                    margin: auto;
+                    margin-bottom: 15px;
+                }
+
+                & .uploadimage {
+                    position: relative;
+                    border: 2px solid #DBE3F5;
+                    border-radius: 50%;
+                    margin: auto;
+                    width: 120px;
+                    height: 120px;
+                    margin-bottom: 20px;
+
+                    & img {
+                        position: relative;
+                        margin: auto;
+                        margin-bottom: 50px;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    & label {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: absolute;
+                        bottom: 0;
+                        right: 0px;
+                        text-decoration: none;
+                        background-color: #DBE3F5;
+                        color: #626262;
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+
+                        & i {
+                            color: #626262;
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+
+            & .input {
+                position: relative;
+                display: flex;
+
+                & label {
+                    background-color: white;
+                    position: absolute;
+                    left: 20px;
+                    top: -8px;
+                    padding: 0 10px 0 10px;
+                    font-size: 12px;
+                    color: #626262;
+                }
+
+                & input {
+                    width: 100%;
+                    height: 50px;
+                    border-radius: 30px;
+                    border-color: #DBE3F5;
+                    border-style: solid;
+                    padding-left: 20px;
+                }
+
+                & .verifyphonenumber {
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    background-color: rgb(251, 233, 179);
+                    color: $color-main-black;
+                    width: 120px;
+                    height: 30px;
+                    border: 1px solid $color-main-black;
+                    border-radius: 30px;
+
+                    & input {
+                        cursor: pointer;
+                    }
+                }
+
+                & .phonenumberverified {
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    color: rgb(22, 81, 54);
+                    width: 120px;
+                    height: 30px;
+                    font-style: italic;
+
+                    & input {
+                        cursor: pointer;
                     }
                 }
             }

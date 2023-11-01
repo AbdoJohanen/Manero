@@ -103,7 +103,7 @@ public class UserService
     {
         try
         {
-            string imagePath = $"{_webHostEnvironment.WebRootPath}/images/users/{user.Id}_{Path.GetFileName(image!.FileName).Replace(" ", "_")}";
+            string imagePath = $"{_webHostEnvironment.WebRootPath}/assets/images/users/{user.Id}_{Path.GetFileName(image!.FileName).Replace(" ", "_")}";
 
             using var stream = new FileStream(imagePath, FileMode.Create);
             await image.CopyToAsync(stream);

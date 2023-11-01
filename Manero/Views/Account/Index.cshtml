@@ -1,10 +1,10 @@
-﻿@model UserLoginViewModel
+﻿@model Profile
 @{
     ViewData["Title"] = "Account";
 }
 
 <!-- Account -->
-<div class="account">
+<div class="account-section">
     <div class="container">
         <section class="top-menu-section">
             <partial name="/Views/Partials/Components/_Burger.cshtml" />
@@ -14,12 +14,12 @@
 
         <div class="heading">
             <div class="line"></div>
-            <div class="updateprofile">
-                <img src="~/assets/images/theme/no-thumb.jpg">
+            <div class="editprofilebtn">
+                <img src="~/assets/images/users/@Model.ImageUrl">
                 <a asp-action="edit" asp-controller="account"><i class="fa-regular fa-pen-line"></i></a>
             </div>
-            <h3>@User.Identity?.Name</h3>
-            <p>@User.Identity?.Name</p>
+            <h3>@Model.Name</h3>
+            <p>@Model.Email</p> 
         </div>
 
         <div class="usersections">

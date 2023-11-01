@@ -4,41 +4,58 @@
 }
 
 <!-- Edit Profile -->
-<div class="editprofile">
+<div class="account-section">
     <div class="container">
-        <div class="breadcrumb">
+        <section class="top-menu-section">
             <span><a asp-action="index" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
             <h4>Edit profile</h4>
-        </div>
+        </section>
 
         <form id='editProfileForm' enctype="multipart/form-data" method="post">
             <div class="heading">
                 <div class="line"></div>
                 <div class="uploadimage">
-                    <img src="~/images/users/no-thumb.jpg">
-                    <label asp-for="ProfilePicture"><i class=" fa-regular fa-camera"></i></label>
-                    <input asp-for="ProfilePicture" />
+                    <img src="~/assets/images/users/@Model.ImageUrl">
+                    <label asp-for="ProfilePicture"><i class="fa-regular fa-camera"></i></label>
+                    <input asp-for="ProfilePicture"/>
                 </div>
             </div>
             <div class="input">
-                <label for="name">NAME</label>
-                <input for="name" value="Name">
+                <label asp-for="Name">NAME</label>
+                <input asp-for="Name" required>
             </div>
             <div class="input">
-                <label for="email">EMAIL</label>
-                <input for="email" value="email@domain.com">
+                <label asp-for="Email">EMAIL</label>
+                <input asp-for="Email" id="emailInput">
             </div>
             <div class="input">
-                <label for="phoneNumber">PHONE NUMBER</label>
-                <a asp-action="phonenumber" asp-controller="account"><input for="phoneNumber" value="@ViewBag.PhoneNumber"></a>
+                <label asp-for="PhoneNumber">PHONE NUMBER</label>
+                <input asp-for="PhoneNumber">
+                @if (!Model.PhoneNumberConfirmed)
+                {
+                    <a href="@Url.Action("phonenumber", "account", new { phoneNumber = Model.PhoneNumber })" type="button" class="verifyphonenumber">verify</a>
+                }
+                else
+                {
+                    <span class="phonenumberverified">verified</span>
+                }
             </div>
             <div class="input">
-                <label for="address">LOCATION</label>
-                <a asp-action="adress" asp-controller="account"><input for="address" value="@ViewBag.Adress"></a>
+                <label for="Address">LOCATION</label>
+                <a asp-action="address" asp-controller="account"><input for="address" ></a>
             </div>
-            <button class="button-blck" type="submit">SAVE CHANGES</button>
+            <button class="btn btn-dark" type="submit">SAVE CHANGES</button>
         </form>
     </div>
 </div> 
 
 <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+
+@* <script>
+    $(document).ready(function () {
+        var name = "@Model.Name";
+        $('#nameInput').attr('placeholder', name);
+        var email = "@Model.Email";
+        $('#emailInput').attr('placeholder', email);
+    });
+</script> *@

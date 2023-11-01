@@ -6,29 +6,32 @@ namespace Manero.ViewModels.User;
 
 public class EditProfileViewModel
 {
-    public Guid Id { get; set; }
+    public string? Id { get; set; }
 
     [Display(Name = "Name")]
-    [Required(ErrorMessage = "You must enter a name.")]
-    public string Name { get; set; } = null!;
+    //[Required(ErrorMessage = "You must enter a name.")]
+    public string? Name { get; set; } = null!;
 
     [Display(Name = "Street Name")]
-    [Required(ErrorMessage = "You must enter a street name.")]
-    public string StreetName { get; set; } = null!;
+    //[Required(ErrorMessage = "You must enter a street name.")]
+    public string? StreetName { get; set; }
 
     [Display(Name = "Postal Code")]
-    [Required(ErrorMessage = "You must enter a postal code.")]
-    public string PostalCode { get; set; } = null!;
+    //[Required(ErrorMessage = "You must enter a postal code.")]
+    public string? PostalCode { get; set; }
 
     [Display(Name = "City")]
-    [Required(ErrorMessage = "You must enter a city.")]
-    public string City { get; set; } = null!;
+    //[Required(ErrorMessage = "You must enter a city.")]
+    public string? City { get; set; }
 
     [Display(Name = "PhoneNumber")]
     public string? PhoneNumber { get; set; }
 
+    [Display(Name = "PhoneNumberConfirmed")]
+    public bool PhoneNumberConfirmed { get; set; } = false;
+
     [Display(Name = "E-mail Address")]
-    [Required(ErrorMessage = "You must enter an e-mail address.")]
+    //[Required(ErrorMessage = "You must enter an e-mail address.")]
     [RegularExpression(@"^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Your must enter a valid e-mail address.")]
     [DataType(DataType.EmailAddress)]
     public string Email { get; set; } = null!;
@@ -45,7 +48,7 @@ public class EditProfileViewModel
         var appUser = new AppUser
         {
             UserName = model.Email,
-            Name = model.Name,
+            Name = model.Name!,
             Email = model.Email,
             PhoneNumber = model.PhoneNumber,
         };
@@ -63,9 +66,9 @@ public class EditProfileViewModel
     {
         return new AddressEntity
         {
-            StreetName = model.StreetName,
-            PostalCode = model.PostalCode,
-            City = model.City
+            StreetName = model.StreetName!,
+            PostalCode = model.PostalCode!,
+            City = model.City!
         };
     }
 
