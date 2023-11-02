@@ -1,9 +1,9 @@
 ﻿using Manero.Models.Entities.UserEntities;
 using Microsoft.AspNetCore.Identity;
 
-namespace Manero.Models.Identity;
+namespace Manero.Models.DTO;
 
-public class AppUser : IdentityUser
+public class Profile : IdentityUser
 {
     public string Name { get; set; } = null!;
     public string? ImageUrl { get; set; }

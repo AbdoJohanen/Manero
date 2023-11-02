@@ -1,48 +1,49 @@
-﻿@model UserLoginViewModel
+﻿@model UserRegisterViewModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Sign Up";
 }
 
-<!-- Login -->
-<div class="login-section">
+<div class="register-section">
     <div class="container">
         <section class="top-menu-section">
             <span><a href="/"><i class="fa-regular fa-angle-left"></i></a></span>
-            <h4>Sign In</h4>
+            <h4>Sign Up</h4>
         </section>
-        
+
         <div class="heading">
             <div class="line"></div>
-            <h1>Welcome Back!</h1>
-            <p>Sign in to continue</p>
+            <h1>Sign Up</h1>
         </div>
 
-        <form id='loginForm' method="post" class="was-validated" asp-route-ReturnUrl="@Model.ReturnUrl">
+        <form id='registerForm' enctype="multipart/form-data" method="post" class="was-validated">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="input">
+                <label asp-for="Name">NAME</label>
+                <input asp-for="Name" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="Name"></span></small>
+            </div>
+            <div class="input">
                 <label asp-for="Email">EMAIL</label>
                 <input asp-for="Email" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="Email"></span></small>
             </div>
             <div class="input">
                 <label asp-for="Password">PASSWORD</label>
                 <input asp-for="Password" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="Password"></span></small>
             </div>
-            <div class="check">                    
-                <div class="checkbox">                    
-                    <input asp-for="RememberMe" type="checkbox">
-                    <label asp-for="RememberMe">Remember me</label>
-                </div>
-                <div class="recover">                    
-                    <a href="/recover">Forgot password?</a>
-                </div>
+            <div class="input">
+                <label asp-for="ConfirmPassword">CONFIRM PASSWORD</label>
+                <input asp-for="ConfirmPassword" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="ConfirmPassword"></span></small>
             </div>
-            <button class="btn btn-dark">SIGN IN</button>
+            <button class="btn btn-dark" type="submit">SIGN UP</button>
         </form>
 
         <div class="signuplink">
-            <p>Don't have an account? <a asp-action="index" asp-controller="register">Sign up.</a></p>
+            <p>Already have an account? <a asp-action="index" asp-controller="login">Sign in.</a></p>
         </div>
 
         <div class="alternativelogin">
