@@ -17,11 +17,7 @@
 
         <div class="form-group mb-3">
             <label asp-for="ProductDescription"></label>
-            @if (Model.Product.ProductDescription != null)
-            {
-                <textarea asp-for="ProductDescription" class="form-control" placeholder="@Model.Product.ProductDescription"></textarea>
-            }
-            <textarea asp-for="ProductDescription" class="form-control" placeholder="No Description found!"></textarea>
+            <textarea asp-for="ProductDescription" class="form-control" placeholder="@Model.Product.ProductDescription"></textarea>
         </div>
 
         <div class="form-group mb-3">
@@ -32,6 +28,32 @@
         <div class="form-group mb-3">
             <label asp-for="ProductDiscount"></label>
             <input asp-for="ProductDiscount" class="form-control" placeholder="@Model.Product.ProductDiscount" />
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="CurrentImages"></label>
+            @if (Model.CurrentImages.Any())
+            {
+                @foreach (var image in Model.CurrentImages)
+                {
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="@Url.Content("~/assets/images/products/" + image.ImageUrl)" class="card-img-top d-block me-4" style="width: 100px; height: 56px;" alt="image" />
+                        <input type="hidden" name="articleNumber" value="@Model.Product.ArticleNumber" />
+                        <input type="hidden" name="imageId" value="@image.Id" />
+                        <div class="d-flex flex-column ">
+                            <div class="form-group d-flex align-items-center justify-content-center mb-2">
+                                <input name="imageId" value="@image.Id" type="radio" checked="@(image.IsMainImage == true)">
+                                <label class="ms-2">Main image</label>
+                            </div>
+                            <button asp-action="DeleteImage" asp-controller="BackOffice" class="btn btn-sm btn-danger" style="width: 86px; height: 32px;">Delete</button>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-danger">No images found for product!</div>
+            }
         </div>
 
         <div class="form-group mb-3">

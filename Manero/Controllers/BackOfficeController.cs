@@ -76,7 +76,9 @@ public class BackOfficeController : Controller
 
             // Gets Main Image and adds the image to the ProductModel
             product.Images = new List<ImageModel>();
-            product.Images.Add(await _imageService.GetMainImageAsync(product.ArticleNumber));
+            foreach (var image in await _imageService.GetAllProductImagesAsync(product.ArticleNumber))
+                if (image != null)
+                    product.Images.Add(image);
 
             // Adds ProductModel to list of ProductModel in View Model
             viewModel.Products.Add(product);
@@ -146,7 +148,7 @@ public class BackOfficeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> UpdateProduct(string articleNumber)
+    public async Task<IActionResult> UpdateProduct(string articleNumber, string errorMessage)
     {
         var viewModel = new UpdateProductFormViewModel();
         if (!string.IsNullOrEmpty(articleNumber))
@@ -165,6 +167,7 @@ public class BackOfficeController : Controller
             viewModel.CurrentCategories = productCategories.Select(category => category.CategoryId).ToList();
             viewModel.CurrentColors = productColors.Select(color => color.ColorId).ToList();
             viewModel.CurrentSizes = productSizes.Select(size => size.SizeId).ToList();
+            viewModel.CurrentImages = await _imageService.GetAllProductImagesAsync(articleNumber);
 
             // Populates the list of Tags in viewModel
             foreach (var tag in await _tagService.GetAllTagsAsync())
@@ -183,6 +186,9 @@ public class BackOfficeController : Controller
                 viewModel.Sizes.Add(size);
         }
 
+        if (!string.IsNullOrEmpty(errorMessage))
+            ModelState.AddModelError("", errorMessage);
+
         return View(viewModel);
     }
 
@@ -190,7 +196,8 @@ public class BackOfficeController : Controller
     public async Task<IActionResult> UpdateProduct(UpdateProductFormViewModel viewModel, string articleNumber)
     {
         // If UpdateProductAsync is not null then redirect to Backoffice Index
-        if (await _productService.UpdateProductAsync(viewModel, articleNumber) != null)
+        var product = await _productService.UpdateProductAsync(viewModel, articleNumber);
+        if (product != null)
         {
             // Updates the ProductTag table with new information of tags but the same articleNumber
             if (await _productTagService.UpdateProductTagsAsync(articleNumber, viewModel.SelectedTags!) != null)
@@ -208,8 +215,7 @@ public class BackOfficeController : Controller
         }
 
         // If something failed with update return View with error message
-        ModelState.AddModelError("Model", "Something went wrong! Could not update the product");
-        return View(viewModel);
+        return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not update product!" });
     }
 
     [HttpPost]
@@ -222,6 +228,15 @@ public class BackOfficeController : Controller
         // If delete fail, display error
         ModelState.AddModelError("", "Something went wrong, could not delete!");
         return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteImage(string imageId, string articleNumber)
+    {
+        if (await _imageService.DeleteImageAsync(imageId))
+            return RedirectToAction("UpdateProduct", new { articleNumber });
+
+        return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not remove image..." });
     }
 
     private async Task PopulateViewModelAsync(CreateProductFormViewModel viewModel)

@@ -1,5 +1,6 @@
 ﻿using Manero.Models.DTO;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Manero.ViewModels.BackOffice;
 
@@ -18,6 +19,13 @@ public class UpdateProductFormViewModel
 
     [DisplayName("Product Discount")]
     public decimal? ProductDiscount { get; set; }
+
+    [Display(Name = "Upload new Images")]
+    [DataType(DataType.Upload)]
+    public List<IFormFile>? Images { get; set; }
+
+    [DisplayName("Current Images")]
+    public IEnumerable<ImageModel> CurrentImages { get; set; } = new HashSet<ImageModel>();
 
     [DisplayName("Tags")]
     public List<TagModel> Tags { get; set; } = new List<TagModel>();

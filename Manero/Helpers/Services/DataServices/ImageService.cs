@@ -47,4 +47,22 @@ public class ImageService
 
         return null!;
     }
+
+    public async Task<IEnumerable<ImageModel>> GetAllProductImagesAsync(string articleNumber)
+    {
+        var items = new List<ImageModel>();
+        foreach (var image in await _imageRepository.GetAllAsync(x => x.ProductArticleNumber == articleNumber))
+            items.Add(image);
+
+        return items;    
+    }
+
+    public async Task<bool> DeleteImageAsync(string ImageId)
+    {
+        var image = await _imageRepository.GetAsync(x => x.Id == ImageId);
+        if (image != null)
+            return await _imageRepository.DeleteAsync(image);
+            
+        return false;
+    }
 }

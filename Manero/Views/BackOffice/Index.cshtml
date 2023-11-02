@@ -22,9 +22,19 @@
                 {
                     <div class="col-md-3 mb-4">
                         <div class="card col p-0" style="width: 18rem;">
-                            @foreach (var image in product.Images)
+                            @if (product.Images.Any())
                             {
-                                <img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" style="width: 100%; height: 200px;" alt="image">
+                                @foreach (var image in product.Images)
+                                {
+                                    @if (image.IsMainImage)
+                                    {
+                                        <img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" style="width: 100%; height: 200px;" alt="image">
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-danger">No image was found!</div>
                             }
                             <div class="card-body">
                                 <h5 class="card-title">@product.ProductName</h5>
