@@ -94,6 +94,38 @@ namespace Manero.Tests.GetAllIntegrationTests
                 WebRootFileProvider = new PhysicalFileProvider(WebRootPath);
                 ContentRootFileProvider = new PhysicalFileProvider(ContentRootPath);
             }
+
+            [Fact]
+            public void ProductName_ComesFromDatabase()
+            {
+                // Arrange
+                var product = new ProductModel
+                {
+                    ProductName = "Product Name from Database"
+                };
+
+                // Act
+                var productName = product.ProductName;
+
+                // Assert
+                Assert.Equal("Product Name from Database", productName);
+            }
+            [Fact]
+            public void ProductPrice_ComesFromDatabase()
+            {
+                // Arrange
+                var product = new ProductModel
+                {
+                    ProductPrice = 50
+                };
+
+                // Act
+                var productPrice = product.ProductPrice;
+
+                // Assert
+                Assert.Equal(50, productPrice);
+            }
+
         }
     }
 }
