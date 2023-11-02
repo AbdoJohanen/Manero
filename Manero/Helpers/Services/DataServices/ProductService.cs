@@ -82,10 +82,7 @@ public class ProductService
             var images = await _imageService.GetAllImagesAsync();
 
 
-            var matchingImages = images
-            .Where(image => image.ProductArticleNumber == product.ArticleNumber)
-            //.Select(image => images.FirstOrDefault(c => c.Id == image.Id))
-            .ToList();
+            var matchingImages = images.Where(image => image.ProductArticleNumber == product.ArticleNumber).ToList();
 
 
 
