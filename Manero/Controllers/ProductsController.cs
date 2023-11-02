@@ -20,7 +20,7 @@ namespace Manero.Controllers
         public async Task<IActionResult> Index(string id)
         {
 
-            var productModel = await _productService.GetAsync(id);
+            var productModel = await _productService.GetProductWithImagesAsync(id);
             
             return View(productModel);
         }
