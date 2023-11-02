@@ -1,11 +1,8 @@
-.container {
+.showcase {
     @include sm {
         max-width: none;
         --bs-gutter-x: 0;
     }
-}
-
-.showcase {
 
     .showcase-container {
         position: relative;
