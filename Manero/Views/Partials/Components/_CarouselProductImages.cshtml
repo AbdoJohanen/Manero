@@ -14,18 +14,20 @@
 			{
 				@foreach (var image in Model.Images)
 				{
-					if (image.IsMainImage == true)
-					{
+					
+					
 						<img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" alt="image">
-					}
+					
 
 				}
 			}
 			else
 			{
-				<div class="image-placeholder"></div>
+				<div class="image-placeholder">HEJSAN</div>
 			}
         </div>
+
+
 
 @*        <div class="carousel-item active">
             <img src="~/assets/images/products/product-details-img.png" class="d-block w-100" alt="...">
@@ -38,3 +40,19 @@
         </div>*@
     </div>
 </div>
+
+@if (Model.Images != null)
+{
+	@foreach (var image in Model.Images)
+	{
+
+
+		<img src="./assets/images/products/@image.ImageUrl" class="card-img-top d-block" alt="image">
+
+
+	}
+}
+else
+{
+	<div class="image-placeholder">HEJSAN</div>
+}

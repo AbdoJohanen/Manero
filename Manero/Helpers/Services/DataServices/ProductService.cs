@@ -98,23 +98,70 @@ public class ProductService
                 Images = new List<ImageModel>()
             };
 
-            /*            if (matchingImages != null)
-                        {
-                            foreach (var image in matchingImages)
-                            {
-                                productModel.Images.Add(image);
-                            }
-                        }*/
-
             if (matchingImages != null)
             {
-                productModel.Images.AddRange(matchingImages);
+                foreach (var image in matchingImages)
+                {
+                    productModel.Images.Add(image);
+                }
             }
+
+/*            if (matchingImages != null)
+            {
+                productModel.Images.AddRange(matchingImages);
+            }*/
 
             return productModel;
         }
         return null!;
     }
+
+    public async Task<ProductModel> GetProductWithImagesAsync(string id)
+    {
+
+        var item = await _productRepo.GetAsync(x => x.ArticleNumber == id);
+
+        if (item == null)
+        {
+            return null;
+        }
+
+
+        var productImages = await _imageService.GetAllImagesAsync(id);
+        var images = await _imageService.GetAllImagesAsync();
+
+
+        ProductModel productModel = item;
+
+
+        var matchingImages = productImages
+           .Select(pi => images.FirstOrDefault(img => img.Id == pi.Id));
+
+        productModel.Images = matchingImages.ToList();
+
+        return productModel;
+    }
+
+    /*    public async Task<ProductEntity> GetAsync(string id)
+        {
+            var categoriesEntities = new List<CategoryEntity>();
+            var productCategories = await _productCategoryRepo.GetAllAsync();
+            var categories = await _categoryRepo.GetAllAsync();
+            var product = await _productRepo.GetAsync(x => x.ArticleNumber == id);
+            foreach (var _item in productCategories)
+            {
+                foreach (var category in categories)
+                {
+                    var categoryEntity = new CategoryEntity
+                    {
+                        CategoryName = category.CategoryName,
+                        Id = category.Id,
+                    };
+                    categoriesEntities.Add(categoryEntity);
+                }
+            }
+            return product;
+        }*/
 
 
 
