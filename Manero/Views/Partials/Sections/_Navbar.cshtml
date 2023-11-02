@@ -5,9 +5,8 @@
             <a class="page @(ViewBag.ActivePage == "Search" ? "active" : "")" type="button" asp-action="index" asp-controller="search"><i class="fa-regular fa-magnifying-glass"></i></a>
             <a class="page @(ViewBag.ActivePage == "Cart" ? "active" : "")" type="button" asp-action="index" asp-controller="cart"><i class="fa-regular fa-bag-shopping"></i></a>
             <a class="page @(ViewBag.ActivePage == "Wish" ? "active" : "")" type="button" asp-action="index" asp-controller="wish"><i class="fa-regular fa-heart"></i></a>
-            <a class="page @(ViewBag.ActivePage == "Login" ? "active" : "")" type="button" asp-action="index" asp-controller="login"><i class="fa-light fa-user-bounty-hunter"></i></a>
 
-            @*         @if (signInManager.IsSignedIn(User))
+            @if (signInManager.IsSignedIn(User))
             {
                 <a class="page @(ViewBag.ActivePage == "Account" ? "active" : "")" type="button" asp-action="index" asp-controller="account"><i class="fa-solid fa-user-bounty-hunter"></i></a>
             }
@@ -18,8 +17,8 @@
 
             @if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
             {
-                <a class="page @(ViewBag.ActivePage == "Admin" ? "active" : "")" type="button" asp-action="index" asp-controller="admin"><i class="fa-solid fa-crown"></i></a>
-            } *@
+                <a class="page @(ViewBag.ActivePage == "BackOffice" ? "active" : "")" type="button" asp-action="index" asp-controller="backoffice"><i class="fa-solid fa-crown"></i></a>
+            }
         </div>
     </div>
 </section>

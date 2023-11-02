@@ -6,6 +6,10 @@
 @using Manero.Helpers.Services
 @using Manero.Models.DTO;
 @using Manero.ViewModels;
+@using Manero.ViewModels.User;
+
+@inject SignInManager<AppUser> signInManager
+@inject UserManager<AppUser> userManager
 
 @namespace Manero.Views
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

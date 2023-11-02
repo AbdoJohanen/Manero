@@ -17,9 +17,13 @@
 @import "./sections/navbar";
 @import "./sections/showcase";
 @import "./sections/topmenu";
-@import "./sections/featured.scss";
-@import "./sections/banner.scss";
-@import "./components/product-card-big.scss";
+@import "./sections/register";
+@import "./sections/login";
+@import "./sections/account";
+@import "./sections/verifyphonenumber";
+@import "./sections/_featured.scss";
+@import "./sections/_banner.scss";
+@import "./components/_product-card-big.scss";
 @import "./sections/shop-view";
 @import "./sections/trackorder";
 @import "./sections/productdetails.scss";
