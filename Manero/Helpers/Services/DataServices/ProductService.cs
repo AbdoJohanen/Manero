@@ -73,6 +73,32 @@ public class ProductService
 
         return null!;
     }
+    public async Task<ProductModel> GetProductWithImagesAsync(string id)
+    {
+        // Hämta produkten med det angivna artikelnumret
+        var item = await _productRepo.GetAsync(x => x.ArticleNumber == id);
+
+        if (item == null)
+        {
+            return null; // Produkten finns inte
+        }
+
+        // Hämta alla bilder som matchar den aktuella produkten
+        var productImages = await _imageService.GetAllImagesAsync(id);
+        var images = await _imageService.GetAllImagesAsync();
+
+        // Skapa en produktmodell baserad på produktinformationen
+        ProductModel productModel = item;
+
+        // Hitta bilderna som matchar den aktuella produkten
+        var matchingImages = productImages
+           .Select(pi => images.FirstOrDefault(img => img.Id == pi.Id));
+
+        // Lägg till bilderna i produktmodellen
+        productModel.Images = matchingImages.ToList();
+
+        return productModel;
+    }
 
     public async Task<IEnumerable<ProductModel>> GetAllAsync()
     {
