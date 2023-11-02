@@ -1,3 +1,7 @@
+import categoryGridModule from './_categorygrid.js';
+
+categoryGridModule.updateCategoryGridClasses();
+
 //This function is showing "Welcome" screen when user open app first time
 window.addEventListener('load', function () {
     const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
