@@ -57,8 +57,6 @@ public class CreateProductFormValidationTests
     {
         var mock = new Mock<IFormFile>();
         mock.Setup(f => f.FileName).Returns(fileName);
-        // You can add other properties and methods as needed
-
         return mock.Object;
     }
 
