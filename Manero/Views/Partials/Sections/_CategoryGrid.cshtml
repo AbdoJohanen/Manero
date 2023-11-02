@@ -1,32 +1,12 @@
-﻿<section class="category-grid">
+﻿@model HomeIndexViewModel
+
+<section class="category-grid">
     <div class="category-container">
-        <a href="#" class="category-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/8da820ce75ce425a86971d6d8327bb89/c951e96039db4a4684a1b925efb971c2.jpg" alt="">
-            <h3 class="category-name">Dresses</h3>
-        </a>
-        <a href="#" class="category-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/dcc375de72b947aeb4e8ce0eac94758e/62bc2091fe9b4eb3b504971b341d22a6.jpg" alt="">
-            <h3 class="category-name">Banana</h3>
-        </a>
-        <a href="#" class="category-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/ae589f2e168a4e21bbb52a8025c1bf28/5a0228c08a3a43f38e9d9cfd6e92c17b.jpg" alt="">
-            <h3 class="category-name">Orange</h3>
-        </a>
-        <a href="#" class="category-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/c0b53fa635e932ef86dfc00dd79988d1/fcec9deaf340477e900ae29f9bf6d6a3.jpg" alt="">
-            <h3 class="category-name">Pear</h3>
-        </a>
-        <a href="#" class="category-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/da4504092d5542aba513b7b6cdfe6431/1e97fbb3e6544718b93f9bb125732747.jpg" alt="">
-            <h3 class="category-name">Apple</h3>
-        </a>
-        <a href="#" class="category-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/6424074e50ef4cc68543a14e5cfe1b3b/8d867f658a654bcc981cfdb8b8a1319b.jpg" alt="">
-            <h3 class="category-name">Watermelon</h3>
-        </a>
-        <a href="#" class="category-item">
-            <img src="https://img01.ztat.net/article/spp-media-p1/dd7217ce1afb4aa2aba6c940ef844768/c66720860d7546b3813b1b98869843b1.jpg" alt="">
-            <h3 class="category-name">Coconut</h3>
-        </a>
+        @foreach (var category in Model.Categories!) {
+            <a href="/shop?category=@category.Category" class="category-item">
+                @*<img src="" alt="">*@
+                <h3 class="category-name">@category.Category</h3>
+            </a>
+        }
     </div>
 </section>
