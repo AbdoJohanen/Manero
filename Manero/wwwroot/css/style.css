@@ -1303,3 +1303,68 @@ html h6, body h6 {
 .category-grid ._container .category-item:hover {
   background-color: #798094;
 }
+
+.snaps-inline {
+  scroll-snap-type: inline mandatory;
+  scroll-padding-inline: 3.5%;
+}
+.snaps-inline > * {
+  scroll-snap-align: start;
+}
+
+.category-scroller {
+  padding-left: 20px;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 3.5%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  /* Hide the scrollbar by making it transparent */
+}
+.category-scroller::-webkit-scrollbar {
+  display: none;
+}
+.category-scroller .category-element {
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+}
+.category-scroller .category-element .content-container {
+  font-size: 14px;
+  text-decoration: none;
+}
+.category-scroller .category-element .content-container .active {
+  background-color: #DBE3F5;
+}
+.category-scroller .category-element .content-container .pill-shape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  height: 30px;
+}
+.category-scroller .category-element .content-container .pill-shape .category-name {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0;
+  color: #111111;
+  font-weight: 600;
+}
+.category-scroller .category-element .category-container {
+  display: grid;
+  justify-items: center;
+  text-decoration: none;
+}
+.category-scroller .category-element .category-container > img {
+  box-shadow: 0 0 4px 1px rgba(17, 17, 17, 0.2);
+  background-color: white;
+  object-fit: cover;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+.category-scroller .category-element .category-container .category-name {
+  margin: 0;
+  color: #111111;
+  font-weight: 600;
+}
