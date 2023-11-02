@@ -72,49 +72,7 @@ public class ProductService
 
 
     //Product Details
-    public async Task<ProductModel> GetAsync(string id)
-    {
-        var product = await _productRepo.GetAsync(x => x.ArticleNumber == id);
-
-        if (product != null)
-        {
-
-            var images = await _imageService.GetAllImagesAsync();
-
-
-            var matchingImages = images.Where(image => image.ProductArticleNumber == product.ArticleNumber).ToList();
-
-
-
-            // Create a new ProductModel and populate it with the product details and matching images
-            var productModel = new ProductModel
-
-            {
-                ArticleNumber = product.ArticleNumber,
-                ProductName = product.ProductName,
-                ProductDescription = product.ProductDescription,
-                ProductPrice = product.ProductPrice,
-                ProductDiscount = product.ProductDiscount,
-                Images = new List<ImageModel>()
-            };
-
-            if (matchingImages != null)
-            {
-                foreach (var image in matchingImages)
-                {
-                    productModel.Images.Add(image);
-                }
-            }
-
-/*            if (matchingImages != null)
-            {
-                productModel.Images.AddRange(matchingImages);
-            }*/
-
-            return productModel;
-        }
-        return null!;
-    }
+ 
 
     public async Task<ProductModel> GetProductWithImagesAsync(string id)
     {
@@ -142,26 +100,7 @@ public class ProductService
         return productModel;
     }
 
-    /*    public async Task<ProductEntity> GetAsync(string id)
-        {
-            var categoriesEntities = new List<CategoryEntity>();
-            var productCategories = await _productCategoryRepo.GetAllAsync();
-            var categories = await _categoryRepo.GetAllAsync();
-            var product = await _productRepo.GetAsync(x => x.ArticleNumber == id);
-            foreach (var _item in productCategories)
-            {
-                foreach (var category in categories)
-                {
-                    var categoryEntity = new CategoryEntity
-                    {
-                        CategoryName = category.CategoryName,
-                        Id = category.Id,
-                    };
-                    categoriesEntities.Add(categoryEntity);
-                }
-            }
-            return product;
-        }*/
+  
 
 
 
