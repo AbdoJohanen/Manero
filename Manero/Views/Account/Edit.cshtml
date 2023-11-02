@@ -15,9 +15,9 @@
             <div class="heading">
                 <div class="line"></div>
                 <div class="uploadimage">
-                    <img src="~/assets/images/users/@Model.ImageUrl">
+                    <img id="imagePreview" src="~/assets/images/users/@Model.ImageUrl">
                     <label asp-for="ProfilePicture"><i class="fa-regular fa-camera"></i></label>
-                    <input asp-for="ProfilePicture"/>
+                    <input asp-for="ProfilePicture" onchange="previewImage(event)" />
                 </div>
             </div>
             <div class="input">
@@ -42,7 +42,7 @@
             </div>
             <div class="input">
                 <label for="Address">LOCATION</label>
-                <a asp-action="address" asp-controller="account"><input for="address" ></a>
+                <a asp-action="address" asp-controller="account" class="addresses"><input for="address" ></a>
             </div>
             <button class="btn btn-dark" type="submit">SAVE CHANGES</button>
         </form>
@@ -51,11 +51,13 @@
 
 <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
 
-@* <script>
-    $(document).ready(function () {
-        var name = "@Model.Name";
-        $('#nameInput').attr('placeholder', name);
-        var email = "@Model.Email";
-        $('#emailInput').attr('placeholder', email);
-    });
-</script> *@
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var output = document.getElementById('imagePreview');
+            output.src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

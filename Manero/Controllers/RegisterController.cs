@@ -1,5 +1,7 @@
 ﻿using Manero.Helpers.Services.UserServices;
+using Manero.Models.Identity;
 using Manero.ViewModels.User;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manero.Controllers;
@@ -8,16 +10,24 @@ public class RegisterController : Controller
 {
     private readonly AuthService _auth;
     private readonly UserService _userService;
+    private readonly SignInManager<AppUser> _signInManager;
 
-    public RegisterController(AuthService auth, UserService userService)
+    public RegisterController(AuthService auth, UserService userService, SignInManager<AppUser> signInManager)
     {
         _auth = auth;
         _userService = userService;
+        _signInManager = signInManager;
     }
 
     public IActionResult Index()
     {
         ViewBag.ActivePage = "Register";
+
+        if (_signInManager.IsSignedIn(User))
+        {
+            // If the user is signed in, redirect to the account page
+            return RedirectToAction("index", "account");
+        }
         return View();
     }
 

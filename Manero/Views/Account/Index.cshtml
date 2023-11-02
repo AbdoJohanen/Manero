@@ -51,13 +51,29 @@
                 </div>
                 <i class="fa-regular fa-angle-right"></i>
             </a>
-            <a asp-action="logout" asp-controller="account" asp-asp-controller="home" class="usersection">
+            <a class="usersection" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <div class="usersectionicon">
                     <i class="fa-regular fa-arrow-right-from-bracket"></i>
                     <span>Sign out</span>
                 </div>
             </a>
-        </div>        
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog mymodal">
+                <div class="modal-content mymodal-content">
+                    <div class="mymodal-body">
+                        <div class="line"></div>
+                        <h4 class="modal-title">Are you sure you want to sign out ?</h4>
+                    </div>
+                    <div class="mymodal-footer">
+                        <a type="button" asp-action="logout" asp-controller="account" asp-asp-controller="login" class="btn btn-dark">SURE</a>
+                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>       
     </div>
 </div>
 

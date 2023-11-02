@@ -56,6 +56,7 @@ public class AccountController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpGet]
     public async Task<IActionResult> Edit(Profile profile)
     {
         ViewBag.ActivePage = "Account";
@@ -101,7 +102,7 @@ public class AccountController : Controller
                 user.PhoneNumber = model.PhoneNumber!;
 
                 if (model.ProfilePicture  != null) 
-                {                    
+                {
                     await _userService.UploadImageAsync(user, model.ProfilePicture!);
                     user.ImageUrl = $"{user.Id}_{Path.GetFileName(model.ProfilePicture.FileName).Replace(" ", "_")}";
                 }

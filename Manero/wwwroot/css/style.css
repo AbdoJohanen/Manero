@@ -495,7 +495,7 @@ html h6, body h6 {
   background-color: white;
   border-top: 1px solid #DBE3F5;
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   padding: 10px 20px 35px 20px;
   width: 100%;
 }
@@ -994,13 +994,13 @@ html h6, body h6 {
   right: 0px;
   text-decoration: none;
   background-color: #DBE3F5;
-  color: #626262;
+  color: #191919;
   border-radius: 50%;
   width: 40px;
   height: 40px;
 }
 .account-section .container .heading .editprofilebtn a i {
-  color: #626262;
+  color: #191919;
   font-size: 14px;
 }
 .account-section .container .heading h3 {
@@ -1012,7 +1012,7 @@ html h6, body h6 {
 }
 .account-section .container .heading p {
   font-size: 14px;
-  color: #626262;
+  color: #191919;
 }
 .account-section .container .usersections {
   display: flex;
@@ -1031,12 +1031,13 @@ html h6, body h6 {
   padding: 0 20px 0 40px;
   border-top: 1px solid #DBE3F5;
   text-decoration: none;
-  color: #626262;
+  color: #191919;
 }
 .account-section .container .usersections .usersection .usersectionicon {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   gap: 33px;
 }
 .account-section .container .usersections .usersection .usersectionicon i {
@@ -1048,28 +1049,63 @@ html h6, body h6 {
   font-weight: 600;
   color: #111111 !important;
 }
-.account-section .container .usersections .modal {
-  position: absolute;
+.account-section .container .modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-top: 15%;
+}
+.account-section .container .modal .mymodal {
+  display: flex;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 50%;
+  align-items: center;
+  z-index: 2;
+  margin: auto;
   width: 335px;
   height: 335px;
-  margin: auto;
+  border: 4px solid white;
+  border-radius: 50%;
 }
-.account-section .container .usersections .modal .modal-dialog {
+.account-section .container .modal .mymodal .mymodal-content {
   display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 50%;
   width: 292px;
   height: 292px;
-  border: 1px solid black;
-  border-radius: 50% !important;
+  padding: 0px;
+  gap: 20px;
 }
-.account-section .container .usersections .modal .modal-dialog .mmodal-content {
+.account-section .container .modal .mymodal .mymodal-content .mymodal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px 0 30px;
+}
+.account-section .container .modal .mymodal .mymodal-content .mymodal-body .line {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 50%;
+  align-items: center;
+  height: 30px;
+  border-left: 2px solid black;
+  color: #707070;
+  margin: auto;
+  margin-bottom: 15px;
+}
+.account-section .container .modal .mymodal .mymodal-content .mymodal-body h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111111;
+}
+.account-section .container .modal .mymodal .mymodal-content .mymodal-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.account-section .container .modal .mymodal .mymodal-content .mymodal-footer a, .account-section .container .modal .mymodal .mymodal-content .mymodal-footer button {
+  width: 140px;
+  font-size: 14px;
 }
 .account-section .container #editProfileForm {
   display: grid;
@@ -1181,6 +1217,13 @@ html h6, body h6 {
   font-style: italic;
 }
 .account-section .container #editProfileForm .input .phonenumberverified input {
+  cursor: pointer;
+}
+.account-section .container #editProfileForm .input .addresses {
+  text-decoration: none;
+  width: 100%;
+}
+.account-section .container #editProfileForm .input .addresses input {
   cursor: pointer;
 }
 
