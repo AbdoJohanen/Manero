@@ -31,13 +31,16 @@
             <div class="input">
                 <label asp-for="PhoneNumber">PHONE NUMBER</label>
                 <input asp-for="PhoneNumber">
-                @if (!Model.PhoneNumberConfirmed)
+                @if (!string.IsNullOrEmpty(Model.PhoneNumber))
                 {
-                    <a href="@Url.Action("phonenumber", "account", new { phoneNumber = Model.PhoneNumber })" type="button" class="verifyphonenumber">verify</a>
-                }
-                else
-                {
-                    <span class="phonenumberverified">verified</span>
+                    @if (!Model.PhoneNumberConfirmed)
+                    {
+                        <a href="@Url.Action("phonenumber", "account", new { phoneNumber = Model.PhoneNumber })" type="button" class="verifyphonenumber">verify</a>
+                    }
+                    else
+                    {
+                        <span class="phonenumberverified">verified</span>
+                    }
                 }
             </div>
             <div class="input">

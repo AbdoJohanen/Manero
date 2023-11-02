@@ -16,7 +16,7 @@ public class UserLoginViewModel
     [Display(Name = "Keep me logged in")]
     public bool RememberMe { get; set; } = false;
 
-    public string ReturnUrl { get; set; } = "/";
+    public string ReturnUrl { get; set; } = "/account";
 
     public static implicit operator AppUser(UserLoginViewModel model)
     {
