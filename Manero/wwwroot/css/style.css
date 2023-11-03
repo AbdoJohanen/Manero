@@ -1868,3 +1868,121 @@ html h6, body h6 {
 .category-grid ._container .category-item:hover {
   background-color: #798094;
 }
+
+.my-address-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 45px;
+  margin-bottom: 40px;
+  max-width: 1280px;
+}
+.my-address-header > span {
+  position: absolute;
+  left: 20px;
+}
+.my-address-header > span > a {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+}
+.my-address-header > h4 {
+  font-weight: 700;
+  color: #111111;
+}
+
+.account-address {
+  position: relative;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow: hidden;
+}
+.account-address .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.account-address .container .address-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.account-address .container .address-container .address-details > h5 {
+  font-weight: 600;
+  font-size: 16px;
+  color: #111111;
+}
+.account-address .container .address-container .address-details > p {
+  margin: 0;
+  font-size: 14px;
+}
+@media (min-width: 576px) {
+  .account-address .container .address-container .address-details > h5 {
+    font-size: 1.2rem;
+  }
+  .account-address .container .address-container .address-details > p {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 768px) {
+  .account-address .container .address-container .address-details > h5 {
+    font-size: 1.4rem;
+  }
+  .account-address .container .address-container .address-details > p {
+    font-size: 1.2rem;
+  }
+}
+.account-address .container .address-container i {
+  color: #626262;
+  font-size: 1.3rem;
+}
+@media (min-width: 576px) {
+  .account-address .container .address-container i {
+    font-size: 1.4rem;
+  }
+}
+.account-address .container .address-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -100vw;
+  width: 1000vw;
+  border-bottom: 2px solid #DBE3F5;
+}
+.account-address .container .new-address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  text-decoration: none;
+}
+.account-address .container .new-address > i {
+  color: #111111;
+  font-size: 1.3rem;
+}
+.account-address .container .new-address > p {
+  color: #626262;
+  font-size: 14px;
+}
+@media (min-width: 576px) {
+  .account-address .container .new-address > i {
+    font-size: 1.5rem;
+  }
+  .account-address .container .new-address > p {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 768px) {
+  .account-address .container .new-address > i {
+    font-size: 1.6rem;
+  }
+  .account-address .container .new-address > p {
+    font-size: 1.2rem;
+  }
+}
