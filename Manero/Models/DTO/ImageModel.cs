@@ -4,7 +4,7 @@ namespace Manero.Models.DTO
 {
     public class ImageModel
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string Id { get; set; } = null!;
         public string ImageUrl { get; set; } = null!;
 
         public bool IsMainImage { get; set; } = false;

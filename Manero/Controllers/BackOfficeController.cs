@@ -153,6 +153,8 @@ public class BackOfficeController : Controller
         var viewModel = new UpdateProductFormViewModel();
         if (!string.IsNullOrEmpty(articleNumber))
         {
+            viewModel.SelectedMainImageId = null!;
+
             // Gets the product the admin selected for updating
             viewModel.Product = await _productService.GetProductAsync(articleNumber);
 
@@ -201,7 +203,7 @@ public class BackOfficeController : Controller
         {
             // Updates the ProductTag table with new information of tags but the same articleNumber
             if (await _productTagService.UpdateProductTagsAsync(articleNumber, viewModel.SelectedTags!) != null)
-            
+
             // Updates the productCategory table with new information of categories but the same articleNumber
             if (await _productCategoryService.UpdateProductCategoriesAsync(articleNumber, viewModel.SelectedCategories!) != null)
 
@@ -210,6 +212,9 @@ public class BackOfficeController : Controller
 
             // updates the productSize table with new information of sizes but the same articleNumber
             if (await _productSizeService.UpdateProductSizesAsync(articleNumber, viewModel.SelectedSizes!) != null)
+
+            if (!await _imageService.UpdateMainImageAsync(viewModel.SelectedMainImageId, articleNumber))
+                return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not update image!" });
 
             return RedirectToAction("Index");
         }
@@ -228,6 +233,19 @@ public class BackOfficeController : Controller
         // If delete fail, display error
         ModelState.AddModelError("", "Something went wrong, could not delete!");
         return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddImage(UpdateProductFormViewModel viewModel, string articleNumber)
+    {
+        var mainImage = false;
+        if (viewModel.NewImage != null)
+        {
+            if (await _imageService.SaveProductImageAsync(await _productService.GetProductAsync(articleNumber), viewModel.NewImage!, mainImage) != null)
+                return RedirectToAction("UpdateProduct", new { articleNumber });
+        }
+
+        return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not add image..." });
     }
 
     [HttpPost]

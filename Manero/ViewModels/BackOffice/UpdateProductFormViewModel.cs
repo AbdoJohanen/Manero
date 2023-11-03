@@ -20,12 +20,13 @@ public class UpdateProductFormViewModel
     [DisplayName("Product Discount")]
     public decimal? ProductDiscount { get; set; }
 
-    [Display(Name = "Upload new Images")]
+    [Display(Name = "Upload a new Image")]
     [DataType(DataType.Upload)]
-    public List<IFormFile>? Images { get; set; }
+    public IFormFile? NewImage { get; set; }
 
     [DisplayName("Current Images")]
     public IEnumerable<ImageModel> CurrentImages { get; set; } = new HashSet<ImageModel>();
+    public string SelectedMainImageId { get; set; } = null!;
 
     [DisplayName("Tags")]
     public List<TagModel> Tags { get; set; } = new List<TagModel>();

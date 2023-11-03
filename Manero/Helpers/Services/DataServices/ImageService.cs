@@ -2,6 +2,8 @@
 using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics.Eventing.Reader;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Manero.Helpers.Services.DataServices;
 
@@ -55,6 +57,26 @@ public class ImageService
             items.Add(image);
 
         return items;    
+    }
+
+    public async Task<bool> UpdateMainImageAsync(string imageId, string articleNumber)
+    {
+        if (!string.IsNullOrEmpty(imageId))
+        {
+            foreach (var image in await _imageRepository.GetAllAsync(x => x.ProductArticleNumber == articleNumber))
+            {
+                if (image.Id == imageId)
+                    image.IsMainImage = true;
+                else
+                    image.IsMainImage = false;
+
+                await _imageRepository.UpdateAsync(image);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public async Task<bool> DeleteImageAsync(string ImageId)
