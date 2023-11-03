@@ -5,6 +5,7 @@ using Manero.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Manero.Tests.GetAllIntegrationTests
@@ -95,35 +96,62 @@ namespace Manero.Tests.GetAllIntegrationTests
                 ContentRootFileProvider = new PhysicalFileProvider(ContentRootPath);
             }
 
-            [Fact]
-            public void ProductName_ComesFromDatabase()
+        [Fact]
+        public void ProductName_ComesFromDatabase()
+        {
+            // Arrange
+            var product = new ProductModel
             {
-                // Arrange
-                var product = new ProductModel
-                {
-                    ProductName = "Product Name from Database"
-                };
+                ProductName = "Product Name from Database"
+            };
 
-                // Act
-                var productName = product.ProductName;
+            // Act
+            var productName = product.ProductName;
+
+            // Assert
+            Assert.Equal("Product Name from Database", productName);
+        }
+        [Fact]
+        public void ProductPrice_ComesFromDatabase()
+        {
+            // Arrange
+            var product = new ProductModel
+            {
+                ProductPrice = 50
+            };
+
+            // Act
+            var productPrice = product.ProductPrice;
+
+            // Assert
+            Assert.Equal(50, productPrice);
+        }
+        [Fact]
+        public void ProductImage_ComesFromDatabase()
+        {
+            // Arrange
+            var product = new ProductModel
+            {
+                Images = new List<ImageModel>
+                {
+                    new ImageModel
+                    {
+                        Id = "1",
+                        ImageUrl = "url",
+                        IsMainImage = true,
+                    }
+                }
+            };
+
+            // Act
+            var images = product.Images;
 
                 // Assert
-                Assert.Equal("Product Name from Database", productName);
-            }
-            [Fact]
-            public void ProductPrice_ComesFromDatabase()
-            {
-                // Arrange
-                var product = new ProductModel
-                {
-                    ProductPrice = 50
-                };
-
-                // Act
-                var productPrice = product.ProductPrice;
-
-                // Assert
-                Assert.Equal(50, productPrice);
+            Assert.NotNull(images);
+            Assert.NotEmpty(images);
+            Assert.Equal("1", images[0].Id);
+            Assert.Equal("url", images[0].ImageUrl);
+            Assert.True(images[0].IsMainImage);
             }
 
         }
