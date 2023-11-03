@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Manero.Controllers
+namespace Manero.Controllers;
+
+public class LoginController : Controller
 {
-    public class LoginController : Controller
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            ViewBag.ActivePage = "Login";
-            return View();
-        }
+        ViewBag.ActivePage = "Login";
+        return View();
     }
 }

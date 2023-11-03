@@ -9,6 +9,8 @@
 @import "./components/buttons";
 @import "./components/welcome";
 @import "./components/loader";
+@import "./components/product-card-small";
+@import "./components/product-card-big";
 
 
 // Sections
@@ -19,3 +21,6 @@
 @import "./sections/_category-scroll.scss";
 @import "./sections/_showcase-section.scss";
 @import "./components/_product-card-big.scss";
+@import "./sections/shop-view";
+@import "./sections/trackorder";
+

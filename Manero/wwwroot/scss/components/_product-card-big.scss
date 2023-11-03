@@ -1,7 +1,9 @@
-.big-card, .big-card-discount {
+
+.big-card,
+.big-card-disscount {
     position: relative;
     width: 160px;
-    margin-top:50px;
+
 
     .product-card-big {
         width: 160px;
@@ -106,16 +108,18 @@
     }
 }
 
-.big-card-discount {
+
+.big-card-disscount {
+
 
     .price {
         text-decoration: line-through;
     }
-    .price-no-discount{
-        text-decoration:none;
-    }
+
+
     .price-detail {
-        .price-discount {
+        .price-disscount {
+
             font-size: 14px;
             font-weight: normal;
             line-height: 21px;
@@ -125,9 +129,12 @@
         }
     }
 
+
     .no-sale{
         display:none;
     }
+
+
     .sale-banner {
         background-color: $color-tag-green;
         color: white;
@@ -142,4 +149,6 @@
         top: 0;
         left: 0;
     }
+
 }
+
