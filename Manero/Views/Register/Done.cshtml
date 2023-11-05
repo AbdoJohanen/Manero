@@ -3,7 +3,7 @@
     ViewData["Title"] = "User Successfully Registered";
 }
 
-<section class="register-section">
+<div class="register-section">
     <div class="container">
         <section class="top-menu-section">
             <span><a href="/"><i class="fa-regular fa-angle-left"></i></a></span>
@@ -19,6 +19,6 @@
             <p>Your account had beed created successfully.</p>
         </div>
 
-        <a href="/" class="btn btn-dark">SHOP NOW</a>
+        <a asp-action="index" asp-controller="home" class="btn btn-dark" type="button">SHOP NOW</a>
     </div>
-</section>  
+</div>  

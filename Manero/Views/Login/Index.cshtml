@@ -35,7 +35,7 @@
                     <label asp-for="RememberMe">Remember me</label>
                 </div>
                 <div class="recover">                    
-                    <a href="/recover">Forgot password?</a>
+                    <a asp-action="forgotpassword" asp-controller="account">Forgot password?</a>
                 </div>
             </div>
             <button class="btn btn-dark">SIGN IN</button>
