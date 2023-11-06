@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Manero.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231030211334_User")]
+    [Migration("20231105232639_User")]
     partial class User
     {
         /// <inheritdoc />

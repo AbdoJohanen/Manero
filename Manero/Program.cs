@@ -6,6 +6,7 @@ using Manero.Helpers.Services.UserServices;
 using Manero.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -60,7 +61,9 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
     x.SignIn.RequireConfirmedAccount = false;
     x.Password.RequiredLength = 8;
     x.User.RequireUniqueEmail = true;
-}).AddEntityFrameworkStores<IdentityContext>();
+    x.Tokens.ProviderMap.Add("Default", new TokenProviderDescriptor(typeof(IUserTwoFactorTokenProvider<AppUser>)));
+}).AddEntityFrameworkStores<IdentityContext>()
+  .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(x =>
 {
