@@ -36,6 +36,9 @@ public class EditProfileViewModel
     [DataType(DataType.EmailAddress)]
     public string Email { get; set; } = null!;
 
+    [Display(Name = "EmailConfirmed")]
+    public bool EmailConfirmed { get; set; } = false;
+
     [Display(Name = "Profile Image")]
     public string? ImageUrl { get; set; }
 

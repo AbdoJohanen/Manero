@@ -26,7 +26,15 @@
             </div>
             <div class="input">
                 <label asp-for="Email">EMAIL</label>
-                <input asp-for="Email" id="emailInput">
+                <input asp-for="Email" id="emailInput" required>
+                @if (!Model.EmailConfirmed)
+                {
+                    <a href="@Url.Action("verifyemail", "account", new { email = Model.Email })" type="button" class="verifyphonenumber">verify</a>
+                }
+                else
+                {
+                    <span class="phonenumberverified">verified</span>
+                }
             </div>
             <div class="input">
                 <label asp-for="PhoneNumber">PHONE NUMBER</label>
@@ -35,7 +43,7 @@
                 {
                     @if (!Model.PhoneNumberConfirmed)
                     {
-                        <a href="@Url.Action("phonenumber", "account", new { phoneNumber = Model.PhoneNumber })" type="button" class="verifyphonenumber">verify</a>
+                        <a href="@Url.Action("phonenumber", "account", new { phonenumber = Model.PhoneNumber })" type="button" class="verifyphonenumber">verify</a>
                     }
                     else
                     {
