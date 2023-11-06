@@ -1,27 +1,33 @@
-﻿@{
+﻿@model AddressViewModel
+@{
     ViewData["Title"] = "My Address";
 }
 
 
-
-<section class="my-address-header container">
-    <span><a asp-action="index" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
-    <h4>My address</h4>
-</section>
+<div class="account-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="index" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>My address</h4>
+        </section>
+    </div>
+</div>
 <section class="account-address">
     <div class="container">
-        <div class="address-container">
-            <i class="left-icon fa-regular fa-house"></i>
-            <div class="address-details">
-                <h5>Home</h5>
-                <p>8000 S Kirkland Ave, Chicago</p>
+        @foreach (var address in Model.Addresses)
+        {
+            <div class="address-container">
+                <i class="left-icon fa-regular fa-house"></i>
+                <div class="address-details">
+                    <h5>@address.AddressTitle</h5>
+                    <p class="address-text">@address.Address.StreetName, @address.Address.City @address.Address.PostalCode</p>
+                </div>
+                <a href=""><i class="right-icon fa-regular fa-pen-line"></i></a>
             </div>
-            <a href=""><i class="right-icon fa-regular fa-pen-line"></i></a>
-        </div>
+        }
 
 
-
-        <a href="#" class="new-address">
+        <a asp-action="addaddress" asp-controller="account" class="new-address">
             <i class="fa-regular fa-plus"></i>
             <p>Add a new address</p>
         </a>
