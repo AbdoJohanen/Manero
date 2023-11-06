@@ -21,6 +21,8 @@ using SendGrid;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Manero.Models.Entities.UserEntities;
+using System.Linq.Expressions;
 
 namespace Manero.Controllers;
 
@@ -30,12 +32,14 @@ public class AccountController : Controller
     private readonly AuthService _auth;
     private readonly UserManager<AppUser> _userManager;
     private readonly UserService _userService;
+    private readonly AddressService _addressService;
 
-    public AccountController(AuthService auth, UserManager<AppUser> userManager, UserService userService)
+    public AccountController(AuthService auth, UserManager<AppUser> userManager, UserService userService, AddressService addressService)
     {
         _auth = auth;
         _userManager = userManager;
         _userService = userService;
+        _addressService = addressService;
     }
 
     public async Task<IActionResult> Index()
@@ -554,9 +558,79 @@ public class AccountController : Controller
         }
     }
 
-    public IActionResult Address()
+
+    public async Task<IActionResult> Address()
     {
         ViewBag.ActivePage = "Account";
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+
+        if (userId != null)
+        {
+            Expression<Func<UserAddressEntity, bool>> userAddressExpression = x => x.UserId == userId;
+            var userAddresses = await _addressService.GetAllUserAddressesAsync(userAddressExpression);
+
+            var userModel = new AddressViewModel
+            {
+                UserId = userId,
+                Addresses = userAddresses.ToList()
+            };
+
+            return View(userModel);
+        }
+
+        return View();
+    }
+
+
+
+    public IActionResult AddAddress()
+    {
+        ViewBag.ActivePage = "Account";
+
+        return View();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> AddAddress(AddressViewModel model)
+    {
+        ViewBag.ActivePage = "Account";
+
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+                var user = await _userService.GetUserAsync(userId!); // Get user details
+
+                var address = new AddressEntity
+                {
+                    StreetName = model.StreetName,
+                    PostalCode = model.PostalCode,
+                    City = model.City
+                };
+
+                var existingAddress = await _addressService.GetorCreateAsync(address);
+
+
+                await _addressService.AddAddressAsync(user, existingAddress, model);
+
+                return RedirectToAction("address", "account");
+            }
+            catch { }
+
+            return RedirectToAction("address", "account");
+        }
+
+        return View(model);
+    }
+
+    public async Task<IActionResult> EditAddress()
+    {
+        ViewBag.ActivePage = "Account";
+
         return View();
     }
 }
