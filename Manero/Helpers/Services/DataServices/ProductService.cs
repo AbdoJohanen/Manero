@@ -2,7 +2,9 @@
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 
 namespace Manero.Helpers.Services.DataServices;
 
