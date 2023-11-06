@@ -24,6 +24,25 @@ public class ProductCategoryService_Tests
     }
 
     [Fact]
+    public async Task AssociateCategoriesWithProductAsync_Should_AssociateOneProductModelWithListOfCategoryModel()
+    {
+        //Arrange
+        var categories = new List<CategoryModel>() { new CategoryModel { Id = 1, Category = "Test" }, new CategoryModel { Id = 2, Category = "Test" } };
+        var product = new ProductModel() { ArticleNumber = "Test-1", ProductName = "Test", ProductPrice = 0 };
+
+        //Act
+        await _service.AssociateCategoriesWithProductAsync(categories, product);
+        var productTags = await _repository.GetAllAsync(x => x.ArticleNumber == product.ArticleNumber);
+
+        //Assert
+        Assert.NotNull(productTags);
+        foreach (var item in productTags)
+            Assert.Equal(item.ArticleNumber, product.ArticleNumber);
+
+        Assert.Equal(categories.Count(), productTags.Count());
+    }
+
+    [Fact]
     public async Task UpdateProductCategoriesAsync_Should_UpdateCategoriesForProduct_Without_UpdatingArticleNumber()
     {
         // Arrange

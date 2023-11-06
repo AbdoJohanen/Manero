@@ -6,14 +6,13 @@ namespace Manero.Helpers.Services.DataServices;
 public class ProductSizeService
 {
     private readonly ProductSizeRepository _productSizeRepository;
-    private readonly SizeService _sizeService;
-    private readonly ProductService _productService;
 
-    public ProductSizeService(ProductSizeRepository productSizeRepository, SizeService sizeService, ProductService productService)
+
+
+    public ProductSizeService(ProductSizeRepository productSizeRepository)
     {
         _productSizeRepository = productSizeRepository;
-        _sizeService = sizeService;
-        _productService = productService;
+
     }
 
 

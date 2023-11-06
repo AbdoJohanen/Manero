@@ -27,7 +27,12 @@ public class ImageService
             ImageEntity imageEntity = new ImageEntity();
             var fileName = imageEntity.Id + file.FileName;
             string filePath = $"{_webHostEnvironment.WebRootPath}/assets/images/products/{fileName}";
-            await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
             if (isMainImage)
             {
                 imageEntity.IsMainImage = true;
@@ -36,7 +41,8 @@ public class ImageService
             imageEntity.ImageUrl = fileName;
 
             return await _imageRepository.AddAsync(imageEntity);
-        } catch
+        }
+        catch
         {
             return null!;
         }
