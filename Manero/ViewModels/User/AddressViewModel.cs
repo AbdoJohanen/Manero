@@ -7,6 +7,8 @@ public class AddressViewModel
 {
     public string? UserId { get; set; }
 
+    public int AddressId { get; set; }
+
     [Display(Name = "Title")]
     public string AddressTitle { get; set; } = null!;
 
