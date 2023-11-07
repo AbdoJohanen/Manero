@@ -4,6 +4,7 @@ namespace Manero.Tests;
 
 public class ConnectionStringTests
 {
+
     [Fact]
     public void ConnectionString_ProductDatabase_Should_Be_ConnectionString_To_LocalDB()
     {
