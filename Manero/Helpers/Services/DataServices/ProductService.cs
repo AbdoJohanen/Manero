@@ -20,7 +20,7 @@ public class ProductService
     private readonly TagRepository _tagRepo;
     private readonly ProductTagRepository _productTagRepo;
 
-
+    public ProductRepository Repository { get; }
 
     public ProductService(ProductRepository productRepository, CategoryService categoryService, ProductRepository productRepo, ProductCategoryRepository productCategoryRepo, ImageService imageService, CategoryRepository categoryRepository, TagService tagService, TagRepository tagRepo, ProductTagRepository productTagRepo)
     {
@@ -33,6 +33,11 @@ public class ProductService
         _tagService = tagService;
         _tagRepo = tagRepo;
         _productTagRepo = productTagRepo;
+    }
+
+    public ProductService(ProductRepository repository)
+    {
+        Repository = repository;
     }
 
 
