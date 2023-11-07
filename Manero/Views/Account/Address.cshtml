@@ -22,7 +22,7 @@
                     <h5>@address.AddressTitle</h5>
                     <p class="address-text">@address.Address.StreetName, @address.Address.City @address.Address.PostalCode</p>
                 </div>
-                <a href=""><i class="right-icon fa-regular fa-pen-line"></i></a>
+                <a asp-action="editaddress" asp-controller="account" asp-route-id="@address.AddressId"><i class="right-icon fa-regular fa-pen-line"></i></a>
             </div>
         }
 
