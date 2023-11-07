@@ -21,6 +21,7 @@ using SendGrid;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Manero.Controllers;
 
@@ -80,12 +81,10 @@ public class AccountController : Controller
         if (ModelState.IsValid)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user!);
-
+           
             if (user != null)
             {
-                //user.Token = token;
-                //await _userManager.UpdateAsync(user);
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user!);
 
                 SendResetPasswordLink(model.Email, token);
                 ViewBag.Email = model.Email; // Pass the email to the view
@@ -390,17 +389,37 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    public async Task<IActionResult> VerifyPhoneNumber(EditProfileViewModel model)
+    {
+        try
+        {
+            const string accountSid = "AC4660a240758971694515f811d31f7bde";
+            const string authToken = "fc8a9c90cbe6211c68777f6b257b5ca8";
+            const string serviceSid = "VAfe2ec4404a8b83d31a4a7dc5936a66f8";
+
+            TwilioClient.Init(accountSid, authToken);
+
+            var verification = await VerificationResource.CreateAsync(
+                to: model.PhoneNumber,
+                channel: "sms",
+                pathServiceSid: serviceSid
+            );
+        }
+        catch { }
+
+        return View();
+    }
+
     public IActionResult Resend(string phoneNumber)
     {
         if (phoneNumber != null)
         {
             ResendVerification(phoneNumber);
-            return View("verify", "account");
+            return View("verifyphonenumber", "account");
         }
         else
         {
             return View("phonenumber", "account");
-            //ModelState.AddModelError("", "We couldn't find a registered email as you wrote. :(");
         }
     }
 
@@ -426,15 +445,11 @@ public class AccountController : Controller
     public async Task <ActionResult> VerifyEmail( string email)
     {
         // Call the SendVerificationEmail function
-        //string token = GenerateToken(); // Generate the verification token
         var user = await _userManager.FindByEmailAsync(email);
-        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user!);
 
         if (user != null)
         {
-            //// Update the EmailConfirmed property to true
-            //user.Token = token;
-            //await _userManager.UpdateAsync(user);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user!);
 
             SendVerificationLink(user!, email, token);
             ViewBag.Email = email;
@@ -443,9 +458,6 @@ public class AccountController : Controller
         {
             ModelState.AddModelError("", "We couldn't find a registered email as you wrote. :(");
         }
-
-        //ViewBag.Name = name; // Pass the name to the view
-        // Pass the email to the view
 
         return View();
     }
