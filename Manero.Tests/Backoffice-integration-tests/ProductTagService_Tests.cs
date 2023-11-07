@@ -3,6 +3,8 @@ using Manero.Helpers.Repositories.DataRepositories;
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.Identity.Client;
 
 namespace Manero.Tests.Backoffice_integration_tests;
 
@@ -55,5 +57,27 @@ public class ProductTagService_Tests
         // Assert
         Assert.NotNull(result);
         Assert.IsType<List<ProductTagModel>>(result);
+    }
+
+    [Fact]
+    public async Task UpdateProductTagsAsync_Should_DeleteCurrentTagsForProduct_Then_AddNewOnesWithProvidedInformation()
+    {
+        // Arrange
+        var product = new ProductModel() { ArticleNumber = "Test-1", ProductName = "Test" };
+        var currentTags = new List<TagModel>() { new TagModel { Id = 1, Tag = "Tag-1" }, new TagModel { Id = 4, Tag = "Tag-4" } };
+        await _service.AssociateTagsWithProductAsync(currentTags, product);
+        var newTags = new List<int>() { 2, 3 };
+
+        // Act
+        var result = await _service.UpdateProductTagsAsync(product.ArticleNumber, newTags);
+        var resultTagIds = result.Select(pt => pt.TagId).ToList();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(newTags, resultTagIds);
+
+        foreach (var productTag in result)
+            foreach (var tag in currentTags)
+                Assert.NotEqual(tag.Id, productTag.TagId);
     }
 }
