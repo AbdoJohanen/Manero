@@ -58,7 +58,7 @@ public class GetProductNameTests
         //Act
         var result = await _service.GetProductWithImagesAsync(product.ArticleNumber);
 
-
+        //Assert
         Assert.Equal("Product 1", result.ProductName);
     }
 
