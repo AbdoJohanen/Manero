@@ -388,28 +388,6 @@ public class AccountController : Controller
         }
     }
 
-    [HttpPost]
-    public async Task<IActionResult> VerifyPhoneNumber(EditProfileViewModel model)
-    {
-        try
-        {
-            const string accountSid = "AC4660a240758971694515f811d31f7bde";
-            const string authToken = "fc8a9c90cbe6211c68777f6b257b5ca8";
-            const string serviceSid = "VAfe2ec4404a8b83d31a4a7dc5936a66f8";
-
-            TwilioClient.Init(accountSid, authToken);
-
-            var verification = await VerificationResource.CreateAsync(
-                to: model.PhoneNumber,
-                channel: "sms",
-                pathServiceSid: serviceSid
-            );
-        }
-        catch { }
-
-        return View();
-    }
-
     public IActionResult Resend(string phoneNumber)
     {
         if (phoneNumber != null)
