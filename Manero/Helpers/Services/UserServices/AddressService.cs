@@ -39,7 +39,6 @@ public class AddressService
         });
     }
 
-
     public async Task<IEnumerable<UserAddressEntity>> GetAllUserAddressesAsync(Expression<Func<UserAddressEntity, bool>> userAddressExpression)
     {
         var userAddresses = await _userAddressRepo.GetAllAsync(userAddressExpression);
@@ -61,7 +60,6 @@ public class AddressService
 
         return userAddresses;
     }
-
 
     public async Task<UserAddressEntity> GetUserAddresEntityBydIdAsync(int addressId)
     {
