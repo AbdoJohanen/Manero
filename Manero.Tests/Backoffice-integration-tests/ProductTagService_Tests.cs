@@ -70,9 +70,10 @@ public class ProductTagService_Tests
 
         // Act
         var result = await _service.UpdateProductTagsAsync(product.ArticleNumber, newTags);
-        var resultTagIds = result.Select(pt => pt.TagId).ToList();
 
         // Assert
+        var resultTagIds = result.Select(pt => pt.TagId).ToList();
+
         Assert.NotNull(result);
         Assert.Equal(newTags, resultTagIds);
 
