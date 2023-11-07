@@ -33,11 +33,6 @@ public class HomeController : Controller
                 GridItems = (await _productService.GetAllAsync()).Take(3),
             }
         };
-        //var products = new GridCollectionViewModel
-        //{
-        //    Title = "Home",
-        //    GridItems = (await _productService.GetAllAsync()).Take(4),
-        //};
         return View(viewModel);
     }
 
