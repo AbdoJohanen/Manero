@@ -62,4 +62,26 @@ public class AddressService
         return userAddresses;
     }
 
+
+    public async Task<UserAddressEntity> GetUserAddresEntityBydIdAsync(int addressId)
+    {
+        AddressEntity addressEntity = await _addressRepo.GetAsync(x => x.Id == addressId);
+        UserAddressEntity userAddressEntity = await _userAddressRepo.GetAsync(x => x.AddressId == addressId);
+
+        return userAddressEntity;
+    }
+
+    public async Task<bool> DeleteUserAddressEntityAsync(UserAddressEntity userAddressEntity)
+    {
+        await _userAddressRepo.DeleteAsync(userAddressEntity);
+
+        return true;
+    }
+
+    public async Task<UserAddressEntity> UpdateUserAddressEntityAsync(UserAddressEntity userAddressEntity)
+    {
+        await _userAddressRepo.UpdateAsync(userAddressEntity);
+
+        return userAddressEntity;
+    }
 }
