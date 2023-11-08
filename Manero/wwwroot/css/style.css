@@ -473,6 +473,9 @@ html h6, body h6 {
   text-align: left;
   color: #f4303c;
 }
+.big-card-disscount .no-sale {
+  display: none;
+}
 .big-card-disscount .sale-banner {
   background-color: #69864D;
   color: white;
@@ -715,7 +718,6 @@ html h6, body h6 {
     max-width: 80%;
   }
 }
-
 .featured {
   margin-bottom: 20px;
   padding-bottom: 140px;
@@ -817,7 +819,8 @@ html h6, body h6 {
 .category-scroller .category-element .image-container > img {
   box-shadow: 0 0 4px 1px rgba(17, 17, 17, 0.2);
   background-color: white;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   height: 70px;
   width: auto;
   border-radius: 50%;
@@ -863,34 +866,39 @@ html h6, body h6 {
   }
 }
 
-.big-card, .big-card-discount {
+.big-card,
+.big-card-disscount {
   position: relative;
   width: 160px;
-  margin-top: 50px;
 }
-.big-card .product-card-big, .big-card-discount .product-card-big {
+.big-card .product-card-big,
+.big-card-disscount .product-card-big {
   width: 160px;
   height: 248px;
   display: block;
   text-decoration: none;
   color: #111111;
 }
-.big-card .product-card-big .image-card .image-placeholder, .big-card-discount .product-card-big .image-card .image-placeholder {
+.big-card .product-card-big .image-card .image-placeholder,
+.big-card-disscount .product-card-big .image-card .image-placeholder {
   width: 160px;
   height: 170px;
   background-color: #DBE3F5;
 }
-.big-card .product-card-big .card-information a, .big-card-discount .product-card-big .card-information a {
+.big-card .product-card-big .card-information a,
+.big-card-disscount .product-card-big .card-information a {
   text-decoration: none;
 }
-.big-card .product-card-big .card-information .stars i, .big-card-discount .product-card-big .card-information .stars i {
+.big-card .product-card-big .card-information .stars i,
+.big-card-disscount .product-card-big .card-information .stars i {
   color: #FFBE00;
   width: 10px;
   height: 9.5px;
   margin-right: 4px;
   margin-top: 13px;
 }
-.big-card .product-card-big .card-information .stars .star-total, .big-card-discount .product-card-big .card-information .stars .star-total {
+.big-card .product-card-big .card-information .stars .star-total,
+.big-card-disscount .product-card-big .card-information .stars .star-total {
   margin-left: 8px;
   font-size: 16px;
   font-weight: normal;
@@ -899,7 +907,8 @@ html h6, body h6 {
   text-align: left;
   color: #626262;
 }
-.big-card .product-card-big .card-information h3, .big-card-discount .product-card-big .card-information h3 {
+.big-card .product-card-big .card-information h3,
+.big-card-disscount .product-card-big .card-information h3 {
   font-family: "Mulish", sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -910,7 +919,8 @@ html h6, body h6 {
   margin-top: 10px;
   margin-bottom: 6px;
 }
-.big-card .product-card-big .card-information .price, .big-card-discount .product-card-big .card-information .price {
+.big-card .product-card-big .card-information .price,
+.big-card-disscount .product-card-big .card-information .price {
   font-size: 14px;
   font-weight: normal;
   line-height: 21px;
@@ -918,7 +928,8 @@ html h6, body h6 {
   text-align: left;
   color: #111111;
 }
-.big-card .card-menu, .big-card-discount .card-menu {
+.big-card .card-menu,
+.big-card-disscount .card-menu {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -927,32 +938,34 @@ html h6, body h6 {
   flex-direction: column;
   gap: 18px;
 }
-.big-card .card-menu a, .big-card-discount .card-menu a {
+.big-card .card-menu a,
+.big-card-disscount .card-menu a {
   color: #111111;
   text-decoration: none;
 }
-.big-card .card-menu .shopping-cart i, .big-card-discount .card-menu .shopping-cart i {
+.big-card .card-menu .shopping-cart i,
+.big-card-disscount .card-menu .shopping-cart i {
   transition: 0.3s ease-in-out;
 }
-.big-card .card-menu .shopping-cart i:hover, .big-card-discount .card-menu .shopping-cart i:hover {
+.big-card .card-menu .shopping-cart i:hover,
+.big-card-disscount .card-menu .shopping-cart i:hover {
   color: #111111;
   font-weight: 700;
 }
-.big-card .card-menu .wish-list i, .big-card-discount .card-menu .wish-list i {
+.big-card .card-menu .wish-list i,
+.big-card-disscount .card-menu .wish-list i {
   transition: 0.3s ease-in-out;
 }
-.big-card .card-menu .wish-list i:hover, .big-card-discount .card-menu .wish-list i:hover {
+.big-card .card-menu .wish-list i:hover,
+.big-card-disscount .card-menu .wish-list i:hover {
   color: #F4303C;
   font-weight: 700;
 }
 
-.big-card-discount .price {
+.big-card-disscount .price {
   text-decoration: line-through;
 }
-.big-card-discount .price-no-discount {
-  text-decoration: none;
-}
-.big-card-discount .price-detail .price-discount {
+.big-card-disscount .price-detail .price-disscount {
   font-size: 14px;
   font-weight: normal;
   line-height: 21px;
@@ -960,10 +973,10 @@ html h6, body h6 {
   text-align: left;
   color: #f4303c;
 }
-.big-card-discount .no-sale {
+.big-card-disscount .no-sale {
   display: none;
 }
-.big-card-discount .sale-banner {
+.big-card-disscount .sale-banner {
   background-color: #69864D;
   color: white;
   width: 33px;
@@ -976,7 +989,8 @@ html h6, body h6 {
   position: absolute;
   top: 0;
   left: 0;
-  
+}
+
 .filters-sorting {
   padding: 0 15px;
   display: flex;
@@ -1000,200 +1014,6 @@ html h6, body h6 {
   justify-content: center;
 }
 
-.top-menu-section {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /*    width: 375px;*/
-  width: 100%;
-  height: 37px;
-  margin-bottom: 40px;
-}
-.top-menu-section span {
-  position: absolute;
-  left: 20px;
-}
-.top-menu-section span a {
-  font-size: 24px;
-  font-weight: 700;
-  color: #111111;
-}
-.top-menu-section .burger {
-  position: absolute;
-  left: 20px;
-}
-.top-menu-section .burger a {
-  font-size: 24px;
-  font-weight: 700;
-  color: #111111;
-}
-.top-menu-section .burger #contactDetails {
-  display: grid;
-  background-color: #111111;
-  color: #B3B9C7;
-}
-.top-menu-section .burger #contactDetails .offcanvas-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: baseline;
-  color: white !important;
-  margin-top: 60px;
-  margin-bottom: 30px;
-  gap: 20px;
-}
-.top-menu-section .burger #contactDetails .offcanvas-header .line {
-  height: 30px;
-  border-left: 2px solid white;
-}
-.top-menu-section .burger #contactDetails .offcanvas-header h2 {
-  color: white !important;
-  display: flex;
-  font-weight: 600;
-}
-.top-menu-section .burger #contactDetails .offcanvas-body {
-  display: flex;
-  flex-direction: column;
-}
-.top-menu-section .burger #contactDetails .offcanvas-body .contact-details {
-  display: flex;
-  width: 100%;
-  height: 70px;
-}
-.top-menu-section .burger #contactDetails .offcanvas-body .contact-details .contact-details-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #DBE3F5;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin-right: 30px;
-}
-.top-menu-section .burger #contactDetails .offcanvas-body .contact-details .contact-details-icon i {
-  font-size: 12px;
-  font-weight: 600;
-}
-.top-menu-section .burger #contactDetails .offcanvas-body .contact-details .contact-details-text {
-  display: grid;
-  justify-content: left;
-}
-.top-menu-section .burger #contactDetails .offcanvas-body .contact-details .contact-details-text a {
-  font-size: 16px;
-  font-weight: 400;
-  text-decoration: none;
-  color: #B3B9C7;
-}
-.top-menu-section .burger #contactDetails .offcanvas-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.top-menu-section .burger #contactDetails .offcanvas-footer #trackForm {
-  position: relative;
-  width: 80%;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-.top-menu-section .burger #contactDetails .offcanvas-footer #trackForm .input {
-  position: relative;
-  display: flex;
-}
-.top-menu-section .burger #contactDetails .offcanvas-footer #trackForm .input label {
-  background-color: #111111;
-  position: absolute;
-  left: 20px;
-  top: -8px;
-  padding: 0 10px 0 10px;
-  font-size: 12px;
-  color: #626262;
-}
-.top-menu-section .burger #contactDetails .offcanvas-footer #trackForm .input input {
-  background-color: #111111;
-  color: white;
-  width: 100%;
-  height: 50px;
-  border-radius: 30px;
-  border: 1px solid #DBE3F5;
-  padding-left: 20px;
-}
-.top-menu-section .burger #contactDetails .offcanvas-footer #trackForm button {
-  background-color: #707070;
-  position: absolute;
-  border-radius: 50%;
-  border-style: none;
-  width: 40px;
-  height: 40px;
-  right: 5px;
-  top: 5px;
-  color: #111111;
-  font-weight: 700;
-}
-.top-menu-section .back-btn {
-  border: none;
-  background-color: transparent;
-  text-decoration: none;
-  color: black;
-}
-.top-menu-section .shop-page-title {
-  color: black;
-  font-size: 18px;
-  font-weight: 600;
-}
-.top-menu-section a {
-  text-decoration: none;
-}
-.top-menu-section h4 {
-  display: flex;
-  margin: auto;
-  color: #111111;
-  font-weight: 700;
-}
-.top-menu-section .shoppping-cart {
-  position: absolute;
-  right: 20px;
-}
-.top-menu-section .shoppping-cart a {
-  font-size: 24px;
-  font-weight: 700;
-  color: #111111;
-}
-.top-menu-section .shoppping-cart a .notification {
-  background-color: #F4303C;
-  font-size: 10px;
-  position: absolute;
-  bottom: 5px;
-  left: 3px;
-}
-.top-menu-section .shoppping-cart #shoppingCartRight {
-  display: grid;
-}
-.top-menu-section .shoppping-cart #shoppingCartRight .offcanvas-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: baseline;
-  margin-top: 60px;
-  margin-bottom: 30px;
-  gap: 20px;
-}
-.top-menu-section .shoppping-cart #shoppingCartRight .offcanvas-header .line {
-  height: 30px;
-  border-left: 2px solid #111111;
-}
-.top-menu-section .shoppping-cart #shoppingCartRight .offcanvas-header h2 {
-  display: flex;
-  font-weight: 600;
-}
-
-@media screen and (max-width: 800px) {
-  #contactDetails,
-  #shoppingCartRight {
-    max-width: 80%;
-  }
-}
-}
 .track-order-section .container {
   position: relative;
   display: flex;
@@ -1276,5 +1096,4 @@ html h6, body h6 {
 }
 .track-order-section .container .tracking .order-status .order-status-text p {
   font-size: 13px;
-
 }

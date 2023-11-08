@@ -33,10 +33,9 @@ namespace Manero.Controllers
         }
 
         [HttpGet]
+        [Route("shop")]
         public async Task<IActionResult> Index(ShopViewModel viewModel)
         {
-
-            int tagId = 2;
             // Loops thru all products
             foreach (var product in await _productService.GetAllProductsAsync())
             {
@@ -45,7 +44,7 @@ namespace Manero.Controllers
                 {
                     // If a product tag article number is the same as one of the products article number
                     // Then find and add that TagModel to the list of TagModel in ProductModel
-                    if (tag.ArticleNumber == product.ArticleNumber && tag.TagId == tagId)
+                    if (tag.ArticleNumber == product.ArticleNumber)
                         product.Tags.Add(await _tagService.GetTagAsync(tag.TagId));
                 }
 
@@ -86,6 +85,5 @@ namespace Manero.Controllers
 
             return View(viewModel);
         }
-
     }
 }
