@@ -4,7 +4,17 @@ using System.Linq.Expressions;
 
 namespace Manero.Helpers.Repositories.UserRepositories;
 
-public class IdRepository<TEntity> where TEntity : class
+public interface IRepo<TEntity, TDbContext> where TEntity : class where TDbContext : DbContext
+{
+    
+    Task<TEntity> AddAsync(TEntity entity);
+    Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression);
+    Task<IEnumerable<TEntity>> GetAllAsync();   
+    Task<TEntity> UpdateAsync(TEntity entity);
+    Task<bool> DeleteAsync(TEntity entity);
+}
+
+public abstract class IdRepository<TEntity, TDbContext> : IRepo<TEntity, TDbContext> where TEntity : class where TDbContext : DbContext
 {
     private readonly IdentityContext _context;
 
