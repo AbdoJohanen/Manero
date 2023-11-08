@@ -1,0 +1,155 @@
+.my-address-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 45px;
+    margin-bottom: 40px;
+    max-width: 1280px;
+
+    > span {
+        position: absolute;
+        left: 20px;
+
+        > a {
+            font-size: 24px;
+            font-weight: $font-weight-bold;
+            color: $color-main-black;
+        }
+    }
+
+    > h4 {
+        font-weight: $font-weight-bold;
+        color: $color-main-black;
+    }
+}
+
+
+
+.account-address {
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: hidden;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .address-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 600px;
+            width: 100%;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+
+            .address-details {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                width: 100%;
+
+                > h5 {
+                    font-weight: $font-weight-semibold;
+                    font-size: 16px;
+                    color: $color-main-black;
+                }
+
+                .address-text {
+                    margin: 0;
+                    font-size: 14px;
+                }
+
+                @include sm {
+                    > h5 {
+                        font-size: 1.2rem;
+                    }
+
+                    > p {
+                        font-size: 1rem;
+                    }
+                }
+
+                @include md {
+                    > h5 {
+                        font-size: 1.4rem;
+                    }
+
+                    > p {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+
+            .left-icon {
+                padding-left: 20px;
+            }
+
+            .right-icon {
+                padding-right: 20px;
+            }
+
+            i {
+                color: $color-main-grey;
+                font-size: 1.3rem;
+
+                @include sm {
+                    font-size: 1.4rem;
+                }
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: -100vw;
+                width: 1000vw;
+                border-bottom: 2px solid $color-main-blue;
+            }
+        }
+
+        .new-address {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            text-decoration: none;
+
+            > i {
+                color: $color-main-black;
+                font-size: 1.3rem;
+            }
+
+            > p {
+                color: $color-main-grey;
+                font-size: 14px;
+            }
+
+            @include sm {
+                > i {
+                    font-size: 1.5rem;
+                }
+
+                > p {
+                    font-size: 1rem;
+                }
+            }
+
+            @include md {
+                > i {
+                    font-size: 1.6rem;
+                }
+
+                > p {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
