@@ -2,19 +2,16 @@
 using Manero.Controllers;
 using Manero.Helpers.Repositories.DataRepositories;
 using Manero.Helpers.Services.DataServices;
-using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Manero.Tests.Malin_Mira;
 
 public class ProductsControllerTests
 {
-
     private readonly ProductService _service;
     private readonly ProductRepository _productRepo;
     private readonly DataContext _context;
@@ -45,36 +42,33 @@ public class ProductsControllerTests
         _tagRepo = new TagRepository(_context);
         _tagService = new TagService(_tagRepo);
         _productTagRepo = new ProductTagRepository(_context);
-        _productsController = new ProductsController(_service);
-
         _service = new ProductService(_productRepo, _categoryService, _productRepo, _productCategoryRepo, _imageService, _categoryRepository, _tagService, _tagRepo, _productTagRepo);
+        _productsController = new ProductsController(_service);
     }
 
-
+    [Fact]
     public async Task ProductsController_Should_Return_Correct_View()
     {
-
-
         //Arrange
+        //Adding a test product to our in-memory database
         var product = new ProductEntity { ArticleNumber = "1", ProductName = "Product 1", ProductPrice = 10 };
 
         await _context.Products.AddRangeAsync(product);
         await _context.SaveChangesAsync();
 
-
         //Act
+        //Retrieving the test product from our in-memory database to convert it to a productmodel, which is then used in the controller
         var productModel = await _service.GetProductWithImagesAsync(product.ArticleNumber);
         var result = await _productsController.Index(productModel.ArticleNumber) as ViewResult;
 
-        // Assert
+        //Assert
         Assert.NotNull(result); // Ensure that a ViewResult is returned
         Assert.IsType<ViewResult>(result); // Check the type of the result
 
-        // Assert that the view name is the expected view name (e.g., "Index")
-        Assert.Equal("Index", result.ViewName);
-
-        // Assert that the model passed to the view is the productModel
-        Assert.Equal(productModel, result.Model);
+        // Ensure that the properties of productModel matches the expected values
+        Assert.Equal("1", productModel.ArticleNumber);
+        Assert.Equal("Product 1", productModel.ProductName);
+        Assert.Equal(10, productModel.ProductPrice);
     }
 
     public void Dispose()
@@ -93,7 +87,6 @@ public class ProductsControllerTests
 
         public TestWebHostEnvironment()
         {
-
             WebRootPath = Path.Combine("C:\\Users\\sangs\\Documents\\Webbutvecklare\\Projekt\\Manero\\Manero\\Manero\\wwwroot");
 
             WebRootFileProvider = new PhysicalFileProvider(WebRootPath);

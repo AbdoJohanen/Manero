@@ -1,7 +1,6 @@
 ﻿using Manero.Contexts;
 using Manero.Helpers.Repositories.DataRepositories;
 using Manero.Helpers.Services.DataServices;
-using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -43,22 +42,24 @@ public class GetProductNameTests
         _productTagRepo = new ProductTagRepository(_context);
 
         _service = new ProductService(_productRepo, _categoryService, _productRepo, _productCategoryRepo, _imageService, _categoryRepository, _tagService, _tagRepo, _productTagRepo);
-
     }
 
     [Fact]
     public async Task GetProductWithImagesAsync_ShouldReturnProductName()
     {
         //Arrange
+        //Adding a test product to our in-memory database
         var product = new ProductEntity { ArticleNumber = "1", ProductName = "Product 1", ProductPrice = 10 };
 
         await _context.Products.AddRangeAsync(product);
         await _context.SaveChangesAsync();
 
         //Act
+        //Retrieving the test product from our in-memory database
         var result = await _service.GetProductWithImagesAsync(product.ArticleNumber);
 
         //Assert
+        //Ensure that the retrieved ProductName property is equal to the product name added in in-memory database
         Assert.Equal("Product 1", result.ProductName);
     }
 
@@ -78,7 +79,6 @@ public class GetProductNameTests
 
         public TestWebHostEnvironment()
         {
-
             WebRootPath = Path.Combine("C:\\Users\\sangs\\Documents\\Webbutvecklare\\Projekt\\Manero\\Manero\\Manero\\wwwroot");
 
             WebRootFileProvider = new PhysicalFileProvider(WebRootPath);
