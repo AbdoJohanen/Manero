@@ -17,8 +17,9 @@ public class ProductColorService_Tests
     public ProductColorService_Tests()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
-.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-.Options;
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
         _context = new DataContext(options);
         _repository = new ProductColorRepository(_context);
         _service = new ProductColorService(_repository);

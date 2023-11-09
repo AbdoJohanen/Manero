@@ -33,7 +33,7 @@ public class BackOfficeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(BackOfficeViewModel viewModel)
+    public async Task<IActionResult> Index(BackOfficeViewModel viewModel, string errorMessage)
     {
         // Loops thru all products
         foreach (var product in await _productService.GetAllProductsAsync())
@@ -83,6 +83,9 @@ public class BackOfficeController : Controller
             // Adds ProductModel to list of ProductModel in View Model
             viewModel.Products.Add(product);
         }
+
+        if (!string.IsNullOrEmpty(errorMessage))
+            ModelState.AddModelError("", errorMessage);
 
         return View(viewModel);
     }
@@ -203,20 +206,30 @@ public class BackOfficeController : Controller
         {
             // Updates the ProductTag table with new information of tags but the same articleNumber
             if (await _productTagService.UpdateProductTagsAsync(articleNumber, viewModel.SelectedTags!) != null)
+            {
+                // Updates the productCategory table with new information of categories but the same articleNumber
+                if (await _productCategoryService.UpdateProductCategoriesAsync(articleNumber, viewModel.SelectedCategories!) != null)
+                {
+                    // Updates the productCategory table with new information of categories but the same articleNumber
+                    if (await _productCategoryService.UpdateProductCategoriesAsync(articleNumber, viewModel.SelectedCategories!) != null)
+                    {
+                        // Updates the productColor table with new information of colors but the same articleNumber
+                        if (await _productColorService.UpdateProductColorsAsync(articleNumber, viewModel.SelectedColors!) != null)
+                        {
+                            // updates the productSize table with new information of sizes but the same articleNumber
+                            if (await _productSizeService.UpdateProductSizesAsync(articleNumber, viewModel.SelectedSizes!) != null)
+                            {
+                                // Calls UpdateImageAsync with a imageId and a articleNumber
+                                // If something went wrong show error message
+                                if (!await _imageService.UpdateMainImageAsync(viewModel.SelectedMainImageId, articleNumber))
+                                    return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not update image!" });
 
-            // Updates the productCategory table with new information of categories but the same articleNumber
-            if (await _productCategoryService.UpdateProductCategoriesAsync(articleNumber, viewModel.SelectedCategories!) != null)
-
-            // Updates the productColor table with new information of colors but the same articleNumber
-            if (await _productColorService.UpdateProductColorsAsync(articleNumber, viewModel.SelectedColors!) != null)
-
-            // updates the productSize table with new information of sizes but the same articleNumber
-            if (await _productSizeService.UpdateProductSizesAsync(articleNumber, viewModel.SelectedSizes!) != null)
-
-            if (!await _imageService.UpdateMainImageAsync(viewModel.SelectedMainImageId, articleNumber))
-                return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not update image!" });
-
-            return RedirectToAction("Index");
+                                return RedirectToAction("Index");
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // If something failed with update return View with error message
@@ -231,29 +244,33 @@ public class BackOfficeController : Controller
             return RedirectToAction("Index");
 
         // If delete fail, display error
-        ModelState.AddModelError("", "Something went wrong, could not delete!");
-        return RedirectToAction("Index");
+        return RedirectToAction("Index", new { errorMessage = "Error! Could not Delete..." });
     }
 
     [HttpPost]
     public async Task<IActionResult> AddImage(UpdateProductFormViewModel viewModel, string articleNumber)
     {
+        // Sets default mainImage to false
         var mainImage = false;
         if (viewModel.NewImage != null)
         {
+            // Calls SaveProductImageAsync with new information for one new image
             if (await _imageService.SaveProductImageAsync(await _productService.GetProductAsync(articleNumber), viewModel.NewImage!, mainImage) != null)
                 return RedirectToAction("UpdateProduct", new { articleNumber });
         }
 
+        // If something failed show error message
         return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not add image..." });
     }
 
     [HttpPost]
     public async Task<IActionResult> DeleteImage(string imageId, string articleNumber)
     {
+        // Calls DeleteImageAsync with imageId
         if (await _imageService.DeleteImageAsync(imageId))
             return RedirectToAction("UpdateProduct", new { articleNumber });
 
+        // If somehting went wrong show error message
         return RedirectToAction("UpdateProduct", new { articleNumber, errorMessage = "Could not remove image..." });
     }
 

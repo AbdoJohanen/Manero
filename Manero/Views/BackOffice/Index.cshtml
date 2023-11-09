@@ -21,6 +21,7 @@
                 @foreach (var product in Model.Products)
                 {
                     <div class="col-md-3 mb-4">
+                        <div class="text-danger" asp-validation-summary="ModelOnly" style="font-size: 12px;"></div>
                         <div class="card col p-0" style="width: 18rem;">
                             @if (product.Images.Any())
                             {

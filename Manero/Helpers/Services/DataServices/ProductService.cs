@@ -83,7 +83,8 @@ public class ProductService
         if (!articleNumber.IsNullOrEmpty())
         {
             var product = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
-            return await _productRepository.DeleteAsync(product);
+            if (product != null)
+                return await _productRepository.DeleteAsync(product);
         }
             
         return false;

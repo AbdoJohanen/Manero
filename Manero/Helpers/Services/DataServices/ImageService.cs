@@ -65,6 +65,10 @@ public class ImageService
         return items;    
     }
 
+    // Takes imageId and articleNumber
+    // Gets all images for product using articleNumber
+    // If the mainImage has the same id as the parameter imageId then set image to mainImage = true
+    // If not then set isMainimage to false then update image 
     public async Task<bool> UpdateMainImageAsync(string imageId, string articleNumber)
     {
         if (!string.IsNullOrEmpty(imageId))
@@ -85,6 +89,7 @@ public class ImageService
         return false;
     }
 
+    // Takes imageId and finds the image then sends and deletes that image
     public async Task<bool> DeleteImageAsync(string ImageId)
     {
         var image = await _imageRepository.GetAsync(x => x.Id == ImageId);
