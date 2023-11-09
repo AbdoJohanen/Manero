@@ -1,0 +1,196 @@
+// _productFilterOffcanvas.scss
+@import "../core/_variables.scss";
+
+.offcanvas-filter {
+    background-color: $color-main-black;
+    color: $color-main-grey;
+    font-family: $font-main;
+
+    .offcanvas-header {
+        background-color: $color-main-soft-black;
+        color: $color-main-grey;
+        border-bottom: 1px solid $color-main-grey;
+
+        .offcanvas-title {
+            font-weight: $font-weight-bold;
+        }
+
+        .btn-close {
+            color: $color-main-grey;
+        }
+    }
+
+    .offcanvas-body {
+        // Assuming you want a background with a slight blue hue, as in the image
+        background-color: $color-main-blue-30p;
+
+        h6 {
+            font-size: 1rem;
+            color: $color-main-grey;
+            font-weight: $font-weight-semibold;
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            background-color: $color-main-blue;
+            border: none;
+            border-radius: $border-radius-small;
+        }
+
+        .btn {
+            background-color: $color-main-grey;
+            border-radius: $border-radius-medium;
+            color: white;
+            font-weight: $font-weight-semibold;
+
+            &:hover {
+                background-color: darken($color-main-grey, 10%);
+            }
+        }
+
+        .checkbox-custom {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+
+            input[type="checkbox"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                background: $color-main-soft-black;
+                border: 1px solid $color-main-grey;
+                border-radius: $border-radius-small;
+                margin-right: 10px;
+                cursor: pointer;
+                position: relative;
+
+                &:checked {
+                    background-color: $color-accent-red;
+                    border-color: $color-accent-red;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 5px;
+                        top: 9px;
+                        width: 6px;
+                        height: 11px;
+                        border: solid white;
+                        border-width: 0 2px 2px 0;
+                        transform: rotate(45deg);
+                    }
+                }
+            }
+
+            label {
+                font-family: $font-main;
+                color: $color-main-grey;
+                cursor: pointer;
+            }
+        }
+
+        .checkbox-custom {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+
+            input[type="checkbox"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                background: $color-main-soft-black;
+                border: 1px solid $color-main-grey;
+                border-radius: $border-radius-small;
+                margin-right: 10px;
+                cursor: pointer;
+                position: relative;
+
+                &:checked {
+                    background-color: $color-accent-red;
+                    border-color: $color-accent-red;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 5px;
+                        top: 9px;
+                        width: 6px;
+                        height: 11px;
+                        border: solid white;
+                        border-width: 0 2px 2px 0;
+                        transform: rotate(45deg);
+                    }
+                }
+            }
+
+            label {
+                font-family: $font-main;
+                color: $color-main-grey;
+                cursor: pointer;
+            }
+        }
+
+        .slider-custom {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+
+            input[type="range"] {
+                -webkit-appearance: none;
+                width: 100%;
+                height: 8px;
+                border-radius: $border-radius-rounded;
+                background: $color-main-soft-black;
+                outline: none;
+                padding: 0;
+                margin: 0 15px;
+
+                &::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: $border-radius-rounded;
+                    background: $color-accent-red;
+                    cursor: pointer;
+                    border: none;
+                }
+
+                &::-moz-range-thumb {
+                    width: 20px;
+                    height: 20px;
+                    border: none;
+                    border-radius: $border-radius-rounded;
+                    background: $color-accent-red;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .btn-dark {
+            background-color: $color-main-black;
+            border: none;
+        }
+        // Add custom styles for your range slider, checkboxes, and color options here
+        // ...
+    }
+    // Media queries for responsive adjustments
+    @include sm {
+        // Styles for small devices
+    }
+
+    @include md {
+        // Styles for medium devices
+    }
+    // ... and so on for larger breakpoints
+}
+
+// Include the above mixin within your elements as needed

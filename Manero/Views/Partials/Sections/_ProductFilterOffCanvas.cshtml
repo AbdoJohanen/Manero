@@ -1,0 +1,82 @@
+﻿<!-- _ProductFilterOffcanvas.cshtml -->
+@model Manero.ViewModels.ProductFilterViewModel
+<div class="offcanvas offcanvas-end" tabindex="-1" id="filterOffcanvas" aria-labelledby="filterOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="filterOffcanvasLabel">Filter</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Filter form -->
+        <form id="filterForm">
+            <!-- Size filter -->
+            <div class="mb-3">
+                <h6>Size</h6>
+                @foreach (var size in Model.Sizes)
+                {
+                    <label>
+                        <input type="checkbox" asp-for="Sizes" value="@size" />
+                        @size
+                    </label>
+                }
+            </div>
+
+            <!-- Color filter -->
+            <div class="mb-3">
+                <h6>Color</h6>
+                @foreach (var color in Model.Colors)
+{
+                <label style="background-color: @color;">
+                    <input type="checkbox" asp-for="Colors" value="@color" />
+                </label>
+}
+            </div>
+
+            <!-- Price filter -->
+            <div class="mb-3">
+                <h6>Price</h6>
+                <label>
+                    Min Price
+                    <input type="range" asp-for="MinPrice" min="50" max="1500" value="@Model.MinPrice" />
+                    @Model.MinPrice?.ToString("C")
+                </label>
+                <label>
+                    Max Price
+                    <input type="range" asp-for="MaxPrice" min="50" max="1500" value="@Model.MaxPrice" />
+                    @Model.MaxPrice?.ToString("C")
+                </label>
+            </div>
+
+            <!-- Tags filter -->
+            <div class="mb-3">
+                <h6>Tags</h6>
+                @foreach (var tag in Model.Tags)
+                {
+                    <label>
+                        <input type="checkbox" asp-for="Tags" value="@tag" />
+                        @tag
+                    </label>
+                }
+            </div>
+
+            <!-- Category filter -->
+            <div class="mb-3">
+                <h6>Categories</h6>
+                @foreach (var category in Model.Categories)
+                {
+                    <label>
+                        <input type="checkbox" asp-for="Categories" value="@category" />
+                        @category
+                    </label>
+                }
+            </div>
+
+
+
+            <!-- Apply filters button -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-dark" id="applyFilters">APPLY FILTERS</button>
+            </div>
+        </form>
+    </div>
+</div>
+

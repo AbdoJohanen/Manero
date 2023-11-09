@@ -2,6 +2,8 @@
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
+using Manero.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Manero.Helpers.Services.DataServices;
@@ -143,6 +145,17 @@ public class ProductService
 
         return model!.ProductPrice;
     }
+
+    public async Task<IEnumerable<ProductModel>> GetFilteredProductsAsync(ProductFilterViewModel filters)
+    {
+        var productEntities = await _productRepository.GetFilteredProductsAsync(filters);
+
+        // Convert the entities to DTOs, ProductModel in your case
+        var productModels = productEntities.Select(pe => (ProductModel)pe).ToList();
+
+        return productModels;
+    }
+
 }
 
 //var matchingImages = productImages.Where(image => image.Id == item.ArticleNumber);
