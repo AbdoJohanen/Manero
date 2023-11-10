@@ -35,11 +35,6 @@ public class ProductService
         _productTagRepo = productTagRepo;
     }
 
-    public ProductService(ProductRepository repository)
-    {
-        Repository = repository;
-    }
-
 
     // Sends ProductModel from view to repository
     public async Task<ProductModel> CreateProductAsync(ProductModel model)

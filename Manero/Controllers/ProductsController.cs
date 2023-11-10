@@ -1,14 +1,10 @@
 ﻿using Manero.Helpers.Services.DataServices;
-using Manero.Models.DTO;
-using Manero.Models.Entities.ProductEntities;
-using Manero.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace Manero.Controllers
+namespace Manero.Controllers;
+
+public class ProductsController : Controller
 {
-    public class ProductsController : Controller
-    {
 	
 		private readonly ProductService _productService;
 
@@ -17,12 +13,11 @@ namespace Manero.Controllers
 			_productService = productService;
 		}
 
-        public async Task<IActionResult> Index(string id)
-        {
+    public async Task<IActionResult> ProductDetails(string id)
+    {
 
-            var productModel = await _productService.GetProductWithImagesAsync(id);
-            
-            return View(productModel);
-        }
+        var productModel = await _productService.GetProductWithImagesAsync(id);
+        
+        return View(productModel);
     }
 }
