@@ -1,0 +1,74 @@
+﻿@using Manero.Models.DTO
+@using Manero.ViewModels;
+@model ProductModel
+
+@{
+    string productName = Model.ProductName;
+    if (!string.IsNullOrEmpty(productName))
+    {
+        // Konverterar första bokstaven till stor bokstav
+        productName = char.ToUpper(productName[0]) + productName.Substring(1);
+    }
+}
+
+
+<section class="product-details-section">
+   <partial name="/Views/Partials/Components/_CarouselProductImages.cshtml" />
+    <div class="container-sm">
+        <div class="title-wishlist">
+            <!-- product title -->
+            <h2>@productName</h2>
+                <!-- add to wishlist  -->
+                <i class="fa-regular fa-heart"></i>
+        </div>
+        <!-- product rating -->
+        <div class="product-rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-regular fa-star"></i>
+            <div class="total-reviews">(23)</div>
+        </div>
+
+        <!-- product price and add to cart -->
+        <div class="price-cart">
+            <h3>$@Model.ProductPrice</h3>
+            <div class="add-to-cart">
+                <button>-</button>
+                <div class="amount">1</div>
+                <button>+</button>
+            </div>
+        </div>
+
+        <!-- product sizes -->
+        <div class="product-size">
+            <div class="title">Size</div>
+            <div class="size-buttons">
+                <button>XS</button>
+                <button>S</button>
+                <button>M</button>
+                <button>L</button>
+                <button>XL</button>
+                <button>XXL</button>
+            </div>
+        </div>
+        <!-- product colors -->
+        <div class="product-colors">
+            <div class="title">Color</div>
+            <div class="color-buttons">
+                <button class="red"></button>
+                <button class="blue"></button>
+                <button class="beige"></button>
+                <button class="navy"></button>
+                <button class="black"></button>
+            </div>
+        </div>
+        <!-- description -->
+        <div class="description">
+            <div class="title">Description</div>
+            <div class="text">@Model.ProductDescription</div>
+        </div>
+        <div class="btn btn-dark">+ ADD TO CART</div>
+    </div>
+</section>

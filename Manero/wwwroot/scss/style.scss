@@ -15,13 +15,19 @@
 
 // Sections
 @import "./sections/navbar";
+@import "./sections/showcase";
 @import "./sections/topmenu";
+@import "./sections/register";
+@import "./sections/login";
+@import "./sections/account";
+@import "./sections/verifyphonenumber";
 @import "./sections/_featured.scss";
 @import "./sections/_best-sellers.scss";
 @import "./sections/_banner.scss";
-@import "./sections/_category-scroll.scss";
-@import "./sections/_showcase-section.scss";
 @import "./components/_product-card-big.scss";
 @import "./sections/shop-view";
 @import "./sections/trackorder";
-
+@import "./sections/productdetails.scss";
+@import "./sections/productreviews.scss";
+@import "./sections/_category-grid.scss";
+@import "./sections/account-address";

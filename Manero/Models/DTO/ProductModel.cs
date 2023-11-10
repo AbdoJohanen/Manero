@@ -11,7 +11,6 @@ namespace Manero.Models.DTO
         public decimal? DiscountPrice { get; set; }
         public decimal? ProductDiscount { get; set; }
 
-        //public decimal? CalculatedPrice => ProductPrice * (ProductDiscount / 100);
         public decimal? CalculatedPrice
         {
             get

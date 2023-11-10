@@ -37,7 +37,9 @@ public class HomeController : Controller
         ViewBag.ActivePage = "Home";
         var viewModel = new HomeIndexViewModel
         {
+
             Categories = await _categoryService.GetAllCategoriesToModelAsync(),
+
             Featured = new GridCollectionViewModel
             {
                 Title = "Featured products",

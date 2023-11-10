@@ -25,13 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Helpers\Repositories\" />
-    <Folder Include="Helpers\Services\" />
     <Folder Include="Migrations\Data\" />
     <Folder Include="Views\Partials\Components\" />
     <Folder Include="wwwroot\assets\images\products\" />
+    <Folder Include="wwwroot\assets\images\products\" />
     <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\core\" />
   </ItemGroup>
@@ -42,13 +41,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MimeKit" Version="4.2.0" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
+    <PackageReference Include="Twilio" Version="6.14.1" />
   </ItemGroup>
 
 </Project>
