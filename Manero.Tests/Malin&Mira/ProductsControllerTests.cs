@@ -59,7 +59,7 @@ public class ProductsControllerTests
         //Act
         //Retrieving the test product from our in-memory database to convert it to a productmodel, which is then used in the controller
         var productModel = await _service.GetProductWithImagesAsync(product.ArticleNumber);
-        var result = await _productsController.Index(productModel.ArticleNumber) as ViewResult;
+        var result = await _productsController.ProductDetails(productModel.ArticleNumber) as ViewResult;
 
         //Assert
         Assert.NotNull(result); // Ensure that a ViewResult is returned
