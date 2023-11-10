@@ -2,6 +2,8 @@
 
 .product-details-section {
 
+
+
     .carousel-indicators [data-bs-target] {
         width: 6px;
         height: 6px;
@@ -17,8 +19,23 @@
         border-radius: 40px;
     }
 
+    .carousel-inner {
 
-    .container-sm {
+        width: 400px;
+        height: 500px;        
+    }
+
+    @media (min-width: 767.98px) {
+        .carousel-inner {            
+            width: 50%;
+            height: 50%;            
+        }
+    }
+
+
+
+
+    .container {
         .title-wishlist {
             display: flex;
             justify-content: space-between;
