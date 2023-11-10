@@ -5,7 +5,7 @@ using Manero.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Manero.Tests
+namespace Manero.Tests.GeorgeTests.GetAllIntegrationTests
 {
     public class CategoryServiceIntegrationTests
     {
@@ -27,24 +27,22 @@ namespace Manero.Tests
         [Fact]
         public async Task GetAllCategoriesToModelAsync_ShouldReturnCategoriesInModelFormat()
         {
-            // Arrange: Lägg till testdata i din InMemory-databas
+            // Arrange
             var category1 = new CategoryModel { Id = 1, Category = "Category 1" };
             var category2 = new CategoryModel { Id = 2, Category = "Category 2" };
 
             await _context.Categories.AddRangeAsync(category1, category2);
             await _context.SaveChangesAsync();
 
-            // Act: Anropa GetAllCategoriesToModelAsync-metoden
+            // Act
             var result = await _service.GetAllCategoriesToModelAsync();
 
-            // Assert: Kontrollera att resultatet är en lista med kategorimodeller i rätt format
+            // Assert
             Assert.NotNull(result);
             Assert.IsType<List<CategoryModel>>(result);
 
-            // Kontrollera att antalet kategorimodeller matchar antalet kategorier i databasen
+            // Kontrollerar att antalet kategorimodeller matchar antalet kategorier i databasen
             Assert.Equal(2, result.Count());
-
-            // Rensa InMemory-databasen efter testet om det behövs
         }
 
         public void Dispose()

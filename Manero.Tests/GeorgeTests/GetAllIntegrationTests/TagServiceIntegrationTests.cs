@@ -3,13 +3,8 @@ using Manero.Helpers.Repositories.DataRepositories;
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Manero.Tests.GetAllIntegrationTests
+namespace Manero.Tests.GeorgeTests.GetAllIntegrationTests
 {
     public class TagServiceIntegrationTests
     {
@@ -29,26 +24,25 @@ namespace Manero.Tests.GetAllIntegrationTests
         }
 
         [Fact]
-        public async Task GetAllCategoriesToModelAsync_ShouldReturnCategoriesInModelFormat()
+        public async Task GetAllTagsToModelAsync_ShouldReturnTagsInModelFormat()
         {
-            // Arrange: Lägg till testdata i din InMemory-databas
+            // Arrange
             var tag1 = new TagModel { Id = 1, Tag = "Tag 1" };
             var tag2 = new TagModel { Id = 2, Tag = "Tag 2" };
 
             await _context.Tags.AddRangeAsync(tag1, tag2);
             await _context.SaveChangesAsync();
 
-            // Act: Anropa GetAllTagsToModelAsync-metoden
+            // Act
             var result = await _service.GetAllTagsToModelAsync();
 
-            // Assert: Kontrollera att resultatet är en lista med tagmodeller i rätt format
+            // Assert
             Assert.NotNull(result);
             Assert.IsType<List<TagModel>>(result);
 
-            // Kontrollera att antalet tagmodeller matchar antalet kategorier i databasen
+            // Kontrollera att antalet tagmodeller matchar antalet Taggar i databasen
             Assert.Equal(2, result.Count());
 
-            // Rensa InMemory-databasen efter testet om det behövs
         }
     }
 

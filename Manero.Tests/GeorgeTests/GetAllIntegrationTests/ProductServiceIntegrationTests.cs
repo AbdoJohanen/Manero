@@ -5,10 +5,9 @@ using Manero.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
-using static System.Net.Mime.MediaTypeNames;
 
 
-namespace Manero.Tests.GetAllIntegrationTests
+namespace Manero.Tests.GeorgeTests.GetAllIntegrationTests
 {
 
     public class ProductServiceIntegrationTests : IDisposable
@@ -37,10 +36,10 @@ namespace Manero.Tests.GetAllIntegrationTests
             _categoryService = new CategoryService(_categoryRepository);
             _productCategoryRepo = new ProductCategoryRepository(_context);
 
-            // Skapa en faktisk instans av TestWebHostEnvironment
+            // Skapar en faktisk instans av TestWebHostEnvironment
             _webHostEnvironment = new TestWebHostEnvironment();
 
-            // Skapa en faktisk instans av DataContext för ImageRepository
+            // Skapar en faktisk instans av DataContext för ImageRepository
             var imageRepositoryContext = new DataContext(options);
             _imageService = new ImageService(_webHostEnvironment, new ImageRepository(imageRepositoryContext));
             _tagRepo = new TagRepository(_context);
@@ -53,24 +52,25 @@ namespace Manero.Tests.GetAllIntegrationTests
         [Fact]
         public async Task GetAllAsync_ShouldReturnProducts()
         {
-            // Arrange: Lägg till testdata i din InMemory-databas
+            // Arrange: Lägg till testdata i InMemory-databas
             var product1 = new ProductModel { ArticleNumber = "Test-1", ProductName = "Test Product 1", ProductPrice = 10 };
             var product2 = new ProductModel { ArticleNumber = "Test-2", ProductName = "Test Product 2", ProductPrice = 15 };
 
             await _context.Products.AddRangeAsync(product1, product2);
             await _context.SaveChangesAsync();
 
-            // Act: Anropa GetAllAsync-metoden
+            // Act
             var result = await _service.GetAllAsync();
 
-            // Assert: Kontrollera att resultatet är en lista med produkter och att antalet produkter matchar antalet i databasen
+            // Assert
+            // Kontrollerar att resultatet är en lista med produkter och att antalet produkter matchar antalet i databasen
             Assert.NotNull(result);
             Assert.IsType<List<ProductModel>>(result);
             Assert.Equal(2, result.Count());
 
 
 
-            // Rensa InMemory-databasen efter testet om det behövs
+            // Rensar InMemory-databasen
             _context.Database.EnsureDeleted();
         }
 
@@ -82,7 +82,7 @@ namespace Manero.Tests.GetAllIntegrationTests
         {
             public string WebRootPath { get; set; }
             public IFileProvider WebRootFileProvider { get; set; }
-            public string ContentRootPath { get; set; } = Directory.GetCurrentDirectory(); 
+            public string ContentRootPath { get; set; } = Directory.GetCurrentDirectory();
             public IFileProvider ContentRootFileProvider { get; set; }
             public string EnvironmentName { get; set; } = "Development";
             public string ApplicationName { get; set; } = "Manero";
@@ -95,6 +95,7 @@ namespace Manero.Tests.GetAllIntegrationTests
                 WebRootFileProvider = new PhysicalFileProvider(WebRootPath);
                 ContentRootFileProvider = new PhysicalFileProvider(ContentRootPath);
             }
+        }
 
         [Fact]
         public void ProductName_ComesFromDatabase()
@@ -133,27 +134,27 @@ namespace Manero.Tests.GetAllIntegrationTests
             var product = new ProductModel
             {
                 Images = new List<ImageModel>
+            {
+                new ImageModel
                 {
-                    new ImageModel
-                    {
-                        Id = "1",
-                        ImageUrl = "url",
-                        IsMainImage = true,
-                    }
+                    Id = "1",
+                    ImageUrl = "url",
+                    IsMainImage = true,
                 }
+            }
             };
 
             // Act
             var images = product.Images;
 
-                // Assert
+            // Assert
             Assert.NotNull(images);
             Assert.NotEmpty(images);
             Assert.Equal("1", images[0].Id);
             Assert.Equal("url", images[0].ImageUrl);
             Assert.True(images[0].IsMainImage);
-            }
-
         }
+
     }
 }
+

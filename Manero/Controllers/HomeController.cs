@@ -3,6 +3,7 @@ using Manero.Models.DTO;
 using Manero.ViewModels;
 using Manero.ViewModels.BackOffice;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Manero.Controllers;
 
@@ -19,6 +20,20 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
+        var allProducts = await _productService.GetAllAsync();
+
+        // Filtrering för bäst säljande produkter
+        var bestSellingProducts = allProducts
+            .Where(product => product.Tags.Any(tag => tag.Tag.Contains("Best Sellers")))
+            .Take(3)
+            .ToList();
+
+        // Filtrering för utvalda produkter
+        var featuredProducts = allProducts
+            .Where(product => product.Tags.Any(tag => tag.Tag.Contains("Featured Products")))
+            .Take(4)
+            .ToList();
+
         ViewBag.ActivePage = "Home";
         var viewModel = new HomeIndexViewModel
         {
@@ -26,18 +41,14 @@ public class HomeController : Controller
             Featured = new GridCollectionViewModel
             {
                 Title = "Featured products",
-                GridItems = (await _productService.GetAllAsync()).Take(4),
+                GridItems = featuredProducts,
             },
             BestSelling = new BestSellingViewModel
             {
-                GridItems = (await _productService.GetAllAsync()).Take(3),
+                Title = "Best Sellers",
+                GridItems = bestSellingProducts,
             }
         };
-        //var products = new GridCollectionViewModel
-        //{
-        //    Title = "Home",
-        //    GridItems = (await _productService.GetAllAsync()).Take(4),
-        //};
         return View(viewModel);
     }
 
