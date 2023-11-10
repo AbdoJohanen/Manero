@@ -1,4 +1,5 @@
-﻿using Manero.Models.Entities.ProductEntities;
+﻿using Manero.Models.DTO;
+using Manero.Models.Entities.ProductEntities;
 
 namespace Manero.ViewModels
 {
@@ -11,5 +12,9 @@ namespace Manero.ViewModels
         public decimal? ProductDiscount { get; set; }
 
 
-	}
+        public List<SizeModel> Sizes { get; set; } = new List<SizeModel>();
+
+        public GridCollectionViewModel All { get; set; } = null!;
+
+    }
 }

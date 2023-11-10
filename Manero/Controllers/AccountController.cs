@@ -21,6 +21,9 @@ using SendGrid;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Manero.Models.Entities.UserEntities;
+using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Manero.Controllers;
 
@@ -30,12 +33,14 @@ public class AccountController : Controller
     private readonly AuthService _auth;
     private readonly UserManager<AppUser> _userManager;
     private readonly UserService _userService;
+    private readonly AddressService _addressService;
 
-    public AccountController(AuthService auth, UserManager<AppUser> userManager, UserService userService)
+    public AccountController(AuthService auth, UserManager<AppUser> userManager, UserService userService, AddressService addressService)
     {
         _auth = auth;
         _userManager = userManager;
         _userService = userService;
+        _addressService = addressService;
     }
 
     public async Task<IActionResult> Index()
@@ -80,12 +85,10 @@ public class AccountController : Controller
         if (ModelState.IsValid)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user!);
-
+           
             if (user != null)
             {
-                //user.Token = token;
-                //await _userManager.UpdateAsync(user);
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user!);
 
                 SendResetPasswordLink(model.Email, token);
                 ViewBag.Email = model.Email; // Pass the email to the view
@@ -389,18 +392,16 @@ public class AccountController : Controller
         }
     }
 
-    [HttpPost]
     public IActionResult Resend(string phoneNumber)
     {
         if (phoneNumber != null)
         {
             ResendVerification(phoneNumber);
-            return View("verify", "account");
+            return View("verifyphonenumber", "account");
         }
         else
         {
             return View("phonenumber", "account");
-            //ModelState.AddModelError("", "We couldn't find a registered email as you wrote. :(");
         }
     }
 
@@ -426,15 +427,11 @@ public class AccountController : Controller
     public async Task <ActionResult> VerifyEmail( string email)
     {
         // Call the SendVerificationEmail function
-        //string token = GenerateToken(); // Generate the verification token
         var user = await _userManager.FindByEmailAsync(email);
-        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user!);
 
         if (user != null)
         {
-            //// Update the EmailConfirmed property to true
-            //user.Token = token;
-            //await _userManager.UpdateAsync(user);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user!);
 
             SendVerificationLink(user!, email, token);
             ViewBag.Email = email;
@@ -443,9 +440,6 @@ public class AccountController : Controller
         {
             ModelState.AddModelError("", "We couldn't find a registered email as you wrote. :(");
         }
-
-        //ViewBag.Name = name; // Pass the name to the view
-        // Pass the email to the view
 
         return View();
     }
@@ -554,9 +548,199 @@ public class AccountController : Controller
         }
     }
 
-    public IActionResult Address()
+
+    public async Task<IActionResult> Address()
     {
         ViewBag.ActivePage = "Account";
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+
+        if (userId != null)
+        {
+            Expression<Func<UserAddressEntity, bool>> userAddressExpression = x => x.UserId == userId;
+            var userAddresses = await _addressService.GetAllUserAddressesAsync(userAddressExpression);
+
+            var userModel = new AddressViewModel
+            {
+                UserId = userId,
+                Addresses = userAddresses.ToList()
+            };
+
+            return View(userModel);
+        }
+
         return View();
+    }
+
+
+
+    public IActionResult AddAddress()
+    {
+        ViewBag.ActivePage = "Account";
+
+        return View();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> AddAddress(AddressViewModel model)
+    {
+        ViewBag.ActivePage = "Account";
+
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+                var user = await _userService.GetUserAsync(userId!); // Get user details
+
+                AddressEntity address = new()
+                {
+                    StreetName = model.StreetName,
+                    PostalCode = model.PostalCode,
+                    City = model.City
+                };
+
+                var existingAddress = await _addressService.GetorCreateAsync(address);
+
+
+                await _addressService.AddAddressAsync(user, existingAddress, model);
+
+                return RedirectToAction("address", "account");
+            }
+            catch { }
+
+            return RedirectToAction("address", "account");
+        }
+
+        return View(model);
+    }
+
+
+    public async Task<IActionResult> EditAddress(int id)
+    {
+        ViewBag.ActivePage = "Account";
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+        UserAddressEntity userAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(id);
+
+        if (userAddressEntity != null)
+        {
+            AddressViewModel viewModel = new()
+            {
+                UserId = userId,
+                AddressId = userAddressEntity.AddressId,
+                AddressTitle = userAddressEntity.AddressTitle,
+                StreetName = userAddressEntity.Address.StreetName,
+                PostalCode = userAddressEntity.Address.PostalCode,
+                City = userAddressEntity.Address.City
+            };
+
+            return View(viewModel);
+        }
+
+        return NotFound();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> EditAddress(AddressViewModel model)
+    {
+        ViewBag.ActivePage = "Account";
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+                var user = await _userService.GetUserAsync(userId!); // Get user details
+                model.UserId = userId;
+
+                AddressEntity updatedAddress = new()
+                {
+                    StreetName = model.StreetName,
+                    PostalCode = model.PostalCode,
+                    City = model.City
+                };
+
+                updatedAddress = await _addressService.GetorCreateAsync(updatedAddress);
+
+                UserAddressEntity existingUserAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(model.AddressId);
+
+                // Checks if the user has updated StreetName, PostalCode or City
+                if (existingUserAddressEntity.Address.StreetName != updatedAddress.StreetName ||
+                    existingUserAddressEntity.Address.PostalCode != updatedAddress.PostalCode ||
+                    existingUserAddressEntity.Address.City != updatedAddress.City)
+                {
+                    // The address details have been updated, delete the old UserAddressEntity and make a new one with the new updated address
+                    if (existingUserAddressEntity != null)
+                    {
+                        if (await _addressService.DeleteUserAddressEntityAsync(existingUserAddressEntity))
+                        {
+                            await _addressService.AddAddressAsync(user, updatedAddress, model);
+                        }
+                    }
+                } else if (existingUserAddressEntity.AddressTitle != model.AddressTitle) // Checks if the AddressTitle was changed
+                {
+                    existingUserAddressEntity.AddressTitle = model.AddressTitle;
+                    await _addressService.UpdateUserAddressEntityAsync(existingUserAddressEntity);
+                }
+            }
+            catch { return NotFound(); }
+            return RedirectToAction("address", "account");
+        }
+        return View(model);
+    }
+
+
+    public async Task<IActionResult> DeleteAddress(int id)
+    {
+        ViewBag.ActivePage = "Account";
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+        UserAddressEntity userAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(id);
+
+        if (userAddressEntity != null)
+        {
+            AddressViewModel viewModel = new()
+            {
+                UserId = userId,
+                AddressId = userAddressEntity.AddressId,
+                AddressTitle = userAddressEntity.AddressTitle,
+                StreetName = userAddressEntity.Address.StreetName,
+                PostalCode = userAddressEntity.Address.PostalCode,
+                City = userAddressEntity.Address.City
+            };
+
+            return View(viewModel);
+        }
+
+        return NotFound();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteAddress(AddressViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+                var user = await _userService.GetUserAsync(userId!); // Get user details
+                model.UserId = userId;
+
+                UserAddressEntity existingUserAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(model.AddressId);
+
+                if (existingUserAddressEntity != null)
+                {
+                    await _addressService.DeleteUserAddressEntityAsync(existingUserAddressEntity);
+                }
+            }
+            catch { return NotFound(); }
+            return RedirectToAction("address", "account");
+        }
+        return NotFound();
     }
 }

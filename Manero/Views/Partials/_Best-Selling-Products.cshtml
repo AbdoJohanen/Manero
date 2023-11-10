@@ -1,23 +1,24 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model GridCollectionViewModel
+@model BestSellingViewModel
 @{
-}
 
-<section class="featured">
+}
+<section class="best-sellers">
     <div class="banner-title">
         <h1>@Model.Title</h1>
         <a href="">view all<i class="fa-solid fa-angle-right"></i></a>
     </div>
-    <div class="featured-products">
+    <div class="best-products">
         @foreach (var product in Model.GridItems)
         {
-@*            if (product.Tags.Any(tag => tag.Tag == "Featured Products"))
+@*            if (product.Tags.Any(tag => tag.Tag == "Best Sellers"))
             {
 
             }*@
-            <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" model="product" />
+            <Partial name="/Views/Partials/Components/_Product-Card-Small.cshtml" model="product" />
+
         }
     </div>
 </section>

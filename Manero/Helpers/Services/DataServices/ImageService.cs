@@ -75,4 +75,18 @@ public class ImageService
 
         return imageModels;
     }
+
+    public async Task<IEnumerable<ImageModel>> GetAllImagesAsync(string id)
+    {
+        var imageEntities = await _imageRepository.GetAllAsync(x => x.ProductArticleNumber == id);
+
+        var imageModels = imageEntities.Select(imageEntity => new ImageModel
+        {
+            Id = imageEntity.Id,
+            ImageUrl = imageEntity.ImageUrl,
+            IsMainImage = imageEntity.IsMainImage,
+        }).ToList();
+
+        return imageModels;
+    }
 }

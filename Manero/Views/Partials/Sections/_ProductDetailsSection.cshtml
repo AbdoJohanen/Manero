@@ -1,12 +1,23 @@
-﻿
+﻿@using Manero.Models.DTO
+@using Manero.ViewModels;
+@model ProductModel
+
+@{
+    string productName = Model.ProductName;
+    if (!string.IsNullOrEmpty(productName))
+    {
+        // Konverterar första bokstaven till stor bokstav
+        productName = char.ToUpper(productName[0]) + productName.Substring(1);
+    }
+}
 
 
 <section class="product-details-section">
-    <partial name="/Views/Partials/Components/_CarouselProductImages.cshtml" />
+   <partial name="/Views/Partials/Components/_CarouselProductImages.cshtml" />
     <div class="container-sm">
         <div class="title-wishlist">
             <!-- product title -->
-            <h2>Dress</h2>
+            <h2>@productName</h2>
                 <!-- add to wishlist  -->
                 <i class="fa-regular fa-heart"></i>
         </div>
@@ -22,7 +33,7 @@
 
         <!-- product price and add to cart -->
         <div class="price-cart">
-            <h3>24</h3>
+            <h3>$@Model.ProductPrice</h3>
             <div class="add-to-cart">
                 <button>-</button>
                 <div class="amount">1</div>
@@ -56,7 +67,7 @@
         <!-- description -->
         <div class="description">
             <div class="title">Description</div>
-            <div class="text">Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.</div>
+            <div class="text">@Model.ProductDescription</div>
         </div>
         <div class="btn btn-dark">+ ADD TO CART</div>
     </div>

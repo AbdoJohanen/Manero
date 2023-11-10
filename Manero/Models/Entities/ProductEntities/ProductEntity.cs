@@ -29,7 +29,8 @@ public class ProductEntity
             ProductName = entity.ProductName,
             ProductDescription = entity.ProductDescription!,
             ProductPrice = entity.ProductPrice,
-            ProductDiscount = entity.ProductDiscount,
+            ProductDiscount = entity.ProductDiscount
+
 
         };
     }
