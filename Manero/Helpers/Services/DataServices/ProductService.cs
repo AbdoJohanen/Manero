@@ -2,7 +2,9 @@
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 
 namespace Manero.Helpers.Services.DataServices;
 
@@ -18,7 +20,7 @@ public class ProductService
     private readonly TagRepository _tagRepo;
     private readonly ProductTagRepository _productTagRepo;
 
-
+    public ProductRepository Repository { get; }
 
     public ProductService(ProductRepository productRepository, CategoryService categoryService, ProductRepository productRepo, ProductCategoryRepository productCategoryRepo, ImageService imageService, CategoryRepository categoryRepository, TagService tagService, TagRepository tagRepo, ProductTagRepository productTagRepo)
     {
@@ -68,6 +70,41 @@ public class ProductService
 
         return null!;
     }
+
+
+
+    //Product Details
+ 
+
+    public async Task<ProductModel> GetProductWithImagesAsync(string id)
+    {
+
+        var item = await _productRepo.GetAsync(x => x.ArticleNumber == id);
+
+        if (item == null)
+        {
+            return null;
+        }
+
+
+        var productImages = await _imageService.GetAllImagesAsync(id);
+        var images = await _imageService.GetAllImagesAsync();
+
+
+        ProductModel productModel = item;
+
+
+        var matchingImages = productImages
+           .Select(pi => images.FirstOrDefault(img => img.Id == pi.Id));
+
+        productModel.Images = matchingImages.ToList();
+
+        return productModel;
+    }
+
+  
+
+
 
     public async Task<IEnumerable<ProductModel>> GetAllAsync()
     {

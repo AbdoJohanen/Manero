@@ -13,7 +13,7 @@
     }
 }
 <div class="big-card-discount">
-    <a asp-route-id="@Model.ArticleNumber" class="product-card-big">
+    <a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@Model.ArticleNumber" class="product-card-big">
         <div class="image-card">
 
             @if (Model.Images != null)
