@@ -1,0 +1,74 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<!-- Edit Profile -->
+<div class="account-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="index" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Edit profile</h4>
+        </section>
+
+        <form id='editProfileForm' enctype="multipart/form-data" method="post">
+            <div class="heading">
+                <div class="line"></div>
+                <div class="uploadimage">
+                    <img id="imagePreview" src="~/assets/images/users/@Model.ImageUrl">
+                    <label asp-for="ProfilePicture"><i class="fa-regular fa-camera"></i></label>
+                    <input asp-for="ProfilePicture" onchange="previewImage(event)" />
+                </div>
+            </div>
+            <div class="input">
+                <label asp-for="Name">NAME</label>
+                <input asp-for="Name" required>
+            </div>
+            <div class="input">
+                <label asp-for="Email">EMAIL</label>
+                <input asp-for="Email" id="emailInput" required>
+                @if (!Model.EmailConfirmed)
+                {
+                    <a href="@Url.Action("verifyemail", "account", new { email = Model.Email })" type="button" class="verifyphonenumber">verify</a>
+                }
+                else
+                {
+                    <span class="phonenumberverified">verified</span>
+                }
+            </div>
+            <div class="input">
+                <label asp-for="PhoneNumber">PHONE NUMBER</label>
+                <input asp-for="PhoneNumber">
+                @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                {
+                    @if (!Model.PhoneNumberConfirmed)
+                    {
+                        <a href="@Url.Action("phonenumber", "account", new { phonenumber = Model.PhoneNumber })" type="button" class="verifyphonenumber">verify</a>
+                    }
+                    else
+                    {
+                        <span class="phonenumberverified">verified</span>
+                    }
+                }
+            </div>
+            <div class="input">
+                <label for="Address">LOCATION</label>
+                <a asp-action="address" asp-controller="account" class="addresses"><input for="address" ></a>
+            </div>
+            <button class="btn btn-dark" type="submit">SAVE CHANGES</button>
+        </form>
+    </div>
+</div> 
+
+<partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var output = document.getElementById('imagePreview');
+            output.src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

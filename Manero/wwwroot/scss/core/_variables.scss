@@ -26,3 +26,18 @@ $font-weight-bold: 700;
 $border-radius-small: 8px;
 $border-radius-medium: 30px;
 $border-radius-rounded: 50%;
+
+
+$breakpoint-sm: 576px;
+$breakpoint-sm-max-width: 540px;
+$breakpoint-md: 768px;
+$breakpoint-md-max-width: 720px;
+$breakpoint-lg: 992px;
+$breakpoint-lg-max-width: 960px;
+$breakpoint-xl: 1200px;
+$breakpoint-xl-max-width: 1140px;
+$breakpoint-xxl: 1400px;
+$breakpoint-xxl-max-width: 1320px;
+$breakpoint-xxxl: 2500px;
+$breakpoint-xxxl-max-width: 2048px;
+@import "./breakpoints";

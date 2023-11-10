@@ -1,0 +1,24 @@
+﻿@model UserRegisterViewModel
+@{
+    ViewData["Title"] = "User Successfully Registered";
+}
+
+<div class="register-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a href="/"><i class="fa-regular fa-angle-left"></i></a></span>
+            <img src="~/assets/images/theme/logo.svg">
+        </section>
+
+        <div class="heading">
+            <div>
+                <img src="~/assets/images/theme/created.svg">
+            </div>
+            <div class="line"></div>
+            <h1>Account Created!</h1>
+            <p>Your account had beed created successfully.</p>
+        </div>
+
+        <a asp-action="index" asp-controller="home" class="btn btn-dark" type="button">SHOP NOW</a>
+    </div>
+</div>  
