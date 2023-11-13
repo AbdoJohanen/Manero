@@ -38,5 +38,30 @@ public class ProductCategoryService
 
         return productCategories;
     }
+
+    // First gets list of ProductCategoryModel by articleNumber
+    // Then removing the existing CategoryIds
+    // Then creates new ProductCategoryModel by looping thru tags then return updated ProductCategories for product
+    public async Task<IEnumerable<ProductCategoryModel>> UpdateProductCategoriesAsync(string articleNumber, List<int> categories)
+    {
+        var productCategories = new List<ProductCategoryModel>();
+        var existingCategories = await _productCategoryRepository.GetAllAsync(x => x.ArticleNumber == articleNumber);
+
+        if (existingCategories != null)
+        {
+            foreach (var category in existingCategories)
+                await _productCategoryRepository.DeleteAsync(category);
+
+            foreach (var categoryId in categories)
+            {
+                var updatedProductCategory = await _productCategoryRepository.AddAsync(new ProductCategoryModel { ArticleNumber = articleNumber, CategoryId = categoryId });
+                productCategories.Add(updatedProductCategory);
+            }
+
+            return productCategories;
+        }
+
+        return null!;
+    }
 }
 
