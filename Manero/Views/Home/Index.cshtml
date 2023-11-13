@@ -16,25 +16,10 @@
         <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
 </header>
+<Partial name="/Views/partials/Sections/_CategoryScroller.cshtml" />
+<Partial name="/Views/Partials/Sections/_Showcase.cshtml" />
 <section class="container">
-    <section class="category-scroller snaps-inline">
-        @foreach (var category in Model.Categories!)
-        {
-            if (category != null)
-            {
-                <a href="#" class="category-element">
-                    <p class="category-name">@category.Category</p>
-                </a>
-            }
-            else
-            {
-                <div>category</div>
-            }
-        }
-    </section>
-
-    <Partial name="/Views/Partials/Sections/_Showcase.cshtml" />
-
+    
     <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
     <Partial name="/Views/Partials/_Best-Selling-Products.cshtml" model="@Model.BestSelling" />
 
