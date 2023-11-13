@@ -7,16 +7,17 @@
 
 <section class="featured">
     <div class="banner-title">
-        <h1>Featured products</h1>
+        <h1>@Model.Title</h1>
         <a href="">view all<i class="fa-solid fa-angle-right"></i></a>
     </div>
     <div class="featured-products">
         @foreach (var product in Model.GridItems)
         {
-            if (product.Tags.Any(tag => tag.Tag == "Featured Products"))
+@*            if (product.Tags.Any(tag => tag.Tag == "Featured Products"))
             {
-                <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" model="product" />
-            }
+
+            }*@
+            <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" model="product" />
         }
     </div>
 </section>

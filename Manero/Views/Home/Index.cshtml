@@ -1,23 +1,41 @@
-﻿@inject ProductService productService;
-@model HomeIndexViewModel
+﻿@model HomeIndexViewModel
 
 @{
     ViewData["Title"] = "Home";
-    var products = await productService.GetAllAsync();
 }
 
 <!-- Home -->
-<div class="home">
+<header class="home">
     <div class="container">
         <section class="top-menu-section">
             <partial name="/Views/Partials/Components/_Burger.cshtml" />
-            <a href="/"><img src="~/assets/images/logo.svg"></a>
+            <a href="/"><img src="~/assets/images/theme/logo.svg"></a>
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
         </section>
-        <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
+
         <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
-</div>
+</header>
+<section class="container">
+    <section class="category-scroller snaps-inline">
+        @foreach (var category in Model.Categories!)
+        {
+            if (category != null)
+            {
+                <a href="#" class="category-element">
+                    <p class="category-name">@category.Category</p>
+                </a>
+            }
+            else
+            {
+                <div>category</div>
+            }
+        }
+    </section>
 
+    <Partial name="/Views/Partials/Sections/_Showcase.cshtml" />
 
+    <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
+    <Partial name="/Views/Partials/_Best-Selling-Products.cshtml" model="@Model.BestSelling" />
 
+</section>

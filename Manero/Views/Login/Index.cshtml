@@ -1,17 +1,62 @@
-﻿@{
+﻿@model UserLoginViewModel
+@{
     ViewData["Title"] = "Login";
 }
+@* @model HomeIndexViewModel *@
 
-<!-- Home -->
-<header class="login">
+<!-- Login -->
+<div class="login-section">
     <div class="container">
         <section class="top-menu-section">
-            <partial name="/Views/Partials/Components/_Burger.cshtml" />
-            <h4>My profile</h4>
-            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+            <span><a href="/"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Sign In</h4>
         </section>
+        
+        <div class="heading">
+            <div class="line"></div>
+            <h1>Welcome Back!</h1>
+            <p>Sign in to continue</p>
+        </div>
 
+        <form id='loginForm' method="post" class="was-validated" asp-route-ReturnUrl="@Model.ReturnUrl">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="input">
+                <label asp-for="Email">EMAIL</label>
+                <input asp-for="Email" class="form-control is-valid" required>
+            </div>
+            <div class="input">
+                <label asp-for="Password">PASSWORD</label>
+                <input asp-for="Password" class="form-control is-valid" required>
+            </div>
+            <div class="check">                    
+                <div class="checkbox">                    
+                    <input asp-for="RememberMe" type="checkbox">
+                    <label asp-for="RememberMe">Remember me</label>
+                </div>
+                <div class="recover">                    
+                    <a asp-action="forgotpassword" asp-controller="account">Forgot password?</a>
+                </div>
+            </div>
+            <button class="btn btn-dark">SIGN IN</button>
+        </form>
+
+        <div class="signuplink">
+            <p>Don't have an account? <a asp-action="index" asp-controller="register">Sign up.</a></p>
+        </div>
+
+        <div class="alternativelogin">
+            <div class="circle">
+                <a href="/"><i class="fa-brands fa-facebook-f" style="color: #3B5999;"></i></a>
+            </div>
+            <div class="circle">
+                <a href="/"><i class="fa-brands fa-x-twitter" style="color: black;"></i></a>
+            </div>
+            <div class="circle">
+                <a href="/"><i class="fa-brands fa-google-plus-g" style="color: #DD4B39"></i></a>
+            </div>
+        </div>
     </div>
-</header> 
+</div>
 
-<partial name="/Views/Partials/Sections/_Navbar.cshtml" />

@@ -1,0 +1,33 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "Verify your phone number";
+}
+
+<!-- Verify -->
+<div class="verify-phonenumber-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="edit" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Verify your phone number</h4>
+        </section>
+
+        <div class="page2">
+            <div class="heading">
+                <p>Enter your OTP code here.</p>
+            </div>
+            <form id='otpForm' method="post">
+                <div class="input">
+                    <input type="text" name="code" maxlength="1" pattern="\d" oninput="this.nextElementSibling.focus()" required>
+                    <input type="text" name="code" maxlength="1" pattern="\d" oninput="this.nextElementSibling.focus()" required>
+                    <input type="text" name="code" maxlength="1" pattern="\d" oninput="this.nextElementSibling.focus()" required>
+                    <input type="text" name="code" maxlength="1" pattern="\d" oninput="this.nextElementSibling.focus()" required>
+                    <input type="text" name="code" maxlength="1" pattern="\d" required>
+                </div>
+                <div class="otplink">
+                    <p>Didn't receive the OTP? <a asp-action="resend" asp-controller="account">Resend.</a></p>
+                </div>
+                <button type="submit" class="btn btn-dark" id="verifyButton">VERIFY</button>
+            </form>
+        </div>
+    </div>
+</div>

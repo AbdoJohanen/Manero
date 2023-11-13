@@ -24,7 +24,6 @@ public class ImageEntity
             ImageUrl = entity.ImageUrl,
             IsMainImage = entity.IsMainImage,
             ProductArticleNumber = entity.ProductArticleNumber,
-            Product = entity.Product,
         };
     }
 }
