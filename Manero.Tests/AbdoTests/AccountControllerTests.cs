@@ -20,9 +20,9 @@ public class AccountControllerTests
     private readonly IdentityContext _identityContext;
     private readonly AddressRepository _addressRepository;
     private readonly UserAddressRepository _userAddressRepository;
-    private readonly AuthService _authService;
+    private readonly AuthService? _authService;
     private readonly UserManager<AppUser> _userManager;
-    private readonly UserService _userService;
+    private readonly UserService? _userService;
 
 
     public AccountControllerTests()
