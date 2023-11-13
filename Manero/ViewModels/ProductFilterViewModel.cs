@@ -4,10 +4,10 @@ namespace Manero.ViewModels;
 
 public class ProductFilterViewModel
 {
-    public List<string> AvailableSizes { get; set; } = null!;
-    public List<string> AvailableColors { get; set; } = null!;
-    public List<string> AvailableTags { get; set; } = null!;
-    public List<string> AvailableCategories { get; set; } = null!;
+    public List<SizeModel> AvailableSizes { get; set; } = null!;
+    public List<ColorModel> AvailableColors { get; set; } = null!;
+    public List<TagModel> AvailableTags { get; set; } = null!;
+    public List<CategoryModel> AvailableCategories { get; set; } = null!;
     public string[] Sizes { get; set; } = null!;
     public string[] Colors { get; set; } = null!;
     public string[] Tags { get; set; } = null!;

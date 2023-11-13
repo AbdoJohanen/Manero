@@ -6,6 +6,13 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+        <script>
+            function updatePriceDisplay(value, displayElementId, isMinPrice) {
+                var displayElement = document.getElementById(displayElementId);
+                var priceValue = parseFloat(value).toFixed(2);
+                displayElement.textContent = isMinPrice ? 'Min Price: $' + priceValue : 'Max Price: $' + priceValue;
+            }
+        </script>
         <!-- Filter form -->
         <form id="filterForm" method="get" asp-action="Index" asp-controller="Products">
             <!-- Size filter -->
@@ -14,10 +21,11 @@
                 @foreach (var size in Model.AvailableSizes)
                 {
                     <label>
-                        <input asp-for="Sizes" type="checkbox" value="@size"
-                               checked="@(Model.Sizes.Contains(size) ? "checked" : null)" />
-                        @size
+                        <input type="checkbox" name="Sizes" value="@size.Size"
+                        @(Model.Sizes.Contains(size.Size) ? "checked='checked'" : "") />
+                        @size.Size
                     </label>
+
                 }
             </div>
 
@@ -25,30 +33,32 @@
             <div class="mb-3">
                 <h6>Color</h6>
                 @foreach (var color in Model.AvailableColors)
-{
-                <label style="background-color: @color;">
-                    <input type="checkbox" asp-for="Colors" value="@color"
-                               checked="@(Model.Colors.Contains(color) ? "checked" : null)"/>
-                    @color
-
-                </label>
-}
+                {
+                    
+                    <label>
+                        <!-- Assuming Code is the color value -->
+                        <input type="checkbox" name="Colors" value="@color.Color"
+                        @(Model.Colors.Contains(color.Color) ? "checked='checked'" : "") />
+                        @color.Color
+                    </label>
+                }
             </div>
 
             <!-- Price filter -->
             <div class="mb-3">
                 <h6>Price</h6>
-                <label>
-                    Min Price
-                    <input type="range" asp-for="MinPrice" min="50" max="1500" value="@Model.MinPrice" />
-                    @Model.MinPrice?.ToString("C")
+                <label class="flex">
+                    Min Price: <span id="minPriceDisplay">@Model.MinPrice?.ToString("C")</span>
+                    <input type="range" name="MinPrice" min="0" max="10000"
+                           value="@Model.MinPrice" oninput="updatePriceDisplay(this.value, 'minPriceDisplay', true)" />
                 </label>
-                <label>
-                    Max Price
-                    <input type="range" asp-for="MaxPrice" min="50" max="1500" value="@Model.MaxPrice" />
-                    @Model.MaxPrice?.ToString("C")
+                <label class="flex">
+                    Max Price: <span id="maxPriceDisplay">@Model.MaxPrice?.ToString("C")</span>
+                    <input type="range" name="MaxPrice" min="1" max="10000"
+                           value="@Model.MaxPrice" oninput="updatePriceDisplay(this.value, 'maxPriceDisplay', false)" />
                 </label>
             </div>
+
 
             <!-- Tags filter -->
             <div class="mb-3">
@@ -56,9 +66,9 @@
                 @foreach (var tag in Model.AvailableTags)
                 {
                     <label>
-                        <input type="checkbox" asp-for="Tags" value="@tag" 
-                        checked="@(Model.Tags.Contains(tag) ? "checked" : null)"/>
-                        @tag
+                        <input type="checkbox" name="Tags" value="@tag.Tag"
+                        @(Model.Tags.Contains(tag.Tag) ? "checked='checked'" : "") />
+                        @tag.Tag
                     </label>
                 }
             </div>
@@ -69,9 +79,9 @@
                 @foreach (var category in Model.AvailableCategories)
                 {
                     <label>
-                        <input type="checkbox" asp-for="Categories" value="@category"
-                        checked="@(Model.Categories.Contains(category) ? "checked" : null)"/>
-                        @category
+                        <input type="checkbox" name="Categories" value="@category.Category"
+                        @(Model.Categories.Contains(category.Category) ? "checked='checked'" : "") />
+                        @category.Category
                     </label>
                 }
             </div>
@@ -85,4 +95,3 @@
         </form>
     </div>
 </div>
-

@@ -19,7 +19,10 @@
 <section class="best-sellers">
     <div class="banner-title">
         <h1>@Model.CurrentFilter</h1>
-        <a href="">view all<i class="fa-solid fa-angle-right"></i></a>
+        ﻿<!-- Button to trigger offcanvas -->
+        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas" aria-controls="filterOffcanvas">
+            <i class="fa-solid fa-angle-right"></i>
+        </button>
     </div>
     <div class="best-products">
         @foreach (var product in Model.Products)

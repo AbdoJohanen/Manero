@@ -31,10 +31,10 @@ public class ProductsController : Controller
         // If it is a POST request (form submission from the partial), the filter will also contain the appropriate data.
 
         // Fetch the available filter options from the database
-        filter.AvailableSizes = await _sizeService.GetAllSizesNamesAsStringAsync();
-        filter.AvailableColors = await _colorService.GetAllColorsNamesToStringAsync();
-        filter.AvailableTags = await _tagService.GetAllTagsNamesToStringAsync();
-        filter.AvailableCategories = await _categoryService.GetAllCategoriesNamesToStringAsync();
+        filter.AvailableSizes = (List<Models.DTO.SizeModel>)await _sizeService.GetAllSizesAsync();
+        filter.AvailableColors = (List<Models.DTO.ColorModel>)await _colorService.GetAllColorsAsync();
+        filter.AvailableTags = (List<Models.DTO.TagModel>)await _tagService.GetAllTagsAsync();
+        filter.AvailableCategories = (List<Models.DTO.CategoryModel>)await _categoryService.GetAllCategoriesAsync();
 
         // If the filter is empty, initialize it with the available options
         filter.Sizes = filter.Sizes ?? Array.Empty<string>();
@@ -42,7 +42,7 @@ public class ProductsController : Controller
         filter.Tags = filter.Tags ?? Array.Empty<string>();
         filter.Colors = filter.Colors ?? Array.Empty<string>();
         filter.MaxPrice = filter.MaxPrice;
-        filter.MinPrice = filter.MaxPrice;
+        filter.MinPrice = filter.MinPrice;
 
         // Fetch the filtered products based on the provided filter
         var filteredProducts = await _productService.GetFilteredProductsAsync(filter);

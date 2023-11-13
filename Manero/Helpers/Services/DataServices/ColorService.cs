@@ -29,21 +29,6 @@ public class ColorService
         return null!;
     }
 
-    public async Task<List<string>> GetAllColorsNamesToStringAsync()
-    {
-        var items = await _colorRepository.GetAllAsync();
-        if (items != null)
-        {
-            var colors = new List<string>();
-            foreach (var item in items)
-                colors.Add(item.Color);
-
-            return colors;
-        }
-
-        return null!;
-    }
-
     // Gets specific color based on Color Id
     public async Task<ColorModel> GetColorAsync(int ColorId)
     {

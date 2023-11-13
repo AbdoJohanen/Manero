@@ -27,21 +27,6 @@ public class SizeService
         return null!;
     }
 
-    public async Task<List<string>> GetAllSizesNamesAsStringAsync()
-    {
-        var items = await _sizeRepository.GetAllAsync();
-        if (items != null)
-        {
-            var sizes = new List<string>();
-            foreach (var item in items)
-                sizes.Add(item.Size);
-
-            return sizes;
-        }
-
-        return null!;
-    }
-
 
 
     // Gets specific SizeModel from repository
