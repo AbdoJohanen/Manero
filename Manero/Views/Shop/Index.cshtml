@@ -1,0 +1,62 @@
+﻿@using Manero.ViewModels.Shop
+@model ShopViewModel
+
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<div class="home">
+    <div class="container">
+        <section class="top-menu-section">
+            <a href="/home" class="burger back-btn">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+
+            <!--Denna H1 ska kunna ändras dynamiskt utefter tag eller kategori-->
+            <h1 class="shop-page-title">Best Sellers</h1>
+            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+        </section>
+    </div>
+</div>
+
+
+<div class="filters-sorting">
+    <div class="filters"><i class="fa-thin fa-arrow-down-wide-short"></i> Filters</div>
+    <div class="sorting">Sorting by <i class="fa-light fa-chevron-down"></i></div>
+</div>
+
+
+<div class="product-grid">
+    @foreach(var product in Model.Products){
+    @if(product.Tags.Any(tag => tag.Tag == "Best Sellers"))
+    {
+        <div class="big-card">
+            <a class="product-card-big" href="#">
+                <div class="image-card">
+                    @foreach(var image in product.Images)
+                    {
+                        <img class="image-placeholder" src="./assets/images/products/@image.ImageUrl"/>
+                    }
+                </div>
+                <div class="card-information">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="star-total">(3)</span>
+                    </div>
+                    <h3>@product.ProductName</h3>
+                    <span class="price">$@product.ProductPrice</span>
+                </div>
+            </a>
+            <div class="card-menu">
+                <a class="wish-list" href="#"><i class="fa-thin fa-heart"></i></a>
+                <a class="shopping-cart" href="#"><i class="fa-thin fa-bag-shopping"></i></a>
+            </div>
+        </div>
+    }
+}
+</div>
+

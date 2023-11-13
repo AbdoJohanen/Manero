@@ -9,8 +9,25 @@
 @import "./components/buttons";
 @import "./components/welcome";
 @import "./components/loader";
+@import "./components/product-card-small";
+@import "./components/product-card-big";
 
 
 // Sections
 @import "./sections/navbar";
+@import "./sections/showcase";
 @import "./sections/topmenu";
+@import "./sections/register";
+@import "./sections/login";
+@import "./sections/account";
+@import "./sections/verifyphonenumber";
+@import "./sections/_featured.scss";
+@import "./sections/_best-sellers.scss";
+@import "./sections/_banner.scss";
+@import "./components/_product-card-big.scss";
+@import "./sections/shop-view";
+@import "./sections/trackorder";
+@import "./sections/productdetails.scss";
+@import "./sections/productreviews.scss";
+@import "./sections/_category-grid.scss";
+@import "./sections/account-address";

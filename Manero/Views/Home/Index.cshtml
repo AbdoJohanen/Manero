@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HomeIndexViewModel
+
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -7,12 +9,39 @@
     <div class="container">
         <section class="top-menu-section">
             <partial name="/Views/Partials/Components/_Burger.cshtml" />
-            <a href="/"><img src="~/assets/images/logo.svg"></a>
+            <a href="/"><img src="~/assets/images/theme/logo.svg"></a>
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
-        </section>    
-        
+        </section>
 
+        <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
-</header> 
+</header>
+<section class="container">
+    <section class="category-scroller snaps-inline">
+        @foreach (var category in Model.Categories!)
+        {
+            if (category != null)
+            {
+                <a href="#" class="category-element">
+                    <p class="category-name">@category.Category</p>
+                </a>
+            }
+            else
+            {
+                <div>category</div>
+            }
+        }
+    </section>
+    <section class="showcase-section">
+        <div class="container" style="background-image: url('')">
+            <div class="showcase-content">
+                <h2>Take 50% off!</h2>
+                <a href="#" class="btn btn-white">SHOP NOW</a>
+            </div>
+        </div>
+    </section>
 
-<partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+    <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
+    <Partial name="/Views/Partials/_Best-Selling-Products.cshtml" model="@Model.BestSelling" />
+
+</section>

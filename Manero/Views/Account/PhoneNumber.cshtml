@@ -1,0 +1,27 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "Verify your phone number";
+}
+
+<!-- Verify -->
+<div class="verify-phonenumber-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="edit" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Verify your phone number</h4>
+        </section>
+
+        <div class="page1">
+            <div class="heading">
+                <p>We will send you an SMS with a code to number <span id="phoneNumber">@ViewBag.PhoneNumber</span></p>
+            </div>
+            <form id='verifyForm' method="post">
+                <div class="input">
+                    <label asp-for="PhoneNumber">PHONE NUMBER</label>
+                    <input asp-for="PhoneNumber">
+                </div>
+                <button type="submit" class="btn btn-dark" id="confirmButton">CONFIRM</button>
+            </form>
+        </div>
+    </div>
+</div>

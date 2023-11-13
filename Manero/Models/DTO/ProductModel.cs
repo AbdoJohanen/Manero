@@ -11,11 +11,25 @@ namespace Manero.Models.DTO
         public decimal? DiscountPrice { get; set; }
         public decimal? ProductDiscount { get; set; }
 
+        public decimal? CalculatedPrice
+        {
+            get
+            {
+                if (ProductDiscount != null)
+                {
+                    return ProductPrice - (ProductPrice * (ProductDiscount.Value / 100));
+                }
+
+                return null;
+            }
+        }
+
+
         public List<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         public List<TagModel> Tags { get; set; } = new List<TagModel>();
         public List<SizeModel> Sizes { get; set; } = new List<SizeModel>();
         public List<ColorModel> Colors { get; set; } = new List<ColorModel>();
-        public List<ImageModel> Images { get; set; } = null!;
+        public List<ImageModel> Images { get; set; } = new List<ImageModel>();
 
         public static implicit operator ProductEntity(ProductModel model)
         {
