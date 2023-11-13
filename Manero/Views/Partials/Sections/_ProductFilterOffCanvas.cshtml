@@ -7,14 +7,15 @@
     </div>
     <div class="offcanvas-body">
         <!-- Filter form -->
-        <form id="filterForm">
+        <form id="filterForm" method="get" asp-action="Index" asp-controller="Products">
             <!-- Size filter -->
             <div class="mb-3">
                 <h6>Size</h6>
-                @foreach (var size in Model.Sizes)
+                @foreach (var size in Model.AvailableSizes)
                 {
                     <label>
-                        <input type="checkbox" asp-for="Sizes" value="@size" />
+                        <input asp-for="Sizes" type="checkbox" value="@size"
+                               checked="@(Model.Sizes.Contains(size) ? "checked" : null)" />
                         @size
                     </label>
                 }
@@ -23,10 +24,13 @@
             <!-- Color filter -->
             <div class="mb-3">
                 <h6>Color</h6>
-                @foreach (var color in Model.Colors)
+                @foreach (var color in Model.AvailableColors)
 {
                 <label style="background-color: @color;">
-                    <input type="checkbox" asp-for="Colors" value="@color" />
+                    <input type="checkbox" asp-for="Colors" value="@color"
+                               checked="@(Model.Colors.Contains(color) ? "checked" : null)"/>
+                    @color
+
                 </label>
 }
             </div>
@@ -49,10 +53,11 @@
             <!-- Tags filter -->
             <div class="mb-3">
                 <h6>Tags</h6>
-                @foreach (var tag in Model.Tags)
+                @foreach (var tag in Model.AvailableTags)
                 {
                     <label>
-                        <input type="checkbox" asp-for="Tags" value="@tag" />
+                        <input type="checkbox" asp-for="Tags" value="@tag" 
+                        checked="@(Model.Tags.Contains(tag) ? "checked" : null)"/>
                         @tag
                     </label>
                 }
@@ -61,10 +66,11 @@
             <!-- Category filter -->
             <div class="mb-3">
                 <h6>Categories</h6>
-                @foreach (var category in Model.Categories)
+                @foreach (var category in Model.AvailableCategories)
                 {
                     <label>
-                        <input type="checkbox" asp-for="Categories" value="@category" />
+                        <input type="checkbox" asp-for="Categories" value="@category"
+                        checked="@(Model.Categories.Contains(category) ? "checked" : null)"/>
                         @category
                     </label>
                 }

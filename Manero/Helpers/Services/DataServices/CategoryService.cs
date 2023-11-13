@@ -26,6 +26,20 @@ public class CategoryService
         }
         return null!;
     }
+
+    public async Task<List<string>> GetAllCategoriesNamesToStringAsync()
+    {
+        var items = await _categoryRepository.GetAllAsync();
+        if (items != null)
+        {
+            var categories = new List<string>();
+            foreach (var item in items)
+                categories.Add(item.Category);
+
+            return categories;
+        }
+        return null!;
+    }
     public async Task<IEnumerable<CategoryModel>> GetAllCategoriesToModelAsync()
     {
         var categoriesEntities = await _categoryRepository.GetAllAsync();
