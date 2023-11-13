@@ -2,6 +2,8 @@
 using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics.Eventing.Reader;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Manero.Helpers.Services.DataServices;
 
@@ -25,7 +27,12 @@ public class ImageService
             ImageEntity imageEntity = new ImageEntity();
             var fileName = imageEntity.Id + file.FileName;
             string filePath = $"{_webHostEnvironment.WebRootPath}/assets/images/products/{fileName}";
-            await file.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
             if (isMainImage)
             {
                 imageEntity.IsMainImage = true;
@@ -34,7 +41,8 @@ public class ImageService
             imageEntity.ImageUrl = fileName;
 
             return await _imageRepository.AddAsync(imageEntity);
-        } catch
+        }
+        catch
         {
             return null!;
         }
@@ -88,5 +96,48 @@ public class ImageService
         }).ToList();
 
         return imageModels;
+    }
+
+    public async Task<IEnumerable<ImageModel>> GetAllProductImagesAsync(string articleNumber)
+    {
+        var items = new List<ImageModel>();
+        foreach (var image in await _imageRepository.GetAllAsync(x => x.ProductArticleNumber == articleNumber))
+            items.Add(image);
+
+        return items;    
+    }
+
+    // Takes imageId and articleNumber
+    // Gets all images for product using articleNumber
+    // If the mainImage has the same id as the parameter imageId then set image to mainImage = true
+    // If not then set isMainimage to false then update image 
+    public async Task<bool> UpdateMainImageAsync(string imageId, string articleNumber)
+    {
+        if (!string.IsNullOrEmpty(imageId))
+        {
+            foreach (var image in await _imageRepository.GetAllAsync(x => x.ProductArticleNumber == articleNumber))
+            {
+                if (image.Id == imageId)
+                    image.IsMainImage = true;
+                else
+                    image.IsMainImage = false;
+
+                await _imageRepository.UpdateAsync(image);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // Takes imageId and finds the image then sends and deletes that image
+    public async Task<bool> DeleteImageAsync(string ImageId)
+    {
+        var image = await _imageRepository.GetAsync(x => x.Id == ImageId);
+        if (image != null)
+            return await _imageRepository.DeleteAsync(image);
+            
+        return false;
     }
 }
