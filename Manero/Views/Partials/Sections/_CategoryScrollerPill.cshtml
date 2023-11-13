@@ -1,0 +1,14 @@
+﻿@model HomeIndexViewModel
+
+<section class="category-scroller snaps-inline">
+    @foreach (var category in Model.Categories!)
+    {
+        <div class="category-element">
+            <a asp-action="@category.Category" asp-controller="Shop" class="content-container">
+                <div class="pill-shape active">
+                    <p class="category-name">@category.Category.ToUpper()</p>
+                </div>
+            </a>
+        </div>
+    }
+</section>
