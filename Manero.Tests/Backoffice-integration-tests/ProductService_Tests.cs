@@ -12,15 +12,39 @@ public class ProductService_Tests
     private readonly ProductRepository _repository;
     private readonly DataContext _context;
 
+    private readonly ProductRepository _productRepository;
+    private readonly CategoryService _categoryService;
+    private readonly ProductRepository _productRepo;
+    private readonly ProductCategoryRepository _productCategoryRepo;
+    private readonly ImageService _imageService;
+    private readonly CategoryRepository _categoryRepository;
+    private readonly TagService _tagService;
+    private readonly TagRepository _tagRepo;
+    private readonly ProductTagRepository _productTagRepo;
+
     public ProductService_Tests()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
         .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
         .Options;
-
         _context = new DataContext(options);
+
+        _categoryRepository = new CategoryRepository(_context);
+        _categoryService = new CategoryService(_categoryRepository);
+
+        _productCategoryRepo = new ProductCategoryRepository(_context);
+
+        _tagRepo = new TagRepository(_context);
+        _tagService = new TagService(_tagRepo);
+
+        _productTagRepo = new ProductTagRepository(_context);
+
+        //_imageService = new ImageService();
+
+
         _repository = new ProductRepository(_context);
-        _service = new ProductService(_repository);
+        _productRepo = new ProductRepository(_context);
+        _service = new ProductService(_repository, _categoryService, _productRepo, _productCategoryRepo, _imageService, _categoryRepository, _tagService, _tagRepo, _productTagRepo);
     }
 
     [Fact]
