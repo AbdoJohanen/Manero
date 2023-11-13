@@ -13,13 +13,13 @@ public class ReviewsController : Controller
         _reviewService = reviewService;
     }
 
-    public IActionResult Reviews()
+    public IActionResult ProductReviews()
     {
         return View();
     }
 
     [HttpGet]
-    public IActionResult CreateReview(string articleNumber)
+    public IActionResult CreateProductReview(string articleNumber)
     {
         var viewModel = new CreateReviewFormViewModel();
         viewModel.ArticleNumber = articleNumber;
@@ -27,7 +27,7 @@ public class ReviewsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateReview(CreateReviewFormViewModel viewModel)
+    public async Task<IActionResult> CreateProductReview(CreateReviewFormViewModel viewModel)
     {
         if (!ModelState.IsValid)
         {
