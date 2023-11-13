@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Manero.Controllers;
+﻿using Manero.Controllers;
 using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Manero.ViewModels.Shop;
