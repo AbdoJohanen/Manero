@@ -6,14 +6,13 @@ namespace Manero.Helpers.Services.DataServices;
 public class ProductSizeService
 {
     private readonly ProductSizeRepository _productSizeRepository;
-    private readonly SizeService _sizeService;
-    private readonly ProductService _productService;
 
-    public ProductSizeService(ProductSizeRepository productSizeRepository, SizeService sizeService, ProductService productService)
+
+
+    public ProductSizeService(ProductSizeRepository productSizeRepository)
     {
         _productSizeRepository = productSizeRepository;
-        _sizeService = sizeService;
-        _productService = productService;
+
     }
 
 
@@ -45,6 +44,31 @@ public class ProductSizeService
             productSizes.Add(item);
 
         return productSizes;
+    }
+
+    // First gets list of ProductSizeModel by articleNumber
+    // Then removing the existing SizeIds
+    // Then creates new ProductSizeModel by looping thru sizes then return updated ProductSizes for product
+    public async Task<IEnumerable<ProductSizeModel>> UpdateProductSizesAsync(string articleNumber, List<int> sizes)
+    {
+        var productSizes = new List<ProductSizeModel>();
+        var existingSizes = await _productSizeRepository.GetAllAsync(x => x.ArticleNumber == articleNumber);
+
+        if (existingSizes != null)
+        {
+            foreach (var size in existingSizes)
+                await _productSizeRepository.DeleteAsync(size);
+
+            foreach (var sizeId in sizes)
+            {
+                var updatedProductSize = await _productSizeRepository.AddAsync(new ProductSizeModel { ArticleNumber = articleNumber, SizeId = sizeId });
+                productSizes.Add(updatedProductSize);
+            }
+
+            return productSizes;
+        }
+
+        return null!;
     }
 
 }
