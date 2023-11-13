@@ -18,7 +18,6 @@ namespace Manero.Models.DTO
                 ImageUrl = model.ImageUrl,
                 IsMainImage = model.IsMainImage,
                 ProductArticleNumber = model.ProductArticleNumber,
-                Product = model.Product,
             };
         }
     }
