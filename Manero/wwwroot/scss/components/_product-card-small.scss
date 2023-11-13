@@ -24,6 +24,11 @@
             width: 100px;
             height: 100px;
             background-color: $color-main-blue;
+
+            img {
+                width: 100px;
+                height: 100px;
+            }
         }
     }
 
@@ -48,37 +53,16 @@
                     margin-bottom: 16px;
                 }
 
-                .like-button {
-                    background-color: transparent;
-                    border: none;
-                    position: relative;
+                .wish-list {
+                    color: $color-main-black;
+                    text-decoration: none;
 
                     i {
-                        font-size: 18px;
-                    }
+                        transition: 0.3s ease-in-out;
 
-                    .light-heart {
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                    }
-
-                    .solid-heart {
-                        position: absolute;
-                        top: 0;
-                        right: 10000%;
-                        color: $color-accent-red;
-                    }
-
-                    &:hover {
-                        .light-heart {
-                            right: 10000%;
-                            top: 0;
-                        }
-
-                        .solid-heart {
-                            right: 0;
-                            top: 0;
+                        &:hover {
+                            color: $color-accent-red;
+                            font-weight: $font-weight-bold;
                         }
                     }
                 }

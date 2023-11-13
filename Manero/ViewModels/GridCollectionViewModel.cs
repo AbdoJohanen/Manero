@@ -7,6 +7,5 @@ namespace Manero.ViewModels
     {
         public string Title { get; set; } = "";
         public IEnumerable<ProductModel> GridItems { get; set; } = null!;
-        public string LoadMore { get; set; } = "";
     }
 }
