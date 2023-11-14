@@ -997,6 +997,8 @@ html h6, body h6 {
   justify-content: space-between;
   font-weight: 400;
   font-size: 14px;
+  max-width: 1270px;
+  margin: auto;
 }
 .filters-sorting .filters,
 .filters-sorting .sorting {
