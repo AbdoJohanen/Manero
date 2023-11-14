@@ -63,6 +63,8 @@ public class AddressService
 
     public async Task<UserAddressEntity> GetUserAddresEntityBydIdAsync(int addressId)
     {
+        // Loads the AddressEntity to be read by the _userAddressRepo.GetAsync
+        AddressEntity adressEntity = await _addressRepo.GetAsync(x => x.Id == addressId);
         UserAddressEntity userAddressEntity = await _userAddressRepo.GetAsync(x => x.AddressId == addressId);
 
         return userAddressEntity;
