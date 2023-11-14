@@ -99,12 +99,10 @@ public class ProductService
 
 
 
-    //Product Details
+    //Get product with images based on article number
  
-
     public async Task<ProductModel> GetProductWithImagesAsync(string id)
     {
-
         var item = await _productRepo.GetAsync(x => x.ArticleNumber == id);
 
         if (item == null)
@@ -112,13 +110,10 @@ public class ProductService
             return null;
         }
 
-
         var productImages = await _imageService.GetAllImagesAsync(id);
         var images = await _imageService.GetAllImagesAsync();
 
-
         ProductModel productModel = item;
-
 
         var matchingImages = productImages
            .Select(pi => images.FirstOrDefault(img => img.Id == pi.Id));
