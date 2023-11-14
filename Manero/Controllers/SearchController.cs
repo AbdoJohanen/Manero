@@ -1,13 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Manero.Helpers.Services.DataServices;
+using Manero.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Manero.Controllers;
 
 public class SearchController : Controller
 {
-    public IActionResult Index()
+    private readonly CategoryService _categoryService;
+
+    public SearchController(CategoryService categoryService)
+    {
+        _categoryService = categoryService;
+    }
+
+    public async Task<IActionResult> Index()
     {
         ViewBag.ActivePage = "Search";
-        return View();
+
+        var viewModel = new SearchIndexViewModel
+        {
+            Categories = await _categoryService.GetAllCategoriesToModelAsync()
+        };
+
+
+        return View(viewModel);
     }
 
     [HttpPost]
