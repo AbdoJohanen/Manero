@@ -1538,6 +1538,9 @@ html h6, body h6 {
   margin-top: 1rem;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
 .track-order-section .container {
   position: relative;
   display: flex;
@@ -2174,6 +2177,9 @@ html h6, body h6 {
     font-size: 1.5rem;
   }
   .account-address .container .new-address > p {
+    font-size: 1rem;
+  }
+}
 @media (min-width: 768px) {
   .account-address .container .new-address > i {
     font-size: 1.6rem;
@@ -2185,4 +2191,43 @@ html h6, body h6 {
 .track-order-section .container .tracking .order-status .order-status-text p {
   font-size: 13px;
 
+}
+
+.cart-section .container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 45px 20px 35px 20px;
+}
+@media (min-width: 768px) {
+  .cart-section .container .btn {
+    max-width: 300px;
+  }
+}
+.cart-section .container .heading {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.cart-section .container .heading img {
+  margin-bottom: 50px;
+}
+.cart-section .container .heading .line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  border-left: 2px solid black;
+  margin: auto;
+  margin-bottom: 15px;
+}
+.cart-section .container .heading h1 {
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
