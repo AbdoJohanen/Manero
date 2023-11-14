@@ -5,7 +5,7 @@ using Manero.ViewModels.Shop;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace Manero.Tests
+namespace Manero.Tests.LucasTester
 {
     public class GetAllProducts_ReturnsProductTest
     {

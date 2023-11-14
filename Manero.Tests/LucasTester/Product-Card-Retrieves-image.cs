@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace Manero.Tests
+namespace Manero.Tests.LucasTester
 {
     public class ShopControllerTests
     {
@@ -54,13 +54,13 @@ namespace Manero.Tests
 
             // Assert
             // Check if the result is not null
-            Assert.NotNull(result); 
+            Assert.NotNull(result);
             var model = result.Model as ShopViewModel;
             // Check if the model is not null
-            Assert.NotNull(model); 
+            Assert.NotNull(model);
 
             // Check if the product has been added to the ViewModel
-            Assert.Single(model.Products); 
+            Assert.Single(model.Products);
 
             var productInModel = model.Products[0]; // Get the product
             Assert.NotNull(productInModel); // Check if the product is not null
