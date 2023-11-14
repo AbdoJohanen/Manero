@@ -3,6 +3,7 @@
 // Core
 @import "./core/variables";
 @import "./core/base";
+@import "./core/breakpoints";
 
 
 // Components
@@ -22,11 +23,13 @@
 @import "./sections/account";
 @import "./sections/verifyphonenumber";
 @import "./sections/_featured.scss";
+@import "./sections/_best-sellers.scss";
 @import "./sections/_banner.scss";
 @import "./components/_product-card-big.scss";
 @import "./sections/shop-view";
 @import "./sections/trackorder";
 @import "./sections/productdetails.scss";
 @import "./sections/productreviews.scss";
-@import "./sections/_category-grid.scss";
+@import "./sections/category-grid";
+@import "./sections/category-scroller";
 @import "./sections/account-address";
