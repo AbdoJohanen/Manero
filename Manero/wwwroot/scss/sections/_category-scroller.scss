@@ -9,14 +9,14 @@
 }
 
 .category-scroller {
+    padding-top: 20px;
+    padding-bottom: 30px;
     padding-left: 20px;
     display: grid;
     grid-auto-flow: column;
     gap: 3.5%;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
-
-
     /* Hide the scrollbar by making it transparent */
     &::-webkit-scrollbar {
         display: none;
@@ -43,13 +43,14 @@
                 height: 30px;
 
                 .category-name {
+                    white-space: nowrap;
                     padding-left: 20px;
                     padding-right: 20px;
                     margin: 0;
                     color: $color-main-black;
                     font-weight: $font-weight-semibold;
                 }
-            }  
+            }
         }
 
         .category-container {
@@ -65,12 +66,12 @@
                 width: 70px;
                 border-radius: $border-radius-rounded;
             }
-    
+
             .category-name {
+                white-space: nowrap;
                 margin: 0;
                 color: $color-main-black;
                 font-weight: $font-weight-semibold;
-                
             }
         }
     }
