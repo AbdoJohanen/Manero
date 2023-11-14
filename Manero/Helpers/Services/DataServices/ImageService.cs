@@ -62,6 +62,8 @@ public class ImageService
 
         return null!;
     }
+
+    //Gets all the images from the database
     public async Task<IEnumerable<ImageModel>> GetAllImagesAsync()
     {
         var imageEntities = await _imageRepository.GetAllAsync();
@@ -76,6 +78,7 @@ public class ImageService
         return imageModels;
     }
 
+    //Gets all the images from the database based on the product article number
     public async Task<IEnumerable<ImageModel>> GetAllImagesAsync(string id)
     {
         var imageEntities = await _imageRepository.GetAllAsync(x => x.ProductArticleNumber == id);
