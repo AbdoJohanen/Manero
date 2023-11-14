@@ -1484,8 +1484,11 @@ html h6, body h6 {
   font-weight: 700;
 }
 
-.big-card-discount .price {
+.big-card-disscount .price {
   text-decoration: line-through;
+}
+.big-card-discount .price-detail .price-discount {
+  text-decoration: none;
 }
 .big-card-discount .price-detail .price-discount {
   font-size: 14px;
@@ -1495,10 +1498,10 @@ html h6, body h6 {
   text-align: left;
   color: #f4303c;
 }
-.big-card-discount .no-sale {
+.big-card-disscount .no-sale {
   display: none;
 }
-.big-card-discount .sale-banner {
+.big-card-disscount .sale-banner {
   background-color: #69864D;
   color: white;
   width: 33px;
@@ -1519,6 +1522,8 @@ html h6, body h6 {
   justify-content: space-between;
   font-weight: 400;
   font-size: 14px;
+  max-width: 1270px;
+  margin: auto;
 }
 .filters-sorting .filters,
 .filters-sorting .sorting {
@@ -1533,9 +1538,6 @@ html h6, body h6 {
   margin-top: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
 .track-order-section .container {
   position: relative;
   display: flex;
@@ -2015,6 +2017,9 @@ html h6, body h6 {
   background-color: #DBE3F5;
 }
 .category-scroller .category-element .content-container .pill-shape {
+}
+.track-order-section .container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2169,9 +2174,6 @@ html h6, body h6 {
     font-size: 1.5rem;
   }
   .account-address .container .new-address > p {
-    font-size: 1rem;
-  }
-}
 @media (min-width: 768px) {
   .account-address .container .new-address > i {
     font-size: 1.6rem;
@@ -2179,4 +2181,8 @@ html h6, body h6 {
   .account-address .container .new-address > p {
     font-size: 1.2rem;
   }
+}
+.track-order-section .container .tracking .order-status .order-status-text p {
+  font-size: 13px;
+
 }

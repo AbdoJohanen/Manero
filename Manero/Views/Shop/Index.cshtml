@@ -13,7 +13,7 @@
             </a>
 
             <!--Denna H1 ska kunna ändras dynamiskt utefter tag eller kategori-->
-            <h1 class="shop-page-title">Best Sellers</h1>
+            <h1 class="shop-page-title">All Products</h1>
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
         </section>
     </div>
@@ -28,7 +28,6 @@
 
 <div class="product-grid">
     @foreach(var product in Model.Products){
-    @if(product.Tags.Any(tag => tag.Tag == "Best Sellers"))
     {
         <div class="big-card">
             <a class="product-card-big" href="#">
