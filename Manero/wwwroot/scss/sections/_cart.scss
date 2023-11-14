@@ -7,6 +7,12 @@
         overflow: hidden;
         padding: 45px 20px 35px 20px;
 
+        @include md {
+            .btn {
+                max-width: 300px;
+            }
+        }
+
         & .heading {
             display: grid;
             justify-content: center;
@@ -36,5 +42,4 @@
             }
         }
     }
-
-    }
+}

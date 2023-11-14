@@ -2182,6 +2182,11 @@ html h6, body h6 {
   overflow: hidden;
   padding: 45px 20px 35px 20px;
 }
+@media (min-width: 768px) {
+  .cart-section .container .btn {
+    max-width: 300px;
+  }
+}
 .cart-section .container .heading {
   display: grid;
   justify-content: center;
