@@ -12,8 +12,8 @@ public class ProductFilterViewModel
     public string[] Colors { get; set; } = null!;
     public string[] Tags { get; set; } = null!;
     public string[] Categories { get; set; } = null!;
-    public decimal? MinPrice { get; set; }
-    public decimal? MaxPrice { get; set; }
+    public decimal? MinPrice { get; set; } = 0;
+    public decimal? MaxPrice { get; set; } = 10000;
 
 
 }

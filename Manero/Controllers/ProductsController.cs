@@ -1,6 +1,7 @@
 ﻿using Manero.Helpers.Services.DataServices;
 using Manero.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Manero.Controllers;
 
@@ -37,21 +38,29 @@ public class ProductsController : Controller
         filter.AvailableCategories = (List<Models.DTO.CategoryModel>)await _categoryService.GetAllCategoriesAsync();
 
         // If the filter is empty, initialize it with the available options
-        filter.Sizes = filter.Sizes ?? Array.Empty<string>();
-        filter.Categories = filter.Categories ?? Array.Empty<string>();
-        filter.Tags = filter.Tags ?? Array.Empty<string>();
-        filter.Colors = filter.Colors ?? Array.Empty<string>();
+        filter.Sizes ??= Array.Empty<string>();
+        filter.Categories ??= Array.Empty<string>();
+        filter.Tags ??= Array.Empty<string>();
+        filter.Colors ??= Array.Empty<string>();
         filter.MaxPrice = filter.MaxPrice;
         filter.MinPrice = filter.MinPrice;
 
         // Fetch the filtered products based on the provided filter
         var filteredProducts = await _productService.GetFilteredProductsAsync(filter);
 
+        var currentFilter = "";
+        if (filter.Tags.IsNullOrEmpty() || filter.Tags.Count() > 1)
+        {
+            currentFilter = "Products";
+        }else
+        {
+            currentFilter = filter.Tags.FirstOrDefault();
+        }
         // Construct the view model for the page
         var viewModel = new ProductsViewModel
         {
             Products = filteredProducts.ToList(),
-            CurrentFilter = "Filtered Products", // You can customize this based on the filter values
+            CurrentFilter = currentFilter!,
             ProductFilters = filter
         };
 

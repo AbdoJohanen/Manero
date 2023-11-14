@@ -21,7 +21,6 @@
     }
 
     .offcanvas-body {
-        // Assuming you want a background with a slight blue hue, as in the image
         background-color: $color-main-blue-30p;
 
         h6 {
@@ -182,15 +181,14 @@
         // Add custom styles for your range slider, checkboxes, and color options here
         // ...
     }
-    // Media queries for responsive adjustments
-    @include sm {
-        // Styles for small devices
-    }
 
-    @include md {
-        // Styles for medium devices
-    }
-    // ... and so on for larger breakpoints
 }
 
-// Include the above mixin within your elements as needed
+.filter-button {
+    background: transparent;
+    border: none;
+
+    &:hover {
+        color: $color-main-grey;
+    }
+}

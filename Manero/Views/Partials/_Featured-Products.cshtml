@@ -8,7 +8,12 @@
 <section class="featured">
     <div class="banner-title">
         <h1>@Model.Title</h1>
-        <a href="">view all<i class="fa-solid fa-angle-right"></i></a>
+        <a asp-action="Index"
+           asp-controller="Products"
+           asp-route-Tags="Featured Products">
+           view all
+           <i class="fa-solid fa-angle-right"></i>
+       </a>
     </div>
     <div class="featured-products">
         @foreach (var product in Model.GridItems)
@@ -17,7 +22,7 @@
             {
 
             }*@
-            <Partial name="/Views/Partials/_Product-card-Big-Discount.cshtml" model="product" />
+            <Partial name="/Views/Partials/_Product-Card-Big-Discount.cshtml" model="product" />
         }
     </div>
 </section>

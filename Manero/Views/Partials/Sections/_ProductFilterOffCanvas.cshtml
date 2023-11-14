@@ -10,7 +10,7 @@
             function updatePriceDisplay(value, displayElementId, isMinPrice) {
                 var displayElement = document.getElementById(displayElementId);
                 var priceValue = parseFloat(value).toFixed(2);
-                displayElement.textContent = isMinPrice ? 'Min Price: $' + priceValue : 'Max Price: $' + priceValue;
+                displayElement.textContent = isMinPrice ? 'Min Price: ' + priceValue : 'Max Price: ' + priceValue;
             }
         </script>
         <!-- Filter form -->
@@ -47,13 +47,15 @@
             <!-- Price filter -->
             <div class="mb-3">
                 <h6>Price</h6>
-                <label class="flex">
-                    Min Price: <span id="minPriceDisplay">@Model.MinPrice?.ToString("C")</span>
+
+                <label class="d-flex flex-column">
+                    <span id="minPriceDisplay">@Model.MinPrice?.ToString("C")</span>
                     <input type="range" name="MinPrice" min="0" max="10000"
                            value="@Model.MinPrice" oninput="updatePriceDisplay(this.value, 'minPriceDisplay', true)" />
                 </label>
-                <label class="flex">
-                    Max Price: <span id="maxPriceDisplay">@Model.MaxPrice?.ToString("C")</span>
+
+                <label class="d-flex flex-column">
+                    <span id="maxPriceDisplay">@Model.MaxPrice?.ToString("C")</span>
                     <input type="range" name="MaxPrice" min="1" max="10000"
                            value="@Model.MaxPrice" oninput="updatePriceDisplay(this.value, 'maxPriceDisplay', false)" />
                 </label>

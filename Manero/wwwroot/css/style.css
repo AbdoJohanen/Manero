@@ -2165,3 +2165,11 @@ html h6, body h6 {
   background-color: #111111;
   border: none;
 }
+
+.filter-button {
+  background: transparent;
+  border: none;
+}
+.filter-button:hover {
+  color: #626262;
+}

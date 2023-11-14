@@ -206,8 +206,18 @@ public class ProductService
     {
         var productEntities = await _productRepository.GetFilteredProductsAsync(filters);
 
-        // Convert the entities to DTOs, ProductModel in your case
-        var productModels = productEntities.Select(pe => (ProductModel)pe).ToList();
+        // Convert the entities to DTOs and fetch images for each product
+        var productModels = new List<ProductModel>();
+        foreach (var productEntity in productEntities)
+        {
+            var productModel = (ProductModel)productEntity;
+
+            // Fetch images for each product
+            var images = await _imageService.GetAllImagesAsync(productEntity.ArticleNumber);
+            productModel.Images = images.Select(img => (ImageModel)img).ToList();
+
+            productModels.Add(productModel);
+        }
 
         return productModels;
     }
