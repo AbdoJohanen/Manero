@@ -1,0 +1,65 @@
+﻿@model CreateReviewFormViewModel
+@inject SignInManager<AppUser> signInManager
+
+<section class="create-review-section">
+    <div class="container">
+        <div class="section-body">
+            <div class="review-image">
+                <img src="/assets/images/theme/addreview.svg" alt="image">
+            </div>
+            <div class="line-box">
+                <span class="line"></span>
+            </div>
+        </div>
+        <form class="section-review-form" asp-action="CreateReview" asp-controller="Reviews" method="post" novalidate>
+            <div class="form-title-section">
+                <h2 class="form-title">Please rate the quality of service for the order!</h2>
+            </div>
+            <div class="form-rating-section">
+                <div class="form-rating-group">
+                    <input class="form-rating-input" name="Rating" value="1" id="star-1" type="radio" />
+                    <label asp-for="Rating" class="form-rating-label" for="star-1"><i class="fa-solid fa-star"></i></label>
+                </div>
+                <div class="form-rating-group">
+                    <input class="form-rating-input" name="Rating" value="2" id="star-2" type="radio" />
+                    <label asp-for="Rating" class="form-rating-label" for="star-2"><i class="fa-solid fa-star"></i></label>
+                </div>
+                <div class="form-rating-group">
+                    <input class="form-rating-input" name="Rating" value="3" id="star-3" type="radio" />
+                    <label asp-for="Rating" class="form-rating-label" for="star-3"><i class="fa-solid fa-star"></i></label>
+                </div>
+                <div class="form-rating-group">
+                    <input class="form-rating-input" name="Rating" value="4" id="star-4" type="radio" />
+                    <label asp-for="Rating" class="form-rating-label" for="star-4"><i class="fa-solid fa-star"></i></label>
+                </div>
+                <div class="form-rating-group">
+                    <input class="form-rating-input" name="Rating" value="5" id="star-5" type="radio" />
+                    <label asp-for="Rating" class="form-rating-label" for="star-5"><i class="fa-solid fa-star"></i></label>
+                </div>
+            </div>
+            <div class="form-inputs-section">
+                <p class="form-inputs-text">Your comments and suggestions help us improve the service quality better!</p>
+                <div class="form-name-section">
+                    @if (!signInManager.IsSignedIn(User))
+                    {
+                        <div class="form-name-group">
+                            <label asp-for="Reviewer" class="form-name-label" for="reviewer-name"></label>
+                            <input asp-for="Reviewer" class="form-name-input" id="reviewer-name" placeholder="Enter your fullname" />
+                        </div>
+                    }
+                </div>
+                <div class="form-comment-section">
+                    <div class="form-comment-group">
+                        <label asp-for="Comment" class="form-comment-label">COMMENT</label>
+                        <textarea asp-for="Comment" class="form-comment-input" type="comment" placeholder="Enter your comment"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-submit-section">
+                <input type="hidden" asp-for="ArticleNumber" />
+                <button type="submit" class="btn btn-dark">SUBMIT</button>
+            </div>
+            <div class="form-error" asp-validation-summary="ModelOnly"></div>
+        </form>
+    </div>
+</section>

@@ -11,8 +11,10 @@ public class ReviewEntity
     public string? Reviewer { get; set; }
     public string Comment { get; set; } = null!;
     public int Rating { get; set; }
+    public string? ImageUrl { get; set; }
+    public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-    [ForeignKey(nameof(ArticleNumber))]
+    [ForeignKey("Product")]
     public string ArticleNumber { get; set; } = null!;
     public ProductEntity Product { get; set; } = null!;
 
@@ -23,6 +25,8 @@ public class ReviewEntity
             Reviewer = entity.Reviewer,
             Comment = entity.Comment,
             Rating = entity.Rating,
+            CreatedDate = entity.CreatedDate,
+            ImageUrl = entity.ImageUrl,
             ArticleNumber = entity.ArticleNumber
         };
     }

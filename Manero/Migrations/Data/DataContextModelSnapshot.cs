@@ -17,7 +17,7 @@ namespace Manero.Migrations.Data
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -223,20 +223,27 @@ namespace Manero.Migrations.Data
 
                     b.Property<string>("ArticleNumber")
                         .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductArticleNumber")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("Review")
+                    b.Property<string>("Reviewer")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductArticleNumber");
+                    b.HasIndex("ArticleNumber");
 
                     b.ToTable("Reviews");
                 });
@@ -420,7 +427,9 @@ namespace Manero.Migrations.Data
                 {
                     b.HasOne("Manero.Models.Entities.ProductEntities.ProductEntity", "Product")
                         .WithMany("ProductReviews")
-                        .HasForeignKey("ProductArticleNumber");
+                        .HasForeignKey("ArticleNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
                 });
