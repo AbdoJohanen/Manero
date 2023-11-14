@@ -511,6 +511,9 @@ html h6, body h6 {
   color: #111111;
 }
 
+.showcase {
+  margin-bottom: 40px;
+}
 @media (min-width: 576px) {
   .showcase {
     max-width: none;
@@ -1986,6 +1989,8 @@ html h6, body h6 {
 }
 
 .category-scroller {
+  padding-top: 20px;
+  padding-bottom: 30px;
   padding-left: 20px;
   display: grid;
   grid-auto-flow: column;
@@ -2017,6 +2022,7 @@ html h6, body h6 {
   height: 30px;
 }
 .category-scroller .category-element .content-container .pill-shape .category-name {
+  white-space: nowrap;
   padding-left: 20px;
   padding-right: 20px;
   margin: 0;
@@ -2037,6 +2043,7 @@ html h6, body h6 {
   border-radius: 50%;
 }
 .category-scroller .category-element .category-container .category-name {
+  white-space: nowrap;
   margin: 0;
   color: #111111;
   font-weight: 600;
