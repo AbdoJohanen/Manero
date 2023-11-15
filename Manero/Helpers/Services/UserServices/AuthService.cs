@@ -32,11 +32,6 @@ public class AuthService : IAuthService
         _seedService = seedService;
     }
 
-    //public async Task<bool> ExistUserAsync(Expression<Func<AppUser, bool>> expression)
-    //{
-    //    return await _userManager.Users.AnyAsync(expression);
-    //}
-
     public async Task<ServiceResponse<bool>> ExistUserAsync(Expression<Func<AppUser, bool>> expression)
     {
         var result = await _userManager.Users.AnyAsync(expression);
@@ -46,28 +41,6 @@ public class AuthService : IAuthService
             Status = StatusCode.Success,
         };
     }
-
-
-    //public async Task<AppUser> RegisterAsync(UserRegisterViewModel model)
-    //{
-    //    try
-    //    {
-    //        await _seedService.SeedRoles();
-    //        var roleName = "user";
-
-    //        if (!await _userManager.Users.AnyAsync())
-    //            roleName = "admin";
-
-    //        AppUser appUser = model;
-
-    //        var result = await _userManager.CreateAsync(appUser, model.Password);
-
-    //        await _userManager.AddToRoleAsync(appUser, roleName);
-
-    //        return null!;
-    //    }
-    //    catch { return null!; }
-    //}
 
     public async Task<ServiceResponse<AppUser>> RegisterAsync(ServiceRequest<UserRegisterViewModel> request)
     {
@@ -116,18 +89,6 @@ public class AuthService : IAuthService
         }
     }
 
-    //public async Task<bool> LoginAsync(UserLoginViewModel model)
-    //{
-    //    var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == model.Email);
-    //    if (user != null)
-    //    {
-    //        var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-    //        return result.Succeeded;
-    //    }
-
-    //    return false;
-    //}
-
     public async Task<ServiceResponse<bool>> LoginAsync(ServiceRequest<UserLoginViewModel> request)
     {
         var model = request.Data;
@@ -152,12 +113,6 @@ public class AuthService : IAuthService
             Message = "User not found" // Optional message
         };
     }
-
-    //public async Task<bool> LogoutAsync(ClaimsPrincipal user)
-    //{
-    //    await _signInManager.SignOutAsync();
-    //    return _signInManager.IsSignedIn(user);
-    //}
 
     public async Task<ServiceResponse<bool>> LogoutAsync(ClaimsPrincipal user)
     {

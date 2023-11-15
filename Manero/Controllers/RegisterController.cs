@@ -50,7 +50,8 @@ public class RegisterController : Controller
                 if (userExists.Data)
                 {
                     ModelState.AddModelError("", "Email is already registered.");
-                    return View(model); // Return the view with the error message
+                    return Conflict();
+                    /*return View(model);*/ // Return the view with the error message
                 }
 
                 var request = new ServiceRequest<UserRegisterViewModel> { Data = model };

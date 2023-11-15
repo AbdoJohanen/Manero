@@ -4,7 +4,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Manero.Helpers.Repositories.UserRepositories;
 
-public class UserRepository : IdRepository<AppUser, IdentityContext>
+public interface IUserRepository : IRepo<AppUser, IdentityContext>
+{
+}
+
+public class UserRepository : IdRepository<AppUser, IdentityContext>, IUserRepository
 {
     public UserRepository(IdentityContext context) : base(context)
     {

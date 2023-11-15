@@ -77,7 +77,7 @@ public class UserController_Test
         // Assert
         Assert.IsType<ConflictResult>(result);
 
-        var content = result  as ConflictResult;
+        var content = result as ConflictResult;
         Assert.Equal(409, (int)content!.StatusCode );
     }
 }
