@@ -26,6 +26,84 @@
         }
     }
 
+    .review-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 15px;
+        padding: 0px 0px 40px 0px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid $color-main-blue;
+
+        .review-image-section {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: $color-main-blue;
+            overflow: hidden;
+
+            img {
+                object-fit: cover;
+                border-radius: 50%;
+                width: 100%;
+                height: 100%;
+            }
+
+            .user-icon {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: end;
+                color: #bfc7d8;
+                font-size: 38px;
+            }
+        }
+
+        .review-body-section {
+            display: grid;
+            gap: 10px;
+
+            .body-name-rating {
+                display: flex;
+                justify-content: space-between;
+
+                .review-name {
+                    margin: 0;
+                    color: $color-main-black;
+                    font-weight: $font-weight-semibold;
+                    margin-bottom: 3px;
+                }
+
+                .review-date {
+                    margin: 0;
+                    font-size: 10px;
+                }
+
+                .rating-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+
+                    .star {
+                        font-size: 14px;
+                        padding: 0px 1px;
+                        color: $color-rating-yellow;
+                    }
+                }
+            }
+
+            .body-comment {
+                display: grid;
+
+                .review-comment {
+                    margin: 0;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
     .review {
         display: flex;
 
