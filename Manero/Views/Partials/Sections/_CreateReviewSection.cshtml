@@ -39,15 +39,15 @@
             </div>
             <div class="form-inputs-section">
                 <p class="form-inputs-text">Your comments and suggestions help us improve the service quality better!</p>
-                <div class="form-name-section">
-                    @if (!signInManager.IsSignedIn(User))
-                    {
+                @if (!signInManager.IsSignedIn(User))
+                {
+                    <div class="form-name-section">
                         <div class="form-name-group">
                             <label asp-for="Reviewer" class="form-name-label" for="reviewer-name"></label>
                             <input asp-for="Reviewer" class="form-name-input" id="reviewer-name" placeholder="Enter your fullname" />
                         </div>
-                    }
-                </div>
+                    </div>
+                }
                 <div class="form-comment-section">
                     <div class="form-comment-group">
                         <label asp-for="Comment" class="form-comment-label">COMMENT</label>

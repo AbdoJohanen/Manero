@@ -14,16 +14,14 @@ public class ReviewsController : Controller
     private readonly ReviewService _reviewService;
     private readonly ProductService _productService;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly UserManager<AppUser> _userManager;
     private readonly UserService _userService;
 
-    public ReviewsController(ReviewService reviewService, ProductService productService, SignInManager<AppUser> signInManager, UserService userService, UserManager<AppUser> userManager)
+    public ReviewsController(ReviewService reviewService, ProductService productService, SignInManager<AppUser> signInManager, UserService userService)
     {
         _reviewService = reviewService;
         _productService = productService;
         _signInManager = signInManager;
         _userService = userService;
-        _userManager = userManager;
     }
 
     public async Task<IActionResult> Index(string articleNumber)
