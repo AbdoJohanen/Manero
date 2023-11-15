@@ -24,18 +24,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Manero.Models.Entities.UserEntities;
 using System.Linq.Expressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Diagnostics;
+using Manero.Models.Test;
 
 namespace Manero.Controllers;
 
 [Authorize]
 public class AccountController : Controller
 {
-    private readonly AuthService _auth;
+    private readonly IAuthService _auth;
     private readonly UserManager<AppUser> _userManager;
-    private readonly UserService _userService;
+
+    private readonly IUserService _userService;
     private readonly AddressService _addressService;
 
     public AccountController(AuthService auth, UserManager<AppUser> userManager, UserService userService, AddressService addressService)
+
     {
         _auth = auth;
         _userManager = userManager;
@@ -47,23 +51,42 @@ public class AccountController : Controller
     {
         ViewBag.ActivePage = "Account";
 
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-        var user = await _userService.GetUserAsync(userId!); // Get user details
-        var profile = new Profile   // Create user profile 
+        try
         {
-            Name = user!.Name,
-            Email = user!.Email,
-            ImageUrl = user!.ImageUrl,
-            Addresses = user!.Addresses,
-        };
-
-        return View(profile);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
+            var response = await _userService.GetAsync(userId!); // Get user details
+            if (response.Success)
+            {
+                var user = response.Data;
+                var profile = new Profile // Create user profile
+                {
+                    Name = user!.Name,
+                    Email = user.Email,
+                    ImageUrl = user.ImageUrl,
+                    Addresses = user.Addresses,
+                };
+                return View(profile);
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception if needed
+            Debug.WriteLine(ex.Message);
+            return View("Error");
+        }
     }
 
     public async Task<IActionResult> LogOut()
     {
-        if (await _auth.LogoutAsync(User))
+        var result = await _auth.LogoutAsync(User);
+        if (result.Data)
+        {
             return LocalRedirect("/");
+        }
 
         return RedirectToAction("Index");
     }
@@ -243,20 +266,29 @@ public class AccountController : Controller
         ViewBag.PhoneNumber = profile.PhoneNumber;
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-        var user = await _userService.GetUserAsync(userId!); // Get user details
-        var userModel = new EditProfileViewModel   // Create a user model and write all new details to input
-        {
-            Id = user.Id,
-            Name = user!.Name,
-            Email = user!.Email!,
-            EmailConfirmed = user!.EmailConfirmed,
-            PhoneNumber = user.PhoneNumber,
-            PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-            ImageUrl = user!.ImageUrl,
-            Addresses = user!.Addresses,
-        };
+        var response = await _userService.GetAsync(userId!);
 
-        return View(userModel);
+        if (response.Success)
+        {
+            var user = response.Data;
+            var userModel = new EditProfileViewModel   // Create a user model and write all new details to input
+            {
+                Id = user!.Id,
+                Name = user!.Name,
+                Email = user.Email!,
+                EmailConfirmed = user.EmailConfirmed,
+                PhoneNumber = user.PhoneNumber,
+                PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                ImageUrl = user.ImageUrl,
+                Addresses = user.Addresses,
+            };
+
+            return View(userModel);
+        }
+        else
+        {
+            return RedirectToAction("Error");
+        }
     }
 
     [HttpPost]
@@ -269,38 +301,51 @@ public class AccountController : Controller
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                var user = await _userService.GetUserAsync(userId!);
+                var response = await _userService.GetAsync(userId!);
 
-                // Update the user's properties with the values from the model
-                user.UserName = model.Email;
-                user.Name = model.Name!;
-                if (model.Email != user.Email)
+                if (response.Success)
                 {
-                    user.EmailConfirmed = false;
+                    var user = response.Data;
+
+                    // Update the user's properties with the values from the model
+                    user!.UserName = model.Email;
+                    user.Name = model.Name!;
+                    if (model.Email != user.Email)
+                    {
+                        user.EmailConfirmed = false;
+                    }
+                    user.Email = model.Email!;
+                    if (model.PhoneNumber != user.PhoneNumber)
+                    {
+                        user.PhoneNumberConfirmed = false;
+                    }
+                    user.PhoneNumber = model.PhoneNumber!;
+                    if (model.ProfilePicture != null)
+                    {
+                        await _userService.UploadImageAsync(user, model.ProfilePicture);
+                        user.ImageUrl = $"{user.Id}_{Path.GetFileName(model.ProfilePicture.FileName).Replace(" ", "_")}";
+                    }
+
+                    var updateResponse = await _userService.UpdateAsync(new ServiceRequest<AppUser> { Data = user }); // Update the user in the database
+
+                    if (updateResponse.Success)
+                    {
+                        return RedirectToAction("edit", "account");
+                    }
+                    else
+                    {
+                        return RedirectToAction("index", "account");
+                    }
                 }
-                else { }
-                user.Email = model.Email!;                 
-                if (model.PhoneNumber != user.PhoneNumber)
+                else
                 {
-                    user.PhoneNumberConfirmed = false;
+                    return RedirectToAction("index", "account");
                 }
-                else { }
-                user.PhoneNumber = model.PhoneNumber!;
-
-                if (model.ProfilePicture  != null) 
-                {
-                    await _userService.UploadImageAsync(user, model.ProfilePicture!);
-                    user.ImageUrl = $"{user.Id}_{Path.GetFileName(model.ProfilePicture.FileName).Replace(" ", "_")}";
-                }
-                else { }                
-
-                await _userService.UpdateUserAsync(user); // Update the user in the database
-
-                return RedirectToAction("edit", "account");
             }
-            catch { }
-
-            return RedirectToAction("index", "account");
+            catch
+            {
+                return RedirectToAction("index", "account");
+            }
         }
 
         return View(model);
@@ -366,23 +411,32 @@ public class AccountController : Controller
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                var user = await _userService.GetUserAsync(userId!);
 
-                if (user != null)
+                var response = await _userService.GetAsync(userId!);
+
+                if (response.Success && response.Data != null)
                 {
+                    var user = response.Data;
                     // Update the PhoneNumberConfirmed property and other relevant properties
                     user.PhoneNumberConfirmed = true;
 
-                    // Call the UpdateUserAsync method to update the user in the database
-                    await _userService.UpdateUserAsync(user);
+                    // Call the UpdateAsync method to update the user in the database
+                    var updateResponse = await _userService.UpdateAsync(new ServiceRequest<AppUser> { Data = user });
+
+                    if (!updateResponse.Success)
+                    {
+                        return RedirectToAction("edit", "account");
+                    }
                 }
                 else
                 {
-                    // Handle the case when the user is not found
                     return RedirectToAction("index", "account");
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
 
             return RedirectToAction("edit", new { phoneNumber = model.PhoneNumber });
         }

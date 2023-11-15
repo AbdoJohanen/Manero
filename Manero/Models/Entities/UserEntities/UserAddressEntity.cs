@@ -13,4 +13,6 @@ public class UserAddressEntity
     public AddressEntity Address { get; set; } = null!;
 
     public string AddressTitle { get; set; } = null!;
+    public string AddressIcon { get; set; } = null!;
+    public bool PrimaryAddress { get; set; } = false;
 }
