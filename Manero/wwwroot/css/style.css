@@ -297,6 +297,7 @@ html h6, body h6 {
   background-color: #DBE3F5;
 }
 .product-card-small .product-card-small-left .product-image img {
+  object-fit: cover;
   width: 100px;
   height: 100px;
 }
