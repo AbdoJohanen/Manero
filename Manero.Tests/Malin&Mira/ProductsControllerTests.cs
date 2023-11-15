@@ -28,8 +28,10 @@ public class ProductsControllerTests
     private readonly ProductTagRepository _productTagRepo;
     private readonly ProductsController _productsController;
     private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly ReviewService _reviewService;
+    private readonly ReviewRepository _reviewRepository;
 
-    public ProductsControllerTests() 
+    public ProductsControllerTests()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
                         .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -50,8 +52,10 @@ public class ProductsControllerTests
         _colorRepository = new ColorRepository(_context);
         _colorService = new ColorService(_colorRepository);
         _productTagRepo = new ProductTagRepository(_context);
+        _reviewRepository = new ReviewRepository(_context);
+        _reviewService = new ReviewService(_reviewRepository);
         _service = new ProductService(_productRepo, _categoryService, _productRepo, _productCategoryRepo, _imageService, _categoryRepository, _tagService, _tagRepo, _productTagRepo);
-        _productsController = new ProductsController(_service, _sizeService, _tagService, _categoryService, _colorService);
+        _productsController = new ProductsController(_service, _sizeService, _tagService, _categoryService, _colorService, _reviewService);
     }
 
     [Fact]
