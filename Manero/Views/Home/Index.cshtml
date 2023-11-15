@@ -5,22 +5,21 @@
 }
 
 <!-- Home -->
-<header class="home">
+<div class="home">
     <div class="container">
         <section class="top-menu-section">
             <partial name="/Views/Partials/Components/_Burger.cshtml" />
             <a href="/"><img src="~/assets/images/theme/logo.svg"></a>
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
         </section>
-
+    </div>
+    <Partial name="/Views/partials/Sections/_CategoryScroller.cshtml" />
+    <Partial name="/Views/Partials/Sections/_Showcase.cshtml" />
+    <div class="container">
+        <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
+        <Partial name="/Views/Partials/_Best-Selling-Products.cshtml" model="@Model.BestSelling" />
+    </div>
+    <div class="container">
         <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
-</header>
-<Partial name="/Views/partials/Sections/_CategoryScroller.cshtml" />
-<Partial name="/Views/Partials/Sections/_Showcase.cshtml" />
-<section class="container">
-    
-    <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
-    <Partial name="/Views/Partials/_Best-Selling-Products.cshtml" model="@Model.BestSelling" />
-
-</section>
+</div>

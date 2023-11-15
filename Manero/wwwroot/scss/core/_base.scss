@@ -39,7 +39,7 @@ html, body {
 .login,
 .account {
 
-    & .container {
+    > .container {
         position: relative;
         display: flex;
         flex-direction: column;

@@ -1,0 +1,39 @@
+﻿
+@model ProductsViewModel
+@{
+    ViewData["Title"] = Model.CurrentFilter;
+}
+<header class="home">
+    <div class="container">
+        <section class="top-menu-section">
+            <partial name="/Views/Partials/Components/_Burger.cshtml" />
+            <a href="/"><img src="~/assets/images/theme/logo.svg"></a>
+            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+        </section>
+
+        <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+    </div>
+</header>
+<partial name="/Views/Partials/Sections/_ProductFilterOffcanvas.cshtml" model="Model.ProductFilters" />
+
+<section class="container d-flex flex-column mb-5">
+    <div class="d-flex justify-content-start p-0 m-0">
+        ﻿<!-- Button to trigger filtering offcanvas -->
+        <button class="filter-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas" aria-controls="filterOffcanvas">
+            
+                <i class="fa-light fa-sliders-up"></i>
+                Filters
+            
+        </button>
+        <div class="flex-grow-1"></div>
+        <h1>@Model.CurrentFilter</h1>
+    </div>
+    <div class="container d-flex flex-wrap justify-content-between gap-4 mt-4">
+        @foreach (var product in Model.Products)
+        {
+
+            <Partial name="/Views/Partials/_Product-Card-Big-Discount.cshtml" model="product" />
+
+        }
+    </div>
+</section>

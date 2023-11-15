@@ -3,6 +3,8 @@ using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Manero.Models.Entities.ProductEntities;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Manero.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
 
@@ -99,12 +101,10 @@ public class ProductService
 
 
 
-    //Product Details
+    //Get product with images based on article number
  
-
     public async Task<ProductModel> GetProductWithImagesAsync(string id)
     {
-
         var item = await _productRepo.GetAsync(x => x.ArticleNumber == id);
 
         if (item == null)
@@ -112,13 +112,10 @@ public class ProductService
             return null;
         }
 
-
         var productImages = await _imageService.GetAllImagesAsync(id);
         var images = await _imageService.GetAllImagesAsync();
 
-
         ProductModel productModel = item;
-
 
         var matchingImages = productImages
            .Select(pi => images.FirstOrDefault(img => img.Id == pi.Id));
@@ -199,4 +196,25 @@ public class ProductService
 
         return model!.ProductPrice;
     }
+
+    public async Task<IEnumerable<ProductModel>> GetFilteredProductsAsync(ProductFilterViewModel filters)
+    {
+        var productEntities = await _productRepository.GetFilteredProductsAsync(filters);
+
+        // Convert the entities to DTOs and fetch images for each product
+        var productModels = new List<ProductModel>();
+        foreach (var productEntity in productEntities)
+        {
+            var productModel = (ProductModel)productEntity;
+
+            // Fetch images for each product
+            var images = await _imageService.GetAllImagesAsync(productEntity.ArticleNumber);
+            productModel.Images = images.Select(img => (ImageModel)img).ToList();
+
+            productModels.Add(productModel);
+        }
+
+        return productModels;
+    }
+
 }

@@ -1,0 +1,258 @@
+﻿<!-- _ProductFilterOffcanvas.cshtml -->
+@model Manero.ViewModels.ProductFilterViewModel
+<div class="offcanvas offcanvas-end" tabindex="-1" id="filterOffcanvas" aria-labelledby="filterOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="filterOffcanvasLabel">Filter</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <script>
+            function updatePriceDisplay(value, displayElementId, isMinPrice) {
+                var displayElement = document.getElementById(displayElementId);
+                var priceValue = parseFloat(value).toFixed(2);
+                displayElement.textContent = isMinPrice ? 'Min Price: ' + priceValue : 'Max Price: ' + priceValue;
+            }
+        </script>
+        <!-- Filter form -->
+        <form id="filterForm" method="get" asp-action="Index" asp-controller="Products">
+            <!-- Size filter -->
+            <div class="size-buttons mb-3" id="sizeButtons">
+                <h6>Size</h6>
+                @foreach (var size in Model.AvailableSizes)
+                {
+                    <label class="size-checkbox">
+                        <input type="checkbox" name="Sizes" value="@size.Size"
+                        @(Model.Sizes.Contains(size.Size) ? "checked='checked'" : "") />
+                        <span>
+                            @size.Size
+                        </span>
+                    </label>
+                }
+            </div>
+            <!-- Color filter -->
+            <div class="color-buttons mb-3" id="colorButtons">
+                <h6>Color</h6>
+                @foreach (var color in Model.AvailableColors)
+                {
+                    <label class="color-checkbox @color.Color">
+                        <!-- Assuming Code is the color value -->
+                        <input type="checkbox" name="Colors" value="@color.Color"
+                        @(Model.Colors.Contains(color.Color) ? "checked='checked'" : "") />
+                        <span>
+                            @color.Color
+                        </span>
+                    </label>
+                }
+            </div>
+            <!-- Price filter -->
+            <div class="mb-3">
+                <h6>Price</h6>
+                <label class="d-flex flex-column">
+                    <span id="minPriceDisplay">@Model.MinPrice?.ToString("C")</span>
+                    <input type="range" name="MinPrice" min="0" max="10000" value="@Model.MinPrice" id="minPriceRange" />
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var minPriceRange = document.getElementById('minPriceRange');
+
+                            minPriceRange.addEventListener('input', function () {
+                                var value = (minPriceRange.value - minPriceRange.min) / (minPriceRange.max - minPriceRange.min);
+                                var percent = value * 100;
+                                minPriceRange.style.background = 'linear-gradient(to right, #111111 0%, #111111 ' + (percent - 2) + '%, #dbe3f5 ' + percent + '%, #dbe3f5 100%)';
+                                updatePriceDisplay(minPriceRange.value, 'minPriceDisplay', true);
+                            });
+                          
+                            var initialValue = (minPriceRange.value - minPriceRange.min) / (minPriceRange.max - minPriceRange.min);
+                            var initialPercent = initialValue * 100;
+                            minPriceRange.style.background = 'linear-gradient(to right, #111111 0%, #111111 ' + (initialPercent - 2) + '%, #dbe3f5 ' + initialPercent + '%, #dbe3f5 100%)';
+                        });
+
+                        function updatePriceDisplay(value, displayId, isCurrency) {
+                            var displayElement = document.getElementById(displayId);
+                            if (isCurrency) {
+                                displayElement.textContent = valueAsCurrency(value);
+                            } else {
+                                displayElement.textContent = value;
+                            }
+                        }
+
+                        function valueAsCurrency(value) {
+                            return value;
+                        }
+                    </script>
+                </label>
+                <label class="d-flex flex-column">
+                    <span id="maxPriceDisplay">@Model.MaxPrice?.ToString("C")</span>
+                    <input type="range" name="MaxPrice" min="1" max="10000" value="@Model.MaxPrice" id="maxPriceRange" />
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var maxPriceRange = document.getElementById('maxPriceRange');
+
+                            maxPriceRange.addEventListener('input', function () {
+                                updateRangeBackground(maxPriceRange);
+                                updatePriceDisplay(maxPriceRange.value, 'maxPriceDisplay', false);
+                            });
+
+                            updateRangeBackground(maxPriceRange);
+                            updatePriceDisplay(maxPriceRange.value, 'maxPriceDisplay', false);
+                        });
+
+                        function updateRangeBackground(rangeElement) {
+                            var value = (rangeElement.value - rangeElement.min) / (rangeElement.max - rangeElement.min);
+                            var percent = value * 100;
+                            rangeElement.style.background = 'linear-gradient(to right, #111111 0%, #111111 ' + percent + '%, #dbe3f5 ' + percent + '%, #dbe3f5 100%)';
+                        }
+
+                        function updatePriceDisplay(value, displayId, isCurrency) {
+                            var displayElement = document.getElementById(displayId);
+                            if (isCurrency) {
+                                displayElement.textContent = valueAsCurrency(value);
+                            } else {
+                                displayElement.textContent = value;
+                            }
+                        }
+
+                        function valueAsCurrency(value) {
+                            return value; 
+                        }
+                    </script>
+                </label>
+            </div>
+
+
+            <!-- Tags filter -->
+            <h6 class="mb-3">Tags</h6>
+            <div class="tag-checkboxes">                
+                @foreach (var tag in Model.AvailableTags)
+                {
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="Tags" value="@tag.Tag" class="tag-checkbox"
+                        @(Model.Tags.Contains(tag.Tag) ? "checked='checked'" : "") />
+                        <span class="@tag.Tag">@tag.Tag</span>
+                    </label>
+                }
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var checkboxes = document.querySelectorAll('.tag-checkbox');
+                    var checkedValues = JSON.parse(localStorage.getItem('checkedValues')) || [];
+
+                    checkboxes.forEach(function (checkbox) {
+                        var isChecked = checkedValues.includes(checkbox.value);
+                        checkbox.checked = isChecked;
+                        updateCheckboxStyle(checkbox);
+                    });
+
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.addEventListener('change', function () {
+                            updateCheckboxStyle(checkbox);
+                            updateCheckedValues();
+                        });
+                    });
+
+                    function updateCheckboxStyle(checkbox) {
+                        checkbox.classList.toggle('checked', checkbox.checked);
+                    }
+
+                    function updateCheckedValues() {
+                        checkedValues = Array.from(checkboxes)
+                            .filter(function (checkbox) {
+                                return checkbox.checked;
+                            })
+                            .map(function (checkbox) {
+                                return checkbox.value;
+                            });
+
+                        localStorage.setItem('checkedValues', JSON.stringify(checkedValues));
+                    }
+                });
+            </script>
+
+            <!-- Category filter -->
+
+            <div class="category-buttons mb-3" id="categoryButtons">
+                <h6>Categories</h6>
+                @foreach (var category in Model.AvailableCategories)
+                {
+                    <label class="category-checkbox">
+                        <input type="checkbox" name="Categories" value="@category.Category"
+                        @(Model.Categories.Contains(category.Category) ? "checked='checked'" : "") />
+                        <span>
+                            @category.Category
+                        </span>
+                    </label>
+                }
+            </div>
+
+
+
+            <!-- Apply filters button -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-dark" id="applyFilters">APPLY FILTERS</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var checkboxes = document.getElementById('colorButtons').querySelectorAll('input[type="checkbox"]');
+
+        checkboxes.forEach(function (checkbox) {
+            var isChecked = localStorage.getItem(checkbox.value) === 'true';
+            checkbox.checked = isChecked;
+            updateCheckboxStyle(checkbox);
+        });
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                updateCheckboxStyle(checkbox);
+                localStorage.setItem(checkbox.value, checkbox.checked.toString());
+            });
+        });
+
+        function updateCheckboxStyle(checkbox) {
+            checkbox.parentNode.classList.toggle('active', checkbox.checked);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {       
+        var sizeCheckboxes = document.getElementById('sizeButtons').querySelectorAll('input[type="checkbox"]');
+
+        sizeCheckboxes.forEach(function (checkbox) {
+            checkbox.checked = localStorage.getItem(checkbox.value) === 'true';
+            updateCheckboxStyle(checkbox);
+        });
+
+        sizeCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                updateCheckboxStyle(checkbox);
+                localStorage.setItem(checkbox.value, checkbox.checked.toString());
+            });
+        });
+
+        function updateCheckboxStyle(checkbox) {
+            checkbox.parentNode.classList.toggle('active', checkbox.checked);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var categoryCheckboxes = document.getElementById('categoryButtons').querySelectorAll('input[type="checkbox"]');
+
+        categoryCheckboxes.forEach(function (checkbox) {
+            checkbox.checked = localStorage.getItem(checkbox.value) === 'true';
+            updateCheckboxStyle(checkbox);
+        });
+
+        categoryCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                updateCheckboxStyle(checkbox);
+                localStorage.setItem(checkbox.value, checkbox.checked.toString());
+            });
+        });
+
+        function updateCheckboxStyle(checkbox) {
+            checkbox.closest('label.category-checkbox').classList.toggle('active', checkbox.checked);
+        }
+    });
+</script>

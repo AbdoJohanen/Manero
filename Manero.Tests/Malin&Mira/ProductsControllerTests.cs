@@ -21,6 +21,10 @@ public class ProductsControllerTests
     private readonly CategoryRepository _categoryRepository;
     private readonly TagService _tagService;
     private readonly TagRepository _tagRepo;
+    private readonly SizeService _sizeService;
+    private readonly SizeRepository _sizeRepository;
+    private readonly ColorRepository _colorRepository;
+    private readonly ColorService _colorService;
     private readonly ProductTagRepository _productTagRepo;
     private readonly ProductsController _productsController;
     private readonly IWebHostEnvironment _webHostEnvironment;
@@ -41,9 +45,13 @@ public class ProductsControllerTests
         _imageService = new ImageService(_webHostEnvironment, new ImageRepository(imageRepositoryContext));
         _tagRepo = new TagRepository(_context);
         _tagService = new TagService(_tagRepo);
+        _sizeRepository = new SizeRepository(_context);
+        _sizeService = new SizeService(_sizeRepository);
+        _colorRepository = new ColorRepository(_context);
+        _colorService = new ColorService(_colorRepository);
         _productTagRepo = new ProductTagRepository(_context);
         _service = new ProductService(_productRepo, _categoryService, _productRepo, _productCategoryRepo, _imageService, _categoryRepository, _tagService, _tagRepo, _productTagRepo);
-        _productsController = new ProductsController(_service);
+        _productsController = new ProductsController(_service, _sizeService, _tagService, _categoryService, _colorService);
     }
 
     [Fact]
