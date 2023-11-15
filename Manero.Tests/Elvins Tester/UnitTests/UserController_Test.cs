@@ -33,14 +33,16 @@ public class UserController_Test
     private readonly FakeSignInManager _fakeSignInManager;
     private readonly AccountController _accountController;
     private readonly RegisterController _registerController;
+    private readonly Mock<AddressService> _mockAddressService;
 
     public UserController_Test()
     {
         _mockAuthService = new Mock<IAuthService>();
         _mockUserService = new Mock<IUserService>();
+        _mockAddressService = new Mock<AddressService>();
         _fakeUserManager = new FakeUserManager();
         _fakeSignInManager = new FakeSignInManager();
-        _accountController = new AccountController(_mockAuthService.Object , _fakeUserManager, _mockUserService.Object);
+        _accountController = new AccountController(_mockAuthService.Object , _fakeUserManager, _mockUserService.Object, _mockAddressService.Object);
         _registerController = new RegisterController(_mockAuthService.Object, _mockUserService.Object, _fakeSignInManager);
     }
 
