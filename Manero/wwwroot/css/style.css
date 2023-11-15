@@ -2418,9 +2418,6 @@ html h6, body h6 {
   background-color: transparent;
   color: #626262;
 }
-.create-review-section .section-review-form .form-inputs-section .form-comment-section .form-comment-group .form-comment-input:valid {
-  background-color: transparent;
-}
 @media (min-width: 768px) {
   .create-review-section .section-review-form .form-submit-section {
     display: flex;
