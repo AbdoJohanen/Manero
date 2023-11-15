@@ -1,13 +1,11 @@
-﻿@inject ProductService productService;
-@model HomeIndexViewModel
+﻿@model HomeIndexViewModel
 
 @{
     ViewData["Title"] = "Home";
-    var products = await productService.GetAllAsync();
 }
 
 <!-- Home -->
-<div class="home">
+<header class="home">
     <div class="container">
         <section class="top-menu-section">
             <partial name="/Views/Partials/Components/_Burger.cshtml" />
@@ -15,10 +13,14 @@
             <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
         </section>
 
-        <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
-        
+        <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
     </div>
-</div>
+</header>
+<Partial name="/Views/partials/Sections/_CategoryScroller.cshtml" />
+<Partial name="/Views/Partials/Sections/_Showcase.cshtml" />
+<section class="container">
+    
+    <Partial name="/Views/Partials/_Featured-Products.cshtml" model="@Model.Featured" />
+    <Partial name="/Views/Partials/_Best-Selling-Products.cshtml" model="@Model.BestSelling" />
 
-<partial name="/Views/Partials/Sections/_Navbar.cshtml" />
-
+</section>

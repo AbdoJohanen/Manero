@@ -1,9 +1,9 @@
-﻿@model HomeIndexViewModel
+﻿@model SearchIndexViewModel
 
 <section class="category-grid">
     <div class="category-container">
         @foreach (var category in Model.Categories!) {
-            <a href="/shop?category=@category.Category" class="category-item">
+            <a asp-action="Index" asp-controller="Shop" asp-route-category="@category.Category" class="category-item">
                 @*<img src="" alt="">*@
                 <h3 class="category-name">@category.Category</h3>
             </a>

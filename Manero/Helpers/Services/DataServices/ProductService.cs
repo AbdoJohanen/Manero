@@ -46,10 +46,17 @@ public class ProductService
     }
 
 
-    // Finds specific ProductModel with expression from repository
+    // Finds specific ProductModel using a ProductModel with expression from repository
     public async Task<ProductModel> GetProductAsync(ProductModel product)
     {
         var _product = await _productRepository.GetAsync(x => x.ArticleNumber == product.ArticleNumber);
+        return _product!;
+    }
+
+    // Finds specific ProductModel using a articleNumber with expression from repository
+    public async Task<ProductModel> GetProductAsync(string articleNumber)
+    {
+        var _product = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
         return _product!;
     }
 
@@ -67,6 +74,25 @@ public class ProductService
             return products;
         }
 
+
+        return null!;
+    }
+
+    // Finds product (item) using articleNumber, then replaces values of that item with new values from product
+    public async Task<ProductModel> UpdateProductAsync(ProductModel product, string articleNumber)
+    {
+        var item = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
+        if (item != null)
+        {
+            product.ArticleNumber = item.ArticleNumber;
+
+            item.ProductName = product.ProductName ?? item.ProductName;
+            item.ProductDescription = product.ProductDescription ?? item.ProductDescription;
+            item.ProductPrice = (product.ProductPrice != 0) ? product.ProductPrice : item.ProductPrice;
+            item.ProductDiscount = product.ProductDiscount ?? item.ProductDiscount;
+
+            return await _productRepository.UpdateAsync(item);
+        }
 
         return null!;
     }
@@ -109,42 +135,34 @@ public class ProductService
         var productCategories = await _productCategoryRepo.GetAllAsync();
         var productImages = await _imageService.GetAllAsync();
         var productTags = await _productTagRepo.GetAllAsync();
-
-        // Hämta kategorier med den nya metoden
+      
         var categories = await _categoryService.GetAllCategoriesToModelAsync();
         var images = await _imageService.GetAllImagesAsync();
         var tags = await _tagService.GetAllTagsToModelAsync();
 
         foreach (var item in items)
-        {
-            // Skapa en produktmodell baserad på produktinformationen
+        {           
             ProductModel productModel = item;
 
-            // Hitta produktkategorierna som matchar den aktuella produkten
             var matchingCategories = productCategories
-                .Where(pc => pc.ArticleNumber.ToString() == item.ArticleNumber)
-                .Select(pc => categories.FirstOrDefault(c => c.Id == pc.CategoryId));
+                .Where(productCategory => productCategory.ArticleNumber.ToString() == item.ArticleNumber)
+                .Select(productCategory => categories.FirstOrDefault(Category => Category.Id == productCategory.CategoryId));
 
-            // Lägg till kategorierna i produktmodellen
-            productModel.Categories = matchingCategories.ToList();
+            productModel.Categories = matchingCategories.ToList()!;
 
             var matchingTags = productTags
-                .Where(pc => pc.ArticleNumber.ToString() == item.ArticleNumber)
-                .Select(pc => tags.FirstOrDefault(c => c.Id == pc.TagId));
+                .Where(productTag => productTag.ArticleNumber.ToString() == item.ArticleNumber)
+                .Select(productTag => tags.FirstOrDefault(Tag => Tag.Id == productTag.TagId));
 
-            // Lägg till kategorierna i produktmodellen
-            productModel.Tags = matchingTags.ToList();
+            productModel.Tags = matchingTags.ToList()!;
 
-            // Hitta bilderna som matchar den aktuella produkten
 
             var matchingImages = productImages
-               .Where(pc => pc.ProductArticleNumber.ToString() == item.ArticleNumber)
-               .Select(pc => images.FirstOrDefault(c => c.Id == pc.Id));
+               .Where(productImage => productImage.ProductArticleNumber.ToString() == item.ArticleNumber)
+               .Select(productImage => images.FirstOrDefault(Image => Image.Id == productImage.Id));
 
-            // Lägg till bilderna i produktmodellen
-            productModel.Images = matchingImages.ToList();
+            productModel.Images = matchingImages.ToList()!;
 
-            // Lägg till produkten i listan av produkter
             products.Add(productModel);
         }
 
@@ -157,7 +175,8 @@ public class ProductService
         if (!articleNumber.IsNullOrEmpty())
         {
             var product = await _productRepository.GetAsync(x => x.ArticleNumber == articleNumber);
-            return await _productRepository.DeleteAsync(product);
+            if (product != null)
+                return await _productRepository.DeleteAsync(product);
         }
 
         return false;
@@ -176,7 +195,3 @@ public class ProductService
         return model!.ProductPrice;
     }
 }
-
-//var matchingImages = productImages.Where(image => image.Id == item.ArticleNumber);
-//var matchingImages = productImages.Where(image => image.Id.ToString() == item.ArticleNumber);
-//var matchingImages = images.Where(image => image.Id.ToString() == item.ArticleNumber);
