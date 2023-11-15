@@ -3,6 +3,7 @@
 // Core
 @import "./core/variables";
 @import "./core/base";
+@import "./core/breakpoints";
 
 
 // Components
@@ -29,7 +30,11 @@
 @import "./sections/trackorder";
 @import "./sections/productdetails.scss";
 @import "./sections/productreviews.scss";
-@import "./sections/_category-grid.scss";
+@import "./sections/category-grid";
+@import "./sections/category-scroller";
 @import "./sections/account-address";
+@import "./sections/cart";
+@import "./sections/_category-grid.scss";
 @import "./sections/_allreviewssection.scss";
 @import "./sections/_createreviewsection.scss";
+@import "./sections/product-filter-offcanvas";

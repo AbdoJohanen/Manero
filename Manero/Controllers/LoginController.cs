@@ -1,5 +1,6 @@
 ﻿using Manero.Helpers.Services.UserServices;
 using Manero.Models.Identity;
+using Manero.Models.Test;
 using Manero.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -39,10 +40,15 @@ public class LoginController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (await _auth.LoginAsync(model))
-                return LocalRedirect(model.ReturnUrl);
+            var request = new ServiceRequest<UserLoginViewModel> { Data = model };
+            var login = await _auth.LoginAsync(request);
 
-            ModelState.AddModelError("", "Incorrect e-mail or password.");
+            if (login.Data)
+            {
+                return LocalRedirect(model.ReturnUrl);
+            }
+
+            ModelState.AddModelError("", "Incorrect email or password.");
         }
 
         return View(model);

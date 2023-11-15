@@ -6,21 +6,23 @@
     string productName = Model.ProductName;
     if (!string.IsNullOrEmpty(productName))
     {
-        // Konverterar första bokstaven till stor bokstav
+        // Converts the first letter of the product name to upper case
         productName = char.ToUpper(productName[0]) + productName.Substring(1);
     }
 }
 
-
 <section class="product-details-section">
+
+    <!--image carousel-->
    <partial name="/Views/Partials/Components/_CarouselProductImages.cshtml" />
-    <div class="container-sm">
+    <div class="container">
         <div class="title-wishlist">
             <!-- product title -->
             <h2>@productName</h2>
-                <!-- add to wishlist  -->
-                <i class="fa-regular fa-heart"></i>
+            <!-- add to wishlist  -->
+            <i class="fa-regular fa-heart"></i>
         </div>
+
         <!-- product rating -->
         <div class="product-rating">
             <i class="fa-solid fa-star"></i>
@@ -35,7 +37,7 @@
         <div class="price-cart">
             <h3>$@Model.ProductPrice</h3>
             <div class="add-to-cart">
-                <button>-</button>
+                <button >-</button>
                 <div class="amount">1</div>
                 <button>+</button>
             </div>
@@ -53,6 +55,7 @@
                 <button>XXL</button>
             </div>
         </div>
+
         <!-- product colors -->
         <div class="product-colors">
             <div class="title">Color</div>
@@ -64,11 +67,16 @@
                 <button class="black"></button>
             </div>
         </div>
+
         <!-- description -->
         <div class="description">
             <div class="title">Description</div>
             <div class="text">@Model.ProductDescription</div>
         </div>
-        <div class="btn btn-dark">+ ADD TO CART</div>
+
+        <!--add to cart-->
+        <div class="add-button">
+			<div class="btn btn-dark">+ ADD TO CART</div>
+        </div>
     </div>
 </section>

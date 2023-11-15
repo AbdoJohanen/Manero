@@ -5,10 +5,26 @@ using Manero.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Manero.Models.Test;
+using Manero.Migrations;
+using Manero.Models.DTO;
+using System.Linq.Expressions;
+using System.Diagnostics;
+using Manero.Enums;
 
 namespace Manero.Helpers.Services.UserServices;
 
-public class UserService
+public interface IUserService
+{
+    Task<ServiceResponse<AppUser>> AddUserAsync(ServiceRequest<AppUser> request);
+    Task<ServiceResponse<IEnumerable<AppUser>>> GetAllUsersAsync();
+    Task<ServiceResponse<AppUser>> GetAsync(string request);
+    Task<ServiceResponse<AppUser>> UpdateAsync(ServiceRequest<AppUser> request);
+    Task<bool> DeleteAsync(ServiceRequest<AppUser> request);
+    Task<AppUser> UploadImageAsync(AppUser user, IFormFile? image);
+}
+
+public class UserService : IUserService
 {
     private readonly UserRepository _userRepo;
     private readonly UserAddressRepository _userAddressRepo;
@@ -27,66 +43,182 @@ public class UserService
         _webHostEnvironment = webHostEnvironment;
     }
 
-    public async Task<AppUser> AddUserAsync(AppUser user)
+    public async Task<ServiceResponse<AppUser>> AddUserAsync(ServiceRequest<AppUser> request)
     {
-        return await _userRepo.AddAsync(user);
-    }
+        var response = new ServiceResponse<AppUser>();
 
-    public async Task<IEnumerable<UserViewModel>> GetAllUsersAsync()
-    {
-        var profiles = new List<UserViewModel>();
-
-        var users = await _userRepo.GetAllAsync();
-
-        foreach (var user in users)
+        try
         {
-            var addresses = await _identityContext.AspNetUsersAddresses.Where(x => x.UserId == user.Id).Select(x => x.Address).ToListAsync();
-            var role = await _userManager.GetRolesAsync(user);
-
-            var userViewModel = new UserViewModel
+            if (request.Data != null)
             {
-                UserId = user.Id,
-                UserName = user.UserName!,
-                Name = user.Name,
-                Email = user.Email!,
-                PhoneNumber = user.PhoneNumber,
-                Role = string.Join(",", role),
-                ImageUrl = user.ImageUrl,
-                Addresses = addresses.Select(a => new AddressViewModel
-                {
-                    StreetName = a.StreetName,
-                    PostalCode = a.PostalCode,
-                    City = a.City
-                })
-            };
-
-            profiles.Add(userViewModel);
-
+                response.Data = await _userRepo.AddAsync(request.Data!);
+                response.Status = StatusCode.Created;
+            }
+            else
+            {
+                response.Data = null;
+                response.Status = StatusCode.Conflict;
+            }
         }
-
-        return profiles;
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            response.Data = null;
+            response.Status = StatusCode.InternalServerError;
+        }
+        return response;
     }
 
-
-    //public async Task<List<AppUser>> GetAllUsersAsync()
+    //public async Task<IEnumerable<UserViewModel>> GetAllUsersAsync()
     //{
-    //    return (List<AppUser>)await _userRepo.GetAllAsync();
+    //    var profiles = new List<UserViewModel>();
+
+    //    var users = await _userRepo.GetAllAsync();
+
+    //    foreach (var user in users)
+    //    {
+    //        var addresses = await _identityContext.AspNetUsersAddresses.Where(x => x.UserId == user.Id).Select(x => x.Address).ToListAsync();
+    //        var role = await _userManager.GetRolesAsync(user);
+
+    //        var userViewModel = new UserViewModel
+    //        {
+    //            UserId = user.Id,
+    //            UserName = user.UserName!,
+    //            Name = user.Name,
+    //            Email = user.Email!,
+    //            PhoneNumber = user.PhoneNumber,
+    //            Role = string.Join(",", role),
+    //            ImageUrl = user.ImageUrl,
+    //            Addresses = addresses.Select(a => new AddressViewModel
+    //            {
+    //                StreetName = a.StreetName,
+    //                PostalCode = a.PostalCode,
+    //                City = a.City
+    //            })
+    //        };
+
+    //        profiles.Add(userViewModel);
+
+    //    }
+
+    //    return profiles;
     //}
 
-    public async Task<AppUser> GetUserAsync(string userId)
+    public async Task<ServiceResponse<IEnumerable<AppUser>>> GetAllUsersAsync()
     {
-        return await _userRepo.GetAsync(u => u.Id == userId);
+        var response = new ServiceResponse<IEnumerable<AppUser>>();
+
+        try
+        {
+            var users = await _userRepo.GetAllAsync();
+            response.Data = users;
+            response.Success = true;
+            response.Message = "Retrieved all users successfully.";
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            response.Data = null;
+            response.Success = false;
+            response.Message = "An error occurred while retrieving all users.";
+        }
+        return response;
     }
 
-    public async Task<bool> DeleteUserAsync(AppUser user)
+    //public async Task<AppUser> GetUserAsync(string userId)
+    //{
+    //    return await _userRepo.GetAsync(u => u.Id == userId);
+    //}
+
+    public async Task<ServiceResponse<AppUser>> GetAsync(string userId)
     {
-        return await _userRepo.DeleteAsync(user);
+        var response = new ServiceResponse<AppUser>();
+
+        try
+        {
+            var user = await _userRepo.GetAsync(u => u.Id == userId);
+            if (user != null)
+            {
+                response.Data = user;
+                response.Success = true;
+                response.Message = "User retrieved successfully.";
+            }
+            else
+            {
+                response.Data = null;
+                response.Success = false;
+                response.Message = "User not found.";
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            response.Data = null;
+            response.Success = false;
+            response.Message = "An error occurred while retrieving the user.";
+        }
+        return response;
     }
 
-    public async Task<AppUser> UpdateUserAsync(AppUser user)
+    //public async Task<bool> DeleteUserAsync(AppUser user)
+    //{
+    //    return await _userRepo.DeleteAsync(user);
+    //}
+
+    public async Task<bool> DeleteAsync(ServiceRequest<AppUser> request)
     {
-        return await _userRepo.UpdateAsync(user);
+        try
+        {
+            if (request.Data != null)
+            {
+                return await _userRepo.DeleteAsync(request.Data);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return false;
+        }
     }
+
+    //public async Task<AppUser> UpdateUserAsync(AppUser user)
+    //{
+    //    return await _userRepo.UpdateAsync(user);
+    //}
+
+    public async Task<ServiceResponse<AppUser>> UpdateAsync(ServiceRequest<AppUser> request)
+    {
+        var response = new ServiceResponse<AppUser>();
+
+        try
+        {
+            if (request.Data != null)
+            {
+                response.Data = await _userRepo.UpdateAsync(request.Data);
+                response.Success = true;
+                response.Message = "User updated successfully.";
+            }
+            else
+            {
+                response.Data = null;
+                response.Success = false;
+                response.Message = "Failed to update user. Data is null.";
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            response.Data = null;
+            response.Success = false;
+            response.Message = "An error occurred while updating the user.";
+        }
+        return response;
+    }
+
 
     public async Task<string> GetRolesAsync(AppUser user)
     {

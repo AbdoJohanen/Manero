@@ -8,7 +8,12 @@
 <section class="best-sellers">
     <div class="banner-title">
         <h1>@Model.Title</h1>
-        <a href="">view all<i class="fa-solid fa-angle-right"></i></a>
+        <a asp-action="Index"
+           asp-controller="Products"
+           asp-route-Tags="Best Sellers">
+           view all
+            <i class="fa-solid fa-angle-right"></i>
+        </a>
     </div>
     <div class="best-products">
         @foreach (var product in Model.GridItems)

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Manero.Tests;
+namespace Manero.Tests.Malin_Mira;
 
 public class ConnectionStringTests
 {
@@ -10,7 +10,7 @@ public class ConnectionStringTests
     {
         //Arrange
         //Adding static connection string to DB, and path to the actual connection string 
-        var expectedConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sangs\\Desktop\\MalinDB.mdf;Integrated Security=True;Connect Timeout=30";
+        var expectedConnectionString = ""; //Add your local DB connection string
 
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
