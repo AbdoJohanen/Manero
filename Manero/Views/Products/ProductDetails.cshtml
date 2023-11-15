@@ -1,7 +1,7 @@
 ﻿<!--top menu section-->
 <div class="container">
     <section class="top-menu-section">
-        <partial name="/Views/Partials/Components/_Burger.cshtml" />
+        <span><a asp-action="index" asp-controller="home"><i class="fa-regular fa-angle-left"></i></a></span>
         <a href="/"><img src="~/assets/images/theme/logo.svg"></a>
         <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
     </section>
@@ -10,3 +10,7 @@
 
 <partial name="/Views/Partials/Sections/_ProductDetailsSection.cshtml" />
 <partial name="/Views/Partials/Sections/_ProductReviewsSection.cshtml" />
+
+<div class="container">
+    <partial name="/Views/Partials/Sections/_Navbar.cshtml" />
+</div>
