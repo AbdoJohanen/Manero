@@ -1,0 +1,31 @@
+﻿@model AddressViewModel
+@{
+    ViewData["Title"] = "Delete Address";
+}
+
+<div class="account-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="address" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Delete address "@Model.AddressTitle"</h4>
+        </section>
+
+        <form id='deleteAddressForm' enctype="multipart/form-data" method="post">
+            <div class="input">
+                <input type="hidden" asp-for="AddressTitle" required>
+            </div>
+            <div class="input">
+                <input type="hidden" asp-for="StreetName" required>
+            </div>
+            <div class="input">
+                <input type="hidden" asp-for="PostalCode" required>
+            </div>
+            <div class="input">
+                <input type="hidden" asp-for="City" required>
+            </div>
+            <input type="hidden" asp-for="AddressId" value="@Model.AddressId" />
+            <button class="btn btn-danger" type="submit">DELETE ADDRESS</button>
+            <a asp-action="editaddress" asp-controller="account" asp-route-id="@Model.AddressId" class="btn btn-dark" type="button">GO BACK</a>
+        </form>
+    </div>
+</div>

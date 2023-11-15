@@ -13,6 +13,7 @@ public class CategoryService
         _categoryRepository = categoryRepository;
     }
 
+    // Gets all categories in database
     public async Task<IEnumerable<CategoryModel>> GetAllCategoriesAsync()
     {
         var items = await _categoryRepository.GetAllAsync();
@@ -49,6 +50,7 @@ public class CategoryService
         return null!;
     }
 
+    // Gets a list of CategoryModel based on a list of categoryid's
     public async Task<IEnumerable<CategoryModel>> GetCategoriesAsync(List<int> categoriesId)
     {
         if (categoriesId != null)

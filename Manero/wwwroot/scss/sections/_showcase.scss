@@ -1,4 +1,6 @@
 .showcase {
+    margin-bottom: 40px;
+    
     @include sm {
         max-width: none;
         --bs-gutter-x: 0;
