@@ -13,14 +13,16 @@ public class ProductsController : Controller
     private readonly TagService _tagService;
     private readonly CategoryService _categoryService;
     private readonly ColorService _colorService;
+    private readonly ReviewService _reviewService;
 
-    public ProductsController(ProductService productService, SizeService sizeService, TagService tagService, CategoryService categoryService, ColorService colorService)
+    public ProductsController(ProductService productService, SizeService sizeService, TagService tagService, CategoryService categoryService, ColorService colorService, ReviewService reviewService)
     {
         _productService = productService;
         _sizeService = sizeService;
         _tagService = tagService;
         _categoryService = categoryService;
         _colorService = colorService;
+        _reviewService = reviewService;
     }
 
     // This action responds to both GET and POST requests.
@@ -72,6 +74,8 @@ public class ProductsController : Controller
     {
 
         var productModel = await _productService.GetProductWithImagesAsync(id);
+        foreach (var review in await _reviewService.GetAllProductReviewsAsync(id))
+            productModel.Reviews.Add(review);
         
         return View(productModel);
     }
