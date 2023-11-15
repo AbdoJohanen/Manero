@@ -27,6 +27,7 @@ public class CategoryService
         }
         return null!;
     }
+
     public async Task<IEnumerable<CategoryModel>> GetAllCategoriesToModelAsync()
     {
         var categoriesEntities = await _categoryRepository.GetAllAsync();

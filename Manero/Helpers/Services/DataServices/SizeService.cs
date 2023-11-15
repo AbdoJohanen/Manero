@@ -27,6 +27,8 @@ public class SizeService
         return null!;
     }
 
+
+
     // Gets specific SizeModel from repository
     public async Task<SizeModel> GetSizeAsync(int sizeId)
     {

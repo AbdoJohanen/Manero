@@ -6,7 +6,7 @@ namespace Manero.Helpers.Repositories.DataRepositories;
 
 public abstract class DataRepository<TEntity> where TEntity : class
 {
-    private readonly DataContext _context;
+    protected readonly DataContext _context;
 
     protected DataRepository(DataContext context)
     {
