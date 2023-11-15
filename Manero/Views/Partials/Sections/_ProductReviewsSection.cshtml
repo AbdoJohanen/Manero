@@ -1,8 +1,10 @@
-﻿<section class="product-reviews-section">
+﻿@model ProductModel
+
+<section class="product-reviews-section">
     <div class="container-sm">
         <div class="review-view-all">
             <h2>Reviews (23)</h2>
-            <a asp-action="Index" asp-controller="Reviews" asp-route-articleNumber="Test-1">view all<i class="fa-light fa-chevron-right"></i></a>
+            <a asp-action="Index" asp-controller="Reviews" asp-route-articleNumber="@Model.ArticleNumber">view all<i class="fa-light fa-chevron-right"></i></a>
         </div>
     </div>
     <div class="review">
