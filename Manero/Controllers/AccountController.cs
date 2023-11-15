@@ -38,7 +38,7 @@ public class AccountController : Controller
     private readonly IUserService _userService;
     private readonly AddressService _addressService;
 
-    public AccountController(AuthService auth, UserManager<AppUser> userManager, UserService userService, AddressService addressService)
+    public AccountController(IAuthService auth, UserManager<AppUser> userManager, IUserService userService, AddressService addressService)
 
     {
         _auth = auth;
@@ -647,7 +647,7 @@ public class AccountController : Controller
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-                var user = await _userService.GetUserAsync(userId!); // Get user details
+                var user = await _userService.GetAsync(userId!); // Get user details
 
                 AddressEntity address = new()
                 {
@@ -659,7 +659,7 @@ public class AccountController : Controller
                 var existingAddress = await _addressService.GetorCreateAsync(address);
 
 
-                await _addressService.AddAddressAsync(user, existingAddress, model);
+                await _addressService.AddAddressAsync(user.Data!, existingAddress, model);
 
                 return RedirectToAction("address", "account");
             }
@@ -708,7 +708,7 @@ public class AccountController : Controller
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-                var user = await _userService.GetUserAsync(userId!); // Get user details
+                var user = await _userService.GetAsync(userId!); // Get user details
                 model.UserId = userId;
 
                 AddressEntity updatedAddress = new()
@@ -732,7 +732,7 @@ public class AccountController : Controller
                     {
                         if (await _addressService.DeleteUserAddressEntityAsync(existingUserAddressEntity))
                         {
-                            await _addressService.AddAddressAsync(user, updatedAddress, model);
+                            await _addressService.AddAddressAsync(user.Data!, updatedAddress, model);
                         }
                     }
                 } else if (existingUserAddressEntity.AddressTitle != model.AddressTitle) // Checks if the AddressTitle was changed
@@ -782,7 +782,7 @@ public class AccountController : Controller
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-                var user = await _userService.GetUserAsync(userId!); // Get user details
+                var user = await _userService.GetAsync(userId!); // Get user details
                 model.UserId = userId;
 
                 UserAddressEntity existingUserAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(model.AddressId);

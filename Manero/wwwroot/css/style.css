@@ -480,6 +480,7 @@ html h6, body h6 {
 .navbar-section {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 87px;
   background-color: white;
   border-top: 1px solid #DBE3F5;
@@ -1484,11 +1485,8 @@ html h6, body h6 {
   font-weight: 700;
 }
 
-.big-card-disscount .price {
+.big-card-discount .price {
   text-decoration: line-through;
-}
-.big-card-discount .price-detail .price-discount {
-  text-decoration: none;
 }
 .big-card-discount .price-detail .price-discount {
   font-size: 14px;
@@ -1498,10 +1496,10 @@ html h6, body h6 {
   text-align: left;
   color: #f4303c;
 }
-.big-card-disscount .no-sale {
+.big-card-discount .no-sale {
   display: none;
 }
-.big-card-disscount .sale-banner {
+.big-card-discount .sale-banner {
   background-color: #69864D;
   color: white;
   width: 33px;
@@ -2020,9 +2018,6 @@ html h6, body h6 {
   background-color: #DBE3F5;
 }
 .category-scroller .category-element .content-container .pill-shape {
-}
-.track-order-section .container {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2187,10 +2182,6 @@ html h6, body h6 {
   .account-address .container .new-address > p {
     font-size: 1.2rem;
   }
-}
-.track-order-section .container .tracking .order-status .order-status-text p {
-  font-size: 13px;
-
 }
 
 .cart-section .container {
