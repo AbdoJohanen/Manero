@@ -1,0 +1,105 @@
+﻿@model ProductReviewsSectionViewModel
+
+<section class="all-product-reviews-section">
+    <div class="container">
+        <div class="reviews-list-section">
+            <div class="reviews-title-section">
+                <h3 class="title">
+                    @Model.SectionTitle
+                    <span>></span>
+                </h3>
+                <h3 class="product-name">@Model.Product.ProductName</h3>
+            </div>
+            @if (!Model.Product.Reviews.Any())
+            {
+                <div class="error-message">
+                    <h4 class="text-danger error-title">No Reviews found for this Product</h4>
+                    <p class="error-text">Write a review to see it here!</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var review in Model.Product.Reviews)
+                {
+                    <div class="review-item">
+                        <div class="review-image-section">
+                            @if (string.IsNullOrEmpty(review.ImageUrl))
+                            {
+                                <div class="user-icon"><i class="fa-solid fa-user"></i></div>
+                            }
+                            else
+                            {
+                                <img src="~/assets/images/users/@review.ImageUrl" alt="image">
+                            }
+                        </div>
+                        <div class="review-body-section">
+                            <div class="body-name-rating">
+                                <div>
+                                    @if (!string.IsNullOrEmpty(review.Reviewer))
+                                    {
+                                        <h5 class="review-name">@review.Reviewer</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="review-name">Anonymous User</h5>
+                                    }
+                                    <p class="review-date">@review.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                </div>
+                                <ul class="rating-list">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <li class="star">
+                                            @if (i <= review.Rating)
+                                            {
+                                                <i class="fa-solid fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa-regular fa-star"></i>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="body-comment">
+                                <p class="review-comment">@review.Comment</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="reviews-inputs-section">
+            <div class="lg-screen-inputs">
+                <div class="filter-section">
+                    <div class="dropdown">
+                        <button class="btn dropdown-btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sorting by
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Highest - Lowest</a></li>
+                            <li><a class="dropdown-item" href="#">Lowest - Highest</a></li>
+                            <li><a class="dropdown-item" href="#">Most Liked</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-white">Home</a>
+                    <a asp-action="CreateReview" asp-controller="Reviews" asp-route-articleNumber="@Model.Product.ArticleNumber" class="btn btn-dark">Write a Review</a>
+                </div>
+                <div class="share-section">
+                    <p class="share-title">Share you're reviews</p>
+                    <ul class="social-medias">
+                        <li><a href="#" class="social-media"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="#" class="social-media"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li><a href="#" class="social-media"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#" class="social-media"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sm-screen-inputs">
+                <a asp-action="CreateReview" asp-controller="Reviews" asp-route-articleNumber="@Model.Product.ArticleNumber" class="btn btn-dark">Write a Review</a>
+            </div>
+        </div>
+    </div>
+</section>

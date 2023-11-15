@@ -30,6 +30,7 @@ namespace Manero.Models.DTO
         public List<SizeModel> Sizes { get; set; } = new List<SizeModel>();
         public List<ColorModel> Colors { get; set; } = new List<ColorModel>();
         public List<ImageModel> Images { get; set; } = new List<ImageModel>();
+        public List<ReviewModel> Reviews { get; set; } = new List<ReviewModel>();
 
         public static implicit operator ProductEntity(ProductModel model)
         {

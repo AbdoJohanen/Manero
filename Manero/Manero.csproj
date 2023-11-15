@@ -30,7 +30,6 @@
     <Folder Include="Views\Partials\Components\" />
     <Folder Include="wwwroot\assets\images\products\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\scss\components\" />
     <Folder Include="wwwroot\scss\core\" />
   </ItemGroup>

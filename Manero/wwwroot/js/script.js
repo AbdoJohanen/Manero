@@ -1,6 +1,8 @@
 import categoryGridModule from './_categorygrid.js';
+import { selectMultipleStarsManipulator } from './_ratingmanipulator.js';
 
 categoryGridModule.updateCategoryGridClasses();
+selectMultipleStarsManipulator();
 
 //This function is showing "Welcome" screen when user open app first time
 window.addEventListener('load', function () {
