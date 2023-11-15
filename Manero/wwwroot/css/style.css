@@ -24,14 +24,14 @@ html h6, body h6 {
   font-size: 14px;
 }
 
-.home .container,
-.search .container,
-.cart .container,
-.wish .container,
-.tag .container,
-.category .container,
-.login .container,
-.account .container {
+.home > .container,
+.search > .container,
+.cart > .container,
+.wish > .container,
+.tag > .container,
+.category > .container,
+.login > .container,
+.account > .container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -515,33 +515,33 @@ html h6, body h6 {
 .showcase {
   margin-bottom: 40px;
 }
-@media (min-width: 576px) {
-  .showcase {
-    max-width: none;
-    --bs-gutter-x: 0;
-  }
-}
-.showcase .showcase-container {
+.showcase .container {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  background-color: #DBE3F5;
   aspect-ratio: 67/30;
 }
-.showcase .showcase-container > img {
+@media (min-width: 576px) {
+  .showcase .container {
+    max-width: none;
+    --bs-gutter-x: 0;
+  }
+}
+.showcase .container > img {
+  background-color: #DBE3F5;
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
-.showcase .showcase-container .showcase-content {
+.showcase .container .showcase-content {
   position: absolute;
   width: calc(50% - 20px);
   margin-right: 20px;
   margin-bottom: 30px;
   max-width: 400px;
 }
-.showcase .showcase-container .showcase-content h2 {
+.showcase .container .showcase-content h2 {
   color: white;
   font-size: 22px;
 }
