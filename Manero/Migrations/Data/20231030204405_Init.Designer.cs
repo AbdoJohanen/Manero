@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Manero.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231018113417_Created product database")]
-    partial class Createdproductdatabase
+    [Migration("20231030204405_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,33 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Dresses"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "Pants"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "Accessories"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = "Shoes"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Category = "T-shirts"
+                        });
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ColorEntity", b =>
@@ -57,6 +84,56 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "Red"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "Blue"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Color = "Yellow"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Color = "Green"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Color = "Black"
+                        });
+                });
+
+            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ImageEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMainImage")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProductArticleNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductArticleNumber");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductCategoryEntity", b =>
@@ -112,56 +189,6 @@ namespace Manero.Migrations.Data
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductImageEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ArticleNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductArticleNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductArticleNumber");
-
-                    b.ToTable("ProductImages");
-                });
-
-            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductReviewEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ArticleNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductArticleNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Review")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductArticleNumber");
-
-                    b.ToTable("ProductReviews");
-                });
-
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductSizeEntity", b =>
                 {
                     b.Property<int>("SizeId")
@@ -192,6 +219,31 @@ namespace Manero.Migrations.Data
                     b.ToTable("ProductTags");
                 });
 
+            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ReviewEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ArticleNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductArticleNumber")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Review")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductArticleNumber");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.SizeEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -207,6 +259,38 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Size = "XS"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Size = "S"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Size = "M"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Size = "L"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Size = "XL"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Size = "XXL"
+                        });
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.TagEntity", b =>
@@ -224,6 +308,39 @@ namespace Manero.Migrations.Data
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Tag = "Featured Products"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Tag = "Best Sellers"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Tag = "Sale"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Tag = "New"
+                        });
+                });
+
+            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ImageEntity", b =>
+                {
+                    b.HasOne("Manero.Models.Entities.ProductEntities.ProductEntity", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductArticleNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductCategoryEntity", b =>
@@ -260,28 +377,6 @@ namespace Manero.Migrations.Data
                         .IsRequired();
 
                     b.Navigation("Color");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductImageEntity", b =>
-                {
-                    b.HasOne("Manero.Models.Entities.ProductEntities.ProductEntity", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductArticleNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductReviewEntity", b =>
-                {
-                    b.HasOne("Manero.Models.Entities.ProductEntities.ProductEntity", "Product")
-                        .WithMany("ProductReviews")
-                        .HasForeignKey("ProductArticleNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Product");
                 });
@@ -324,6 +419,15 @@ namespace Manero.Migrations.Data
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ReviewEntity", b =>
+                {
+                    b.HasOne("Manero.Models.Entities.ProductEntities.ProductEntity", "Product")
+                        .WithMany("ProductReviews")
+                        .HasForeignKey("ProductArticleNumber");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.CategoryEntity", b =>
                 {
                     b.Navigation("CategoryProducts");
@@ -336,11 +440,11 @@ namespace Manero.Migrations.Data
 
             modelBuilder.Entity("Manero.Models.Entities.ProductEntities.ProductEntity", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("ProductCategories");
 
                     b.Navigation("ProductColors");
-
-                    b.Navigation("ProductImages");
 
                     b.Navigation("ProductReviews");
 

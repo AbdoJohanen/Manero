@@ -1,0 +1,34 @@
+﻿@model AddressViewModel
+@{
+    ViewData["Title"] = "My Address";
+}
+
+<div class="account-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="index" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>My address</h4>
+        </section>
+    </div>
+</div>
+<section class="account-address">
+    <div class="container">
+        @foreach (var address in Model.Addresses)
+        {
+            <div class="address-container">
+                <i class="left-icon fa-regular fa-house"></i>
+                <div class="address-details">
+                    <h5>@address.AddressTitle</h5>
+                    <p class="address-text">@address.Address.StreetName, @address.Address.City @address.Address.PostalCode</p>
+                </div>
+                <a asp-action="editaddress" asp-controller="account" asp-route-id="@address.AddressId"><i class="right-icon fa-regular fa-pen-line"></i></a>
+            </div>
+        }
+
+
+        <a asp-action="addaddress" asp-controller="account" class="new-address">
+            <i class="fa-regular fa-plus"></i>
+            <p>Add a new address</p>
+        </a>
+    </div>
+</section>

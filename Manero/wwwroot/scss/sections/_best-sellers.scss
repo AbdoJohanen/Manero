@@ -1,0 +1,17 @@
+.best-products {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 150px;
+    overflow:hidden;
+
+    @media (min-width: 1050px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        margin-left: 25%;
+        margin-bottom: 200px;
+        overflow:visible;
+    }
+}

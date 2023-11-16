@@ -1,0 +1,33 @@
+﻿@model AddressViewModel
+@{
+    ViewData["Title"] = "Add Address";
+}
+
+<div class="account-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="address" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Add a new address</h4>
+        </section>
+
+        <form id='addAddressForm' enctype="multipart/form-data" method="post">
+            <div class="input">
+                <label asp-for="AddressTitle"></label>
+                <input asp-for="AddressTitle" required>
+            </div>
+            <div class="input">
+                <label asp-for="StreetName"></label>
+                <input asp-for="StreetName" required>
+            </div>
+            <div class="input">
+                <label asp-for="PostalCode"></label>
+                <input asp-for="PostalCode" required>
+            </div>
+            <div class="input">
+                <label asp-for="City"></label>
+                <input asp-for="City" required>
+            </div>
+            <button class="btn btn-dark" type="submit">SAVE ADDRESS</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+}
+
+<!-- Cart -->
+<div class="cart-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <partial name="/Views/Partials/Components/_Burger.cshtml" />
+            <h4>Cart</h4>
+            <partial name="/Views/Partials/Components/_ShoppingCart.cshtml" />
+        </section>
+
+        <div class="heading">
+            <div>
+                <img src="~/assets/images/theme/Cart.svg">
+            </div>
+            <div class="line"></div>
+            <h1>Your cart is empty!</h1>
+            <p>Looks like you haven't made your order yet.</p>
+        </div>
+
+        <a asp-action="index" asp-controller="home" class="btn btn-dark" type="button">SHOP NOW</a>
+    </div>
+</div>
+ <partial name="/Views/Partials/Sections/_Navbar.cshtml" />

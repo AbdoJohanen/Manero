@@ -1,0 +1,25 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "Verify Email";
+}
+
+<!-- Edit Profile -->
+<div class="account-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a asp-action="index" asp-controller="account"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Verify Email</h4>
+        </section>
+
+        <div class="heading">
+            <div>
+                <img src="~/assets/images/theme/created.svg">
+            </div>
+            <div class="line"></div>
+            <h1>Verify Email</h1>
+            <p>We have sent an email to <strong>@ViewBag.Email</strong>. Please confirm your email address by clicking the link provided in the email.</p>
+        </div>
+    </div>
+</div>
+
+<partial name="/Views/Partials/Sections/_Navbar.cshtml" />

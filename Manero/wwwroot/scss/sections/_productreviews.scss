@@ -1,0 +1,99 @@
+﻿@import '../core/_variables';
+
+.product-reviews-section {
+
+    .container {
+
+        .review-view-all {
+            display: flex;
+            justify-content: space-between;
+
+            a {
+                color: $color-main-black;
+                text-decoration: none;
+
+                i {
+                    margin-left: 3px;
+                    font-weight: $font-weight-bold;
+                }
+            }
+
+            @media (min-width: 1199.98px) {
+                a {
+                    font-size: 1.2em;
+                }
+            }
+        }
+    }
+
+    .review {
+        display: flex;
+
+        .container {
+            border-bottom: 1px solid $color-main-blue;
+            margin-top: 20px;
+
+            .review-info {
+                display: flex;
+                justify-content: space-between;
+
+                .name-date {
+                    margin-right: auto;
+                    margin-left: 12px;
+
+                    .name {
+                        color: $color-main-black;
+                        font-weight: $font-weight-semibold;
+                        margin-bottom: 4px;
+                    }
+                }
+
+                .product-rating {
+
+                    i {
+                        color: $color-rating-yellow;
+                        font-size: 12px;
+                    }
+                }
+
+                @media (min-width: 1199.98px) {
+                    .product-rating {
+
+                        i {
+                            color: $color-rating-yellow;
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+
+
+
+
+                .review-date {
+                    font-size: 10px;
+                    font-weight: $font-weight-regular;
+                }
+            }
+
+            .review-text {
+                padding-left: 60px;
+                margin: 5px 25px 45px 0;
+                font-size: 14px;
+                font-weight: $font-weight-regular;
+            }
+
+            @media (min-width: 1199.98px) {
+                .name-date {
+                    .name {
+                        font-size: 1.1em;
+                    }
+
+                    .review-date {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

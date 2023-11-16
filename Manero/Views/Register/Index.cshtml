@@ -1,0 +1,61 @@
+﻿@model UserRegisterViewModel
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="register-section">
+    <div class="container">
+        <section class="top-menu-section">
+            <span><a href="/"><i class="fa-regular fa-angle-left"></i></a></span>
+            <h4>Sign Up</h4>
+        </section>
+
+        <div class="heading">
+            <div class="line"></div>
+            <h1>Sign Up</h1>
+        </div>
+
+        <form id='registerForm' enctype="multipart/form-data" method="post" class="was-validated">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="input">
+                <label asp-for="Name">NAME</label>
+                <input asp-for="Name" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="Name"></span></small>
+            </div>
+            <div class="input">
+                <label asp-for="Email">EMAIL</label>
+                <input asp-for="Email" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="Email"></span></small>
+            </div>
+            <div class="input">
+                <label asp-for="Password">PASSWORD</label>
+                <input asp-for="Password" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="Password"></span></small>
+            </div>
+            <div class="input">
+                <label asp-for="ConfirmPassword">CONFIRM PASSWORD</label>
+                <input asp-for="ConfirmPassword" class="form-control is-valid" required>
+                <small class="text-danger"><span asp-validation-for="ConfirmPassword"></span></small>
+            </div>
+            <button class="btn btn-dark" type="submit">SIGN UP</button>
+        </form>
+
+        <div class="signuplink">
+            <p>Already have an account? <a asp-action="index" asp-controller="login">Sign in.</a></p>
+        </div>
+
+        <div class="alternativelogin">
+            <div class="circle">
+                <a href="/"><i class="fa-brands fa-facebook-f" style="color: #3B5999;"></i></a>
+            </div>
+            <div class="circle">
+                <a href="/"><i class="fa-brands fa-x-twitter" style="color: black;"></i></a>
+            </div>
+            <div class="circle">
+                <a href="/"><i class="fa-brands fa-google-plus-g" style="color: #DD4B39"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
