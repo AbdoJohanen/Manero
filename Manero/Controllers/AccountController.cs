@@ -36,9 +36,9 @@ public class AccountController : Controller
     private readonly UserManager<AppUser> _userManager;
 
     private readonly IUserService _userService;
-    private readonly AddressService _addressService;
+    private readonly IAddressService _addressService;
 
-    public AccountController(IAuthService auth, UserManager<AppUser> userManager, IUserService userService, AddressService addressService)
+    public AccountController(IAuthService auth, UserManager<AppUser> userManager, IUserService userService, IAddressService addressService)
 
     {
         _auth = auth;
@@ -611,16 +611,35 @@ public class AccountController : Controller
 
         if (userId != null)
         {
-            Expression<Func<UserAddressEntity, bool>> userAddressExpression = x => x.UserId == userId;
-            var userAddresses = await _addressService.GetAllUserAddressesAsync(userAddressExpression);
-
-            var userModel = new AddressViewModel
+            try
             {
-                UserId = userId,
-                Addresses = userAddresses.ToList()
-            };
+                Expression<Func<UserAddressEntity, bool>> userAddressExpression = x => x.UserId == userId;
 
-            return View(userModel);
+                var request = new ServiceRequest<Expression<Func<UserAddressEntity, bool>>> { Data = userAddressExpression };
+
+                var response = await _addressService.GetAllUserAddressesAsync(request);
+
+                if (response.Success)
+                {
+                    var userAddresses = response.Data;
+
+                    var userModel = new AddressViewModel
+                    {
+                        UserId = userId,
+                        Addresses = userAddresses!.ToList()
+                    };
+
+                    return View(userModel);
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         return View();
@@ -641,31 +660,49 @@ public class AccountController : Controller
     {
         ViewBag.ActivePage = "Account";
 
-
         if (ModelState.IsValid)
         {
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-                var user = await _userService.GetAsync(userId!); // Get user details
 
-                AddressEntity address = new()
+                if (userId != null)
                 {
-                    StreetName = model.StreetName,
-                    PostalCode = model.PostalCode,
-                    City = model.City
-                };
+                    var response = await _userService.GetAsync(userId);
 
-                var existingAddress = await _addressService.GetorCreateAsync(address);
+                    if (response.Success)
+                    {
+                        var user = response.Data;
 
+                        AddressEntity address = new()
+                        {
+                            StreetName = model.StreetName,
+                            PostalCode = model.PostalCode,
+                            City = model.City
+                        };
 
-                await _addressService.AddAddressAsync(user.Data!, existingAddress, model);
+                        var existingAddressResponse = await _addressService.GetorCreateAsync(new ServiceRequest<AddressEntity> { Data = address });
 
-                return RedirectToAction("address", "account");
+                        if (existingAddressResponse.Success)
+                        {
+                            var existingAddress = existingAddressResponse.Data;
+
+                            await _addressService.AddAddressAsync(new ServiceRequest<(AppUser user, AddressEntity address, AddressViewModel model)> { Data = (user!, existingAddress!, model) });
+
+                            return RedirectToAction("address", "account");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+                }
+                return RedirectToAction("Error", "Home");
             }
-            catch { }
-
-            return RedirectToAction("address", "account");
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         return View(model);
@@ -677,18 +714,21 @@ public class AccountController : Controller
         ViewBag.ActivePage = "Account";
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-        UserAddressEntity userAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(id);
 
-        if (userAddressEntity != null)
+        var request = new ServiceRequest<int> { Data = id };
+
+        var response = await _addressService.GetUserAddresEntityBydIdAsync(request.Data);
+
+        if (response != null)
         {
             AddressViewModel viewModel = new()
             {
                 UserId = userId,
-                AddressId = userAddressEntity.AddressId,
-                AddressTitle = userAddressEntity.AddressTitle,
-                StreetName = userAddressEntity.Address.StreetName,
-                PostalCode = userAddressEntity.Address.PostalCode,
-                City = userAddressEntity.Address.City
+                AddressId = response.Data!.AddressId,
+                AddressTitle = response.Data!.AddressTitle,
+                StreetName = response.Data!.Address.StreetName,
+                PostalCode = response.Data!.Address.PostalCode,
+                City = response.Data!.Address.City
             };
 
             return View(viewModel);
@@ -708,42 +748,61 @@ public class AccountController : Controller
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-                var user = await _userService.GetAsync(userId!); // Get user details
-                model.UserId = userId;
+                var userResponse = await _userService.GetAsync(userId!); // Get user details
 
-                AddressEntity updatedAddress = new()
+                if (userResponse.Success)
                 {
-                    StreetName = model.StreetName,
-                    PostalCode = model.PostalCode,
-                    City = model.City
-                };
+                    var user = userResponse.Data;
+                    model.UserId = userId;
 
-                updatedAddress = await _addressService.GetorCreateAsync(updatedAddress);
-
-                UserAddressEntity existingUserAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(model.AddressId);
-
-                // Checks if the user has updated StreetName, PostalCode or City
-                if (existingUserAddressEntity.Address.StreetName != updatedAddress.StreetName ||
-                    existingUserAddressEntity.Address.PostalCode != updatedAddress.PostalCode ||
-                    existingUserAddressEntity.Address.City != updatedAddress.City)
-                {
-                    // The address details have been updated, delete the old UserAddressEntity and make a new one with the new updated address
-                    if (existingUserAddressEntity != null)
+                    AddressEntity updatedAddress = new()
                     {
-                        if (await _addressService.DeleteUserAddressEntityAsync(existingUserAddressEntity))
+                        StreetName = model.StreetName,
+                        PostalCode = model.PostalCode,
+                        City = model.City
+                    };
+
+                    var updatedAddressResponse = await _addressService.GetorCreateAsync(new ServiceRequest<AddressEntity> { Data = updatedAddress });
+
+                    if (updatedAddressResponse.Success)
+                    {
+                        var request = new ServiceRequest<int> { Data = model.AddressId };
+                        var existingUserAddressEntityResponse = await _addressService.GetUserAddresEntityBydIdAsync(request.Data);
+
+                        if (existingUserAddressEntityResponse.Success)
                         {
-                            await _addressService.AddAddressAsync(user.Data!, updatedAddress, model);
+                            var existingUserAddressEntity = existingUserAddressEntityResponse.Data;
+
+                            if (existingUserAddressEntity!.Address.StreetName != updatedAddress.StreetName ||
+                                existingUserAddressEntity.Address.PostalCode != updatedAddress.PostalCode ||
+                                existingUserAddressEntity.Address.City != updatedAddress.City)
+                            {
+                                var existingUserAddressEntityRequest = new ServiceRequest<UserAddressEntity> { Data = existingUserAddressEntity };
+
+                                var deleteResponse = await _addressService.DeleteUserAddressEntityAsync(existingUserAddressEntityRequest);
+
+                                if (deleteResponse.Success)
+                                {
+                                    await _addressService.AddAddressAsync(new ServiceRequest<(AppUser user, AddressEntity address, AddressViewModel model)> { Data = (user!, updatedAddress, model) });
+                                }
+                            }
+                            else if (existingUserAddressEntity.AddressTitle != model.AddressTitle) // Checks if the AddressTitle was changed
+                            {
+                                existingUserAddressEntity.AddressTitle = model.AddressTitle;
+                                await _addressService.UpdateUserAddressEntityAsync(new ServiceRequest<UserAddressEntity> { Data = existingUserAddressEntity });
+                            }
+
+                            return RedirectToAction("address", "account");
                         }
                     }
-                } else if (existingUserAddressEntity.AddressTitle != model.AddressTitle) // Checks if the AddressTitle was changed
-                {
-                    existingUserAddressEntity.AddressTitle = model.AddressTitle;
-                    await _addressService.UpdateUserAddressEntityAsync(existingUserAddressEntity);
                 }
             }
-            catch { return NotFound(); }
-            return RedirectToAction("address", "account");
+            catch
+            {
+                return NotFound();
+            }
         }
+
         return View(model);
     }
 
@@ -753,14 +812,18 @@ public class AccountController : Controller
         ViewBag.ActivePage = "Account";
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Find user's id
-        UserAddressEntity userAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(id);
+        var request = new ServiceRequest<int> { Data = id };
 
-        if (userAddressEntity != null)
+        var userAddressEntityResponse = await _addressService.GetUserAddresEntityBydIdAsync(request.Data);
+
+        if (userAddressEntityResponse.Success)
         {
+            var userAddressEntity = userAddressEntityResponse.Data;
+
             AddressViewModel viewModel = new()
             {
                 UserId = userId,
-                AddressId = userAddressEntity.AddressId,
+                AddressId = userAddressEntity!.AddressId,
                 AddressTitle = userAddressEntity.AddressTitle,
                 StreetName = userAddressEntity.Address.StreetName,
                 PostalCode = userAddressEntity.Address.PostalCode,
@@ -785,16 +848,36 @@ public class AccountController : Controller
                 var user = await _userService.GetAsync(userId!); // Get user details
                 model.UserId = userId;
 
-                UserAddressEntity existingUserAddressEntity = await _addressService.GetUserAddresEntityBydIdAsync(model.AddressId);
+                var existingUserAddressEntityResponse = await _addressService.GetUserAddresEntityBydIdAsync(model.AddressId);
 
-                if (existingUserAddressEntity != null)
+                if (existingUserAddressEntityResponse.Success)
                 {
-                    await _addressService.DeleteUserAddressEntityAsync(existingUserAddressEntity);
+                    var existingUserAddressEntity = existingUserAddressEntityResponse.Data;
+
+                    // Ensure that the existingUserAddressEntity is not null before attempting to delete
+                    if (existingUserAddressEntity != null)
+                    {
+                        var deleteRequest = new ServiceRequest<UserAddressEntity> { Data = existingUserAddressEntity };
+
+                        await _addressService.DeleteUserAddressEntityAsync(deleteRequest);
+                    }
+                }
+                else
+                {
+                    // Handle the case where the address doesn't exist
+                    return NotFound();
                 }
             }
-            catch { return NotFound(); }
+            catch
+            {
+                // Handle unexpected exceptions
+                return NotFound();
+            }
+
             return RedirectToAction("address", "account");
         }
+
+        // Handle the case where ModelState is not valid
         return NotFound();
     }
 }

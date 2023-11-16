@@ -3,7 +3,10 @@ using Manero.Models.Entities.UserEntities;
 
 namespace Manero.Helpers.Repositories.UserRepositories;
 
-public class AddressRepository : IdRepository<AddressEntity, IdentityContext>
+public interface IAddressRepository : IRepo<AddressEntity, IdentityContext>
+{
+}
+public class AddressRepository : IdRepository<AddressEntity, IdentityContext> , IAddressRepository
 {
     public AddressRepository(IdentityContext context) : base(context)
     {

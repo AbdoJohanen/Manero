@@ -2,6 +2,7 @@
 using Manero.Helpers.Repositories.UserRepositories;
 using Manero.Helpers.Services.UserServices;
 using Manero.Models.Entities.UserEntities;
+using Manero.Models.Test;
 using Microsoft.EntityFrameworkCore;
 
 namespace Manero.Tests.AbdoTests;
@@ -41,15 +42,22 @@ public class AddressServiceTests
         };
 
         // Act
-        var result = await _addressService.GetorCreateAsync(addressEntity);
+        var request = new ServiceRequest<AddressEntity> { Data = addressEntity };
+
+        // Act
+        var result = await _addressService.GetorCreateAsync(request);
 
         // Assert
         Assert.NotNull(result);
-        Assert.IsType<AddressEntity>(result);
-        Assert.Equal(addressEntity.Id, result.Id);
-        Assert.Equal(addressEntity.StreetName, result.StreetName);
-        Assert.Equal(addressEntity.PostalCode, result.PostalCode);
-        Assert.Equal(addressEntity.City, result.City);
+        Assert.IsType<ServiceResponse<AddressEntity>>(result);
+
+        // Check the contents of the response data
+        Assert.NotNull(result.Data);
+        Assert.IsType<AddressEntity>(result.Data);
+        Assert.Equal(addressEntity.Id, result.Data.Id);
+        Assert.Equal(addressEntity.StreetName, result.Data.StreetName);
+        Assert.Equal(addressEntity.PostalCode, result.Data.PostalCode);
+        Assert.Equal(addressEntity.City, result.Data.City);
 
         await DisposeAsync();
     }
@@ -73,10 +81,10 @@ public class AddressServiceTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.IsType<UserAddressEntity>(result);
-        Assert.Equal(userAddressEntity.UserId, result.UserId);
-        Assert.Equal(userAddressEntity.AddressId, result.AddressId);
-        Assert.Equal(userAddressEntity.AddressTitle, result.AddressTitle);
+        Assert.IsType<ServiceResponse<UserAddressEntity>>(result);
+        Assert.Equal(userAddressEntity.UserId, result.Data!.UserId);
+        Assert.Equal(userAddressEntity.AddressId, result.Data!.AddressId);
+        Assert.Equal(userAddressEntity.AddressTitle, result.Data!.AddressTitle);
 
         await DisposeAsync();
     }
@@ -98,12 +106,14 @@ public class AddressServiceTests
         // Modify the entity
         userAddressEntity.AddressTitle = "Work";
 
+        var request = new ServiceRequest<UserAddressEntity> { Data = userAddressEntity };
+
         // Act
-        var updatedEntity = await _addressService.UpdateUserAddressEntityAsync(userAddressEntity);
+        var updatedEntity = await _addressService.UpdateUserAddressEntityAsync(request);
 
         // Assert
         Assert.NotNull(updatedEntity);
-        Assert.Equal("Work", updatedEntity.AddressTitle);
+        Assert.Equal("Work", updatedEntity.Data!.AddressTitle);
 
         // Ensure the entity is updated in the database
         var updatedEntityInDatabase = await _userAddressRepository.GetAsync(x => x.UserId == userAddressEntity.UserId && x.AddressId == userAddressEntity.AddressId);
@@ -127,11 +137,13 @@ public class AddressServiceTests
 
         await _userAddressRepository.AddAsync(userAddressEntity);
 
+        var request = new ServiceRequest<UserAddressEntity> { Data = userAddressEntity };
+
         // Act
-        var result = await _addressService.DeleteUserAddressEntityAsync(userAddressEntity);
+        var result = await _addressService.DeleteUserAddressEntityAsync(request);
 
         // Assert
-        Assert.True(result);
+        Assert.True(result.Data!);
 
         // Ensure the entity is deleted
         var deletedEntity = await _userAddressRepository.GetAsync(x => x.UserId == userAddressEntity.UserId && x.AddressId == userAddressEntity.AddressId);

@@ -69,41 +69,6 @@ public class UserService : IUserService
         return response;
     }
 
-    //public async Task<IEnumerable<UserViewModel>> GetAllUsersAsync()
-    //{
-    //    var profiles = new List<UserViewModel>();
-
-    //    var users = await _userRepo.GetAllAsync();
-
-    //    foreach (var user in users)
-    //    {
-    //        var addresses = await _identityContext.AspNetUsersAddresses.Where(x => x.UserId == user.Id).Select(x => x.Address).ToListAsync();
-    //        var role = await _userManager.GetRolesAsync(user);
-
-    //        var userViewModel = new UserViewModel
-    //        {
-    //            UserId = user.Id,
-    //            UserName = user.UserName!,
-    //            Name = user.Name,
-    //            Email = user.Email!,
-    //            PhoneNumber = user.PhoneNumber,
-    //            Role = string.Join(",", role),
-    //            ImageUrl = user.ImageUrl,
-    //            Addresses = addresses.Select(a => new AddressViewModel
-    //            {
-    //                StreetName = a.StreetName,
-    //                PostalCode = a.PostalCode,
-    //                City = a.City
-    //            })
-    //        };
-
-    //        profiles.Add(userViewModel);
-
-    //    }
-
-    //    return profiles;
-    //}
-
     public async Task<ServiceResponse<IEnumerable<AppUser>>> GetAllUsersAsync()
     {
         var response = new ServiceResponse<IEnumerable<AppUser>>();
@@ -124,11 +89,6 @@ public class UserService : IUserService
         }
         return response;
     }
-
-    //public async Task<AppUser> GetUserAsync(string userId)
-    //{
-    //    return await _userRepo.GetAsync(u => u.Id == userId);
-    //}
 
     public async Task<ServiceResponse<AppUser>> GetAsync(string userId)
     {

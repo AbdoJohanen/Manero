@@ -10,7 +10,7 @@ using Moq;
 using System.Linq.Expressions;
 using Twilio.Rest.Numbers.V2.RegulatoryCompliance;
 
-namespace Manero.Tests.UnitTests;
+namespace Manero.Tests.Elvins_Tester.UnitTests;
 
 public interface IUserManager
 {
@@ -33,13 +33,13 @@ public class UserController_Test
     private readonly FakeSignInManager _fakeSignInManager;
     private readonly AccountController _accountController;
     private readonly RegisterController _registerController;
-    private readonly Mock<AddressService> _mockAddressService;
+    private readonly Mock<IAddressService> _mockAddressService;
 
     public UserController_Test()
     {
         _mockAuthService = new Mock<IAuthService>();
         _mockUserService = new Mock<IUserService>();
-        _mockAddressService = new Mock<AddressService>();
+        _mockAddressService = new Mock<IAddressService>();
         _fakeUserManager = new FakeUserManager();
         _fakeSignInManager = new FakeSignInManager();
         _accountController = new AccountController(_mockAuthService.Object , _fakeUserManager, _mockUserService.Object, _mockAddressService.Object);
