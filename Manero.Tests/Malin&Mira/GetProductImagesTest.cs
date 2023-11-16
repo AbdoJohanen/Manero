@@ -64,7 +64,7 @@ public class GetProductImagesTest
 
         public TestWebHostEnvironment()
         {
-            WebRootPath = Path.Combine("C:\\Users\\sangs\\Documents\\Webbutvecklare\\Projekt\\Manero\\Manero\\Manero\\wwwroot");
+            WebRootPath = Path.Combine("C:\\Users\\abdoj\\OneDrive\\Skrivbord\\EC_Utbildning\\Projekt\\Manero\\Manero\\wwwroot");
 
             WebRootFileProvider = new PhysicalFileProvider(WebRootPath);
             ContentRootFileProvider = new PhysicalFileProvider(ContentRootPath);
