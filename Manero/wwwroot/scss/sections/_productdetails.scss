@@ -2,8 +2,6 @@
 
 .product-details-section {
 
-
-
     .carousel-indicators [data-bs-target] {
         width: 6px;
         height: 6px;
@@ -61,7 +59,7 @@
             h2 {
                 color: $color-main-black;
             }
-            
+
 
             i {
                 padding-right: 10px;
@@ -119,12 +117,34 @@
             padding-bottom: 20px;
             //border: 1px solid black;
 
-            h3 {
+            .price-no-discount {
                 color: $color-main-black !important;
-                font-size: 20px;
+                font-size: 25px;
                 font-weight: $font-weight-semibold;
                 padding-top: 7px;
             }
+
+            .price-detail {
+                margin-top: 20px;
+
+                .price {
+                    color: $color-main-black !important;
+                    font-size: 25px;
+                    font-weight: $font-weight-semibold;
+                    padding-top: 7px;
+                    text-decoration: line-through;
+                }
+
+                .price-discount {
+                    font-size: 28px;
+                    font-weight: normal;
+                    line-height: 21px;
+                    font-style: normal;
+                    text-align: left;
+                    color: #f4303c;
+                }
+            }
+
 
             .add-to-cart {
                 display: flex;
