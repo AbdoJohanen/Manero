@@ -30,18 +30,23 @@
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
             <i class="fa-regular fa-star"></i>
-            <div class="total-reviews">(23)</div>
+            <div class="total-reviews"></div>
         </div>
 
         <!-- product price and add to cart -->
-        <div class="price-cart">
-            <h3>$@Model.ProductPrice</h3>
-            <div class="add-to-cart">
-                <button >-</button>
-                <div class="amount">1</div>
-                <button>+</button>
+    <div class="price-cart">
+        @if (Model.CalculatedPrice == null)
+        {
+            <span class="price-no-discount">$@Model.ProductPrice</span>
+        }
+        else
+        {
+            <div class="price-detail">
+                <span class="price">$@Model.ProductPrice</span>
+                <span class="price-discount">$@Model.CalculatedPrice?.ToString("0.00")</span>
             </div>
-        </div>
+        }
+    </div>
 
         <!-- product sizes -->
         <div class="product-size">

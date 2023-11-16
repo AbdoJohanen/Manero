@@ -1703,11 +1703,29 @@ html h6, body h6 {
   align-items: center;
   padding-bottom: 20px;
 }
-.product-details-section .container .price-cart h3 {
+.product-details-section .container .price-cart .price-no-discount {
   color: #111111 !important;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
   padding-top: 7px;
+}
+.product-details-section .container .price-cart .price-detail {
+  margin-top: 20px;
+}
+.product-details-section .container .price-cart .price-detail .price {
+  color: #111111 !important;
+  font-size: 25px;
+  font-weight: 600;
+  padding-top: 7px;
+  text-decoration: line-through;
+}
+.product-details-section .container .price-cart .price-detail .price-discount {
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 21px;
+  font-style: normal;
+  text-align: left;
+  color: #f4303c;
 }
 .product-details-section .container .price-cart .add-to-cart {
   display: flex;
