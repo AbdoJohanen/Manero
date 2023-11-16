@@ -90,6 +90,11 @@ public class UserService : IUserService
         return response;
     }
 
+    public async Task<AppUser> GetUserAsync(string userId)
+    {
+        return await _userRepo.GetAsync(u => u.Id == userId);
+    }
+
     public async Task<ServiceResponse<AppUser>> GetAsync(string userId)
     {
         var response = new ServiceResponse<AppUser>();

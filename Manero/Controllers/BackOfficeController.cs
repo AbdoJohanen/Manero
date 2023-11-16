@@ -1,10 +1,13 @@
 ﻿using Manero.Helpers.Services.DataServices;
 using Manero.Models.DTO;
 using Manero.ViewModels.BackOffice;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Manero.Controllers;
 
+[Authorize(Roles = "admin")]
 public class BackOfficeController : Controller
 {
     private readonly ProductService _productService;

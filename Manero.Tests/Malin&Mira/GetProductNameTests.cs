@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
-namespace Manero.Tests;
+namespace Manero.Tests.Malin_Mira;
 
 public class GetProductNameTests
 

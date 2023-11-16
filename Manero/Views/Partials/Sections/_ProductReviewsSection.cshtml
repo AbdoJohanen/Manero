@@ -1,84 +1,62 @@
-﻿<!--product review section-->
+﻿@model ProductModel
+
+<!--product review section-->
 <section class="product-reviews-section">
     <!--review view all-->
     <div class="container">
         <div class="review-view-all">
-            <h2>Reviews (23)</h2>
-            <a href="#">view all<i class="fa-light fa-chevron-right"></i></a>
+            <h2>Reviews</h2>
+            <a asp-action="Index" asp-controller="Reviews" asp-route-articleNumber="@Model.ArticleNumber">view all<i class="fa-light fa-chevron-right"></i></a>
         </div>
     </div>
-    <!--review example 1-->
-    <div class="review">
-        <div class="container">
-            <div class="review-info">
-                <!--reviewer image-->
-                <img class="review-image" src="~/assets/images/placeholders/review-placeholder.png"/>
-                <!--review name and date-->
-                <div class="name-date">
-                    <div class="name">Anette Black</div>
-                    <div class="review-date">23 Jan 2022</div>
+    <div class="container mt-3">
+        @foreach (var review in Model.Reviews)
+        {
+            <div class="review-item">
+                <div class="review-image-section">
+                    @if (string.IsNullOrEmpty(review.ImageUrl))
+                    {
+                        <div class="user-icon"><i class="fa-solid fa-user"></i></div>
+                    }
+                    else
+                    {
+                        <img src="~/assets/images/users/@review.ImageUrl" alt="image">
+                    }
                 </div>
-                <!--rating stars-->
-                <div class="product-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-            </div>
-            <!--review comment-->
-            <div class="review-text">Consequat ut ea dolor aliqua laborum tempor Lorem culpa. Commodo veniam sint est mollit proident commodo.</div>
-        </div>
-    </div>
-
-    <!--review example 2-->
-    <div class="review">
-        <div class="container">
-            <div class="review-info">
-                <!--reviewer image-->
-                <img class="review-image" src="~/assets/images/placeholders/review-placeholder.png" />
-                <!--review name and date-->
-                <div class="name-date">
-                    <div class="name">Jenny Wilson</div>
-                    <div class="review-date">23 Jan 2022</div>
-                </div>
-                <!--rating stars-->
-                <div class="product-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-            </div>
-            <!--review comment-->
-            <div class="review-text">Consequat ut ea dolor aliqua laborum tempor Lorem culpa. Commodo veniam sint est mollit proident commodo.</div>
-        </div>
-    </div>
-
-    <!--review example 3-->
-    <div class="review">
-        <div class="container">
-            <div class="review-info">
-                <!--reviewer image-->
-                <img class="review-image" src="~/assets/images/placeholders/review-placeholder.png" />
-                <!--review name and date-->
-                <div class="name-date">
-                    <div class="name">Anna Eriksson</div>
-                    <div class="review-date">23 Jan 2022</div>
-                </div>
-                <!--rating stars-->
-                <div class="product-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
+                <div class="review-body-section">
+                    <div class="body-name-rating">
+                        <div>
+                            @if (!string.IsNullOrEmpty(review.Reviewer))
+                            {
+                                <h5 class="review-name">@review.Reviewer</h5>
+                            }
+                            else
+                            {
+                                <h5 class="review-name">Anonymous User</h5>
+                            }
+                            <p class="review-date">@review.CreatedDate.ToString("yyyy-MM-dd")</p>
+                        </div>
+                        <ul class="rating-list">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <li class="star">
+                                    @if (i <= review.Rating)
+                                    {
+                                        <i class="fa-solid fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-regular fa-star"></i>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="body-comment">
+                        <p class="review-comment">@review.Comment</p>
+                    </div>
                 </div>
             </div>
-            <!--review comment-->
-            <div class="review-text">Consequat ut ea dolor aliqua laborum tempor Lorem culpa. Commodo veniam sint est mollit proident commodo.</div>
-        </div>
+        }
     </div>
 </section>
