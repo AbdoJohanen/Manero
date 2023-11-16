@@ -7,7 +7,7 @@
 namespace Manero.Migrations.Data
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Fixedbackofficedb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -228,15 +228,14 @@ namespace Manero.Migrations.Data
                 });
 
             migrationBuilder.InsertData(
-                table: "Colors",
-                columns: new[] { "Id", "Color" },
+                table: "Tags",
+                columns: new[] { "Id", "Tag" },
                 values: new object[,]
                 {
-                    { 1, "Red" },
-                    { 2, "Blue" },
-                    { 3, "Yellow" },
-                    { 4, "Green" },
-                    { 5, "Black" }
+                    { 1, "Featured Products" },
+                    { 2, "Best Sellers" },
+                    { 3, "Sale" },
+                    { 4, "New" }
                 });
 
             migrationBuilder.InsertData(
@@ -250,17 +249,6 @@ namespace Manero.Migrations.Data
                     { 4, "L" },
                     { 5, "XL" },
                     { 6, "XXL" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Tags",
-                columns: new[] { "Id", "Tag" },
-                values: new object[,]
-                {
-                    { 1, "Featured Products" },
-                    { 2, "Best Sellers" },
-                    { 3, "Sale" },
-                    { 4, "New" }
                 });
 
             migrationBuilder.CreateIndex(
