@@ -13,10 +13,11 @@
 }
 
 <!--Ska ligga i en container med 334/335px bredd och ska centereras-->
+
 <div class="product-card-small">
 
     <div class="product-card-small-left">
-        <a href="#">
+            <a asp-controller="Products" asp-action="ProductDetails" asp-route-id="@Model.ArticleNumber">
             <div class="product-image">
                 @if (Model.Images != null)
                 {
