@@ -23,8 +23,8 @@ namespace Manero.Tests.GeorgeTests.ControllerTests
             using var context = new DataContext(options);
 
             // Lägg till testprodukter i in-memory-databasen
-            context.Products.Add(new ProductModel { ArticleNumber = "1", ProductName = "Product 1" });
-            context.Products.Add(new ProductModel { ArticleNumber = "2", ProductName = "Product 2" });
+            context.Products.Add(new ProductModel { ArticleNumber = "01", ProductName = "Product 1" });
+            context.Products.Add(new ProductModel { ArticleNumber = "02", ProductName = "Product 2" });
 
             // Lägg till Tags på produkter
             context.Tags.Add(new TagModel { Tag = "Best Sellers" });
