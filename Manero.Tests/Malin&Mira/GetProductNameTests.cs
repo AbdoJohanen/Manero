@@ -79,7 +79,7 @@ public class GetProductNameTests
 
         public TestWebHostEnvironment()
         {
-            WebRootPath = Path.Combine("C:\\Users\\abdoj\\OneDrive\\Skrivbord\\EC_Utbildning\\Projekt\\Manero\\Manero\\wwwroot");
+            WebRootPath = Path.Combine("C:\\Users\\georg\\OneDrive\\Skrivbord\\ManeroAgile\\Manero\\Manero\\wwwroot");
 
             WebRootFileProvider = new PhysicalFileProvider(WebRootPath);
             ContentRootFileProvider = new PhysicalFileProvider(ContentRootPath);
