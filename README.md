@@ -15,6 +15,23 @@ Malin&Mira:
 "ConnectionStringTests" så måste ni lägga till sin egna lokala databas connection string.
 "GetProductImagesTest", "GetProductNameTest" och "ProductsControllerTests" måste ni lägga till er egen sökväg till wwwroot.
 
+--------------------------------------------------------------------------------------------------------------------------------
+VIKTIG INFORMATION om API-Nycklar för SMS, Email och Glömt Lösenord Funktioner
+
+Problem
+Efter att ha ändrat repositoryn från privat till offentligt, har vissa funktioner som SMS- och email-verifiering samt glömt lösenord upplevt driftstörningar. Detta beror på att Twilio och SendGrid API-nycklarna inte längre är giltiga efter ändringen.
+ 
+Lösning
+För att återställa funktionaliteten behöver nya API-nycklar genereras från Twilio och SendGrid. Dessa nycklar måste sedan uppdateras i projektets konfigurationsfiler. Om du behöver testa dessa funktioner kan du själv generera nya API-nycklar från respektive plattform (eller kan ni skicka ett meddelande till Elvin för att få nya API-nycklar) och uppdatera konfigurationen.
+ 
+Steg att följa för att uppdatera API-nycklar:
+		Twilio API-nycklar:
+Logga in på Twilio-plattformen och generera nya API-nycklar.
+Uppdatera Twilio API-nycklarna i projektets konfigurationsfil.
+		SendGrid API-nycklar:
+Logga in på SendGrid och skapa nya API-nycklar.
+Uppdatera SendGrid API-nycklarna i projektets konfigurationsfil.
+
 ---------------------------------------------------------------------------------------------------------------------------------
 
 MANIFEST
