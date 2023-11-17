@@ -19,10 +19,6 @@ Malin&Mira:
 
 MANIFEST
 
-Gruppmedlemmar: 
-Dennis Gustavsson, Elvin Javadov, Simon Bäcklin, Lucas Nykvist, George Bdewi, Ludvig Franck, Abdo Johanen, Mira Wänseth, Malin Eriksson 
-
-
 Dagliga möten
 Daily Standup 10.00 varje vardag.
 Måndagar reflekterar vi över grupparbetet.
