@@ -46,12 +46,8 @@ namespace Manero.Tests.LucasTester
             using var context = new DataContext(options);
 
             // Lägg till testprodukter i in-memory-databasen
-            context.Products.Add(new ProductModel { ArticleNumber = "1", ProductName = "Product 1" });
-            context.Products.Add(new ProductModel { ArticleNumber = "2", ProductName = "Product 2" });
-
-            // Lägg till Tags på produkter
-            context.Tags.Add(new TagModel { Tag = "Best Sellers" });
-            context.Tags.Add(new TagModel { Tag = "Featured Products" });
+            context.Products.Add(new ProductModel { ArticleNumber = "82828", ProductName = "TestProduct 1" });
+            context.Products.Add(new ProductModel { ArticleNumber = "138549", ProductName = "TestProduct 2" });
 
             context.SaveChanges();
 
