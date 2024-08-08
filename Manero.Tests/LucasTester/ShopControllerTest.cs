@@ -27,7 +27,7 @@ namespace Manero.Tests.LucasTester
         public TestWebHostEnvironment()
         {
             // Denna path måste anges utefter användarens dator, annars fungerar inte testet
-            WebRootPath = Path.Combine("C:\\Users\\lukep\\Desktop\\Manero - Projekt\\Manero\\Manero\\wwwroot\\");
+            WebRootPath = Path.Combine("C:\\Users\\georg\\OneDrive\\Skrivbord\\ManeroAgile\\Manero\\Manero\\wwwroot");
 
             WebRootFileProvider = new PhysicalFileProvider(WebRootPath);
             ContentRootFileProvider = new PhysicalFileProvider(ContentRootPath);

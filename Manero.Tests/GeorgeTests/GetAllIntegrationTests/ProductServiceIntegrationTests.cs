@@ -90,7 +90,7 @@ namespace Manero.Tests.GeorgeTests.GetAllIntegrationTests
             public TestWebHostEnvironment()
             {
                 //OBS: Här behöver ni ändra till sökvägen för wwwroot på eran dator för att det ska fungera. 
-                WebRootPath = Path.Combine("C:\\Users\\georg\\OneDrive\\Skrivbord\\ManeroAgile\\Manero\\Manero\\wwwroot");
+                WebRootPath = Path.Combine("C:\\Users\\georg\\OneDrive\\Skrivbord\\Project\\ManeroAgile\\Manero\\Manero\\wwwroot");
 
                 WebRootFileProvider = new PhysicalFileProvider(WebRootPath);
                 ContentRootFileProvider = new PhysicalFileProvider(ContentRootPath);

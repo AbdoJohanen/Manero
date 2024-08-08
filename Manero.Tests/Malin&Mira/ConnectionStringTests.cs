@@ -10,7 +10,7 @@ public class ConnectionStringTests
     {
         //Arrange
         //Adding static connection string to DB, and path to the actual connection string 
-        var expectedConnectionString = ""; //Add your local DB connection string
+        var expectedConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\georg\\OneDrive\\Dokument\\P-manero-Data.mdf;Integrated Security=True;Connect Timeout=30"; //Add your local DB connection string
 
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
